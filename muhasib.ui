@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>muhasib</class>
+ <widget class="QMainWindow" name="muhasib">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>660</width>
+    <height>429</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>muhasib</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>10</number>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="tabBaslangic">
+       <attribute name="title">
+        <string>Başlangıç</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>50</y>
+          <width>321</width>
+          <height>211</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>İşlem Seçin</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <widget class="QComboBox" name="cbFatura">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QComboBox" name="cbCek">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QComboBox" name="cbCalisan">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QComboBox" name="cbMaas_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QComboBox" name="cbHesap">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="cbRapor">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tabFatura">
+       <attribute name="title">
+        <string>Faturalar</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0" colspan="7">
+         <widget class="QTableWidget" name="tblFatura"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="lblFatura">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="lblFatura2">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="5">
+         <widget class="QPushButton" name="btnFaturaOzetiFatura">
+          <property name="text">
+           <string>Fatura Özeti</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="QPushButton" name="btnFaturaEkleFatura">
+          <property name="text">
+           <string>Fatura Ekle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QPushButton" name="btnKistasFatura">
+          <property name="text">
+           <string>Kıstas</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabFaturaOzeti">
+       <attribute name="title">
+        <string>Faturaları Karşılaştır</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="btnFaturaKarsilastirBaslangicTarihi">
+            <property name="text">
+             <string>Başlangıç Tarihi</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblFaturaKarsilastirBaslangicTarihi">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnFaturaKarsilastirBitisTarihi">
+            <property name="text">
+             <string>Bitiş Tarihi</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblFaturaKarsilastirBitisTarihi">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnRaporlaFaturaKarsilastir">
+            <property name="text">
+             <string>Göster</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Gelen Faturalar</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tblGelenFaturalar"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblGelenFaturalarSonuc">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Giden Faturalar</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tblGidenFaturalar"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblGidenFaturalarSonuc">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="lblFaturaGenelSonuc">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabCek">
+       <attribute name="title">
+        <string>Çekler</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="0" column="0" colspan="7">
+         <widget class="QTableWidget" name="tblCek"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="cbVerilenCek">
+          <property name="text">
+           <string>Verilen</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="cbAlinanCek">
+          <property name="text">
+           <string>Alınan</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="lblCek">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="lblCek2">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>172</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="5">
+         <widget class="QPushButton" name="btnCekOzetiCek">
+          <property name="text">
+           <string>Çek Özeti</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="QPushButton" name="btnCekEkleCek">
+          <property name="text">
+           <string>Çek Ekle</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabCekOzeti">
+       <attribute name="title">
+        <string>Çekleri Karşılaştır</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_9">
+        <item row="0" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="btnCekKarsilastirBaslangicTarihi">
+            <property name="text">
+             <string>Başlangıç Tarihi</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblCekKarsilastirBaslangicTarihi">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnCekKarsilastirBitisTarihi">
+            <property name="text">
+             <string>Bitiş Tarihi</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblCekKarsilastirBitisTarihi">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnRaporlaCekKarsilastir">
+            <property name="text">
+             <string>Raporla</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Alınan Çek</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tblAlinanCek"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblAlinanCekSonuc">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Verilen Çek</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tblVerilenCek"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblVerilenCekSonuc">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="lblCekGenelSonuc">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabMaas">
+       <attribute name="title">
+        <string>Maaşlar</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_10">
+        <item row="0" column="0" colspan="7">
+         <widget class="QTableWidget" name="tblMaas"/>
+        </item>
+        <item row="1" column="6">
+         <widget class="QPushButton" name="btnMaasEkleMaas">
+          <property name="text">
+           <string>Maaş Ekle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="cbMaas">
+          <property name="text">
+           <string>Maaş</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="cbAvans">
+          <property name="text">
+           <string>Avans</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QCheckBox" name="cbMesai">
+          <property name="text">
+           <string>Mesai</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="lblMaas">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QLabel" name="lblMaas2">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabCalisan">
+       <attribute name="title">
+        <string>Çalışanlar</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_11">
+        <item row="0" column="0" colspan="3">
+         <widget class="QTableWidget" name="tblCalisan"/>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="btnCalisanEkleCalisan">
+          <property name="text">
+           <string>Çalışan Ekle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="lblCalisan">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <spacer name="horizontalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabGelirler">
+       <attribute name="title">
+        <string>Gelirler</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_12">
+        <item row="0" column="0">
+         <widget class="QTableWidget" name="tblGelirler"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabGiderler">
+       <attribute name="title">
+        <string>Giderler</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_13">
+        <item row="0" column="0">
+         <widget class="QTableWidget" name="tblGiderler"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabGgd">
+       <attribute name="title">
+        <string>Gelir/Gider</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_14">
+        <item row="0" column="0" rowspan="2">
+         <widget class="QTableWidget" name="tblGgd">
+          <property name="styleSheet">
+           <string notr="true">QTableWidget {background-color: transparent;border: 0px;} QHeaderView::section {background-color: transparent; margin:10px;font-size:20px;}</string>
+          </property>
+          <property name="showGrid">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabHesap">
+       <attribute name="title">
+        <string>Hesaplar</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0" colspan="2">
+         <widget class="QTableWidget" name="tblHesap"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="btnHesapEkleHesap">
+          <property name="text">
+           <string>Hesap Ekle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>660</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFatura">
+    <property name="title">
+     <string>Fatura</string>
+    </property>
+    <addaction name="actionFaturaListele"/>
+    <addaction name="actionFaturaEkle"/>
+    <addaction name="actionFaturaKarsilastir"/>
+   </widget>
+   <widget class="QMenu" name="menuCek">
+    <property name="title">
+     <string>Çek</string>
+    </property>
+    <addaction name="actionCekListele"/>
+    <addaction name="actionCekEkle"/>
+    <addaction name="actionCekKarsilastir"/>
+   </widget>
+   <widget class="QMenu" name="menuDosya">
+    <property name="title">
+     <string>Dosya</string>
+    </property>
+    <addaction name="actionKaydet"/>
+    <addaction name="actionCikis"/>
+   </widget>
+   <widget class="QMenu" name="menuHakkinda">
+    <property name="title">
+     <string>Hakkında</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuMaas">
+    <property name="title">
+     <string>Maaş</string>
+    </property>
+    <addaction name="actionMaasListele"/>
+    <addaction name="actionMaasEkle"/>
+   </widget>
+   <widget class="QMenu" name="menuCalisan">
+    <property name="title">
+     <string>Çalışan</string>
+    </property>
+    <addaction name="actionCalisanListele"/>
+    <addaction name="actionCalisanEkle"/>
+   </widget>
+   <widget class="QMenu" name="menuRapor">
+    <property name="title">
+     <string>Rapor</string>
+    </property>
+    <addaction name="actionGelirler"/>
+    <addaction name="actionGiderler"/>
+    <addaction name="actionGgd"/>
+   </widget>
+   <widget class="QMenu" name="menuHesap">
+    <property name="title">
+     <string>Hesap</string>
+    </property>
+    <addaction name="actionHesapEkle"/>
+    <addaction name="actionHesapListele"/>
+   </widget>
+   <addaction name="menuDosya"/>
+   <addaction name="menuFatura"/>
+   <addaction name="menuCek"/>
+   <addaction name="menuMaas"/>
+   <addaction name="menuCalisan"/>
+   <addaction name="menuHesap"/>
+   <addaction name="menuRapor"/>
+   <addaction name="menuHakkinda"/>
+  </widget>
+  <action name="actionKaydet">
+   <property name="text">
+    <string>Kaydet</string>
+   </property>
+  </action>
+  <action name="actionCikis">
+   <property name="text">
+    <string>Çıkış</string>
+   </property>
+  </action>
+  <action name="actionFaturaListele">
+   <property name="text">
+    <string>Listele</string>
+   </property>
+  </action>
+  <action name="actionFaturaEkle">
+   <property name="text">
+    <string>Ekle</string>
+   </property>
+  </action>
+  <action name="actionCekListele">
+   <property name="text">
+    <string>Listele</string>
+   </property>
+  </action>
+  <action name="actionCekEkle">
+   <property name="text">
+    <string>Ekle</string>
+   </property>
+  </action>
+  <action name="actionFaturaKarsilastir">
+   <property name="text">
+    <string>Karşılaştır</string>
+   </property>
+  </action>
+  <action name="actionCekKarsilastir">
+   <property name="text">
+    <string>Karşılaştır</string>
+   </property>
+  </action>
+  <action name="actionMaasListele">
+   <property name="text">
+    <string>Listele</string>
+   </property>
+  </action>
+  <action name="actionMaasEkle">
+   <property name="text">
+    <string>Ekle</string>
+   </property>
+  </action>
+  <action name="actionCalisanListele">
+   <property name="text">
+    <string>Listele</string>
+   </property>
+  </action>
+  <action name="actionCalisanEkle">
+   <property name="text">
+    <string>Ekle</string>
+   </property>
+  </action>
+  <action name="actionGelirler">
+   <property name="text">
+    <string>Gelirler</string>
+   </property>
+  </action>
+  <action name="actionGiderler">
+   <property name="text">
+    <string>Giderler</string>
+   </property>
+  </action>
+  <action name="actionGgd">
+   <property name="text">
+    <string>Gelir/Gider</string>
+   </property>
+  </action>
+  <action name="actionHesapEkle">
+   <property name="text">
+    <string>Ekle</string>
+   </property>
+  </action>
+  <action name="actionHesapListele">
+   <property name="text">
+    <string>Listele</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
