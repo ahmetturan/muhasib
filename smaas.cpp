@@ -2,18 +2,21 @@
 
 smaas::smaas()
 {
-    msSutunSil=0;
-    msSutunDegistir=1;
-    msSutunTarih=2;
-    msSutunCalisan=3;
-    msSutunMaas=4;
-    msSutunAy=5;
-    msSutunTur=6;
-    msSutunHesap=7;
-    msSutunKayit=8;
-    msSutunDegisim=9;
-    msSutunKilit=10;
+    /*
+    dgs.msSutunSil=0;
+    dgs.msSutunDegistir=1;
+    dgs.msSutunTarih=2;
+    dgs.msSutunCalisan=3;
+    dgs.msSutunMaas=4;
+    dgs.msSutunAy=5;
+    dgs.msSutunTur=6;
+    dgs.msSutunHesap=7;
+    dgs.msSutunKayit=8;
+    dgs.msSutunDegisim=9;
+    dgs.msSutunKilit=10;
+    */
     clsSutunIsim=2;
+
 }
 
 void smaas::maasKaydet2(QStringList &listSilinenMaas,QTableWidget* tblMaas)
@@ -22,10 +25,10 @@ void smaas::maasKaydet2(QStringList &listSilinenMaas,QTableWidget* tblMaas)
     //yeni eklenen kayıtlar
     for(int i=0;i<tblMaas->rowCount();i++)
     {
-        if(tblMaas->item(i,msSutunKayit)->text()=="0")
+        if(tblMaas->item(i,dgs.msSutunKayit)->text()=="0")
         {
-            query.exec(QString("insert into maas(m_tarih, m_calisan, m_maas, m_ay, m_tur, m_hesap) values ('%1', '%2', '%3', '%4', '%5', '%6')").arg(tblMaas->item(i,msSutunTarih)->text()).arg(tblMaas->item(i,msSutunCalisan)->text()).arg(tblMaas->item(i,msSutunMaas)->text()).arg(tblMaas->item(i,msSutunAy)->text()).arg(tblMaas->item(i,msSutunTur)->text()).arg(tblMaas->item(i,msSutunHesap)->text()));
-            tblMaas->item(i,msSutunKayit)->setText(query.lastInsertId().toString());
+            query.exec(QString("insert into maas(m_tarih, m_calisan, m_maas, m_ay, m_tur, m_hesap) values ('%1', '%2', '%3', '%4', '%5', '%6')").arg(tblMaas->item(i,dgs.msSutunTarih)->text()).arg(tblMaas->item(i,dgs.msSutunCalisan)->text()).arg(tblMaas->item(i,dgs.msSutunMaas)->text()).arg(tblMaas->item(i,dgs.msSutunAy)->text()).arg(tblMaas->item(i,dgs.msSutunTur)->text()).arg(tblMaas->item(i,dgs.msSutunHesap)->text()));
+            tblMaas->item(i,dgs.msSutunKayit)->setText(query.lastInsertId().toString());
         }
     }
     ////////////////////////
@@ -38,10 +41,10 @@ void smaas::maasKaydet2(QStringList &listSilinenMaas,QTableWidget* tblMaas)
     //değiştirilen kayıtlar
     for(int i=0;i<tblMaas->rowCount();i++)
     {
-        if(tblMaas->item(i,msSutunDegisim)->text()=="1")
+        if(tblMaas->item(i,dgs.msSutunDegisim)->text()=="1")
         {
-            query.exec(QString("update maas set m_tarih='%1', m_calisan='%2', m_maas='%3', m_ay='%4', m_tur='%5', m_hesap='%7' where m_id='%6'").arg(tblMaas->item(i,msSutunTarih)->text()).arg(tblMaas->item(i,msSutunCalisan)->text()).arg(tblMaas->item(i,msSutunMaas)->text()).arg(tblMaas->item(i,msSutunAy)->text()).arg(tblMaas->item(i,msSutunTur)->text()).arg(tblMaas->item(i,msSutunKayit)->text()).arg(tblMaas->item(i,msSutunHesap)->text()));
-            tblMaas->item(i,msSutunDegisim)->setText("0");
+            query.exec(QString("update maas set m_tarih='%1', m_calisan='%2', m_maas='%3', m_ay='%4', m_tur='%5', m_hesap='%7' where m_id='%6'").arg(tblMaas->item(i,dgs.msSutunTarih)->text()).arg(tblMaas->item(i,dgs.msSutunCalisan)->text()).arg(tblMaas->item(i,dgs.msSutunMaas)->text()).arg(tblMaas->item(i,dgs.msSutunAy)->text()).arg(tblMaas->item(i,dgs.msSutunTur)->text()).arg(tblMaas->item(i,dgs.msSutunKayit)->text()).arg(tblMaas->item(i,dgs.msSutunHesap)->text()));
+            tblMaas->item(i,dgs.msSutunDegisim)->setText("0");
         }
     }
     /////////////////////
@@ -55,7 +58,7 @@ void smaas::maasSil2(double &ToplamTutarMaas, QStringList &listSilinenMaas, bool
     int silinecekSatir=-1;
     for(int i=0;i<tblMaas->rowCount();i++)
     {
-        QPushButton *btnSil=qobject_cast<QPushButton *>(tblMaas->cellWidget(i,msSutunSil));
+        QPushButton *btnSil=qobject_cast<QPushButton *>(tblMaas->cellWidget(i,dgs.msSutunSil));
         if(btn==btnSil)
         {
             silinecekSatir=i;
@@ -77,22 +80,22 @@ void smaas::maasSil2(double &ToplamTutarMaas, QStringList &listSilinenMaas, bool
     }*/
 
     //if(kilitAcik==true)//kilidi açık satırı silmeden önce kilidini kapatıyor
-    if(tblMaas->item(silinecekSatir,msSutunKilit)->text()=="1")
+    if(tblMaas->item(silinecekSatir,dgs.msSutunKilit)->text()=="1")
     {
-        QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblMaas->cellWidget(silinecekSatir,msSutunDegistir));
+        QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblMaas->cellWidget(silinecekSatir,dgs.msSutunDegistir));
         btnDegistir->click();
     }
 
-    listSilinenMaas.append(tblMaas->item(silinecekSatir,msSutunKayit)->text());
+    listSilinenMaas.append(tblMaas->item(silinecekSatir,dgs.msSutunKayit)->text());
 
-    ToplamTutarMaas=ToplamTutarMaas-tblMaas->item(silinecekSatir,msSutunMaas)->text().toDouble();//silinen Maas tutarını toplamtutar dan çıkarıyor
+    ToplamTutarMaas=ToplamTutarMaas-tblMaas->item(silinecekSatir,dgs.msSutunMaas)->text().toDouble();//silinen Maas tutarını toplamtutar dan çıkarıyor
     tblMaas->removeRow(silinecekSatir);
     lblMaas->setText("Kayıt: "+QString::number(tblMaas->rowCount())+" Tutar: "+QString::number(ToplamTutarMaas));//label i güncelliyor
 
     kaydetVar=true;
 }
 
-void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblMaas, QStringList listeHsp, QStringList listeClsn, QObject* obj)
+void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblMaas, QTableWidget* tblHesap, QStringList listeHsp, QStringList listeClsn, QObject* obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
@@ -101,8 +104,7 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
     int degisecekSatir=-1;
     for(int i=0;i<tblMaas->rowCount();i++)
     {
-        //QPushButton *btnD=qobject_cast<QPushButton *>(tblMaas->cellWidget(i,msSutunDegistir));
-        btnDegistir=qobject_cast<QPushButton *>(tblMaas->cellWidget(i,msSutunDegistir));
+        btnDegistir=qobject_cast<QPushButton *>(tblMaas->cellWidget(i,dgs.msSutunDegistir));
         if(btn==btnDegistir)
         {
             degisecekSatir=i;
@@ -110,27 +112,12 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
         }
     }
 
-    /*
-    QList<QPushButton *> allPButtons = tblMaas->findChildren<QPushButton *>();
-
-    int degisecekSatir=-1;
-    for(int i=0;i<allPButtons.count();i++)
-    {
-        if(allPButtons.at(i)==btn)
-        {
-            btnDegistir=btn;
-            degisecekSatir=(i-1)/2;
-            break;
-        }
-    }
-    */
-
-    if(tblMaas->item(degisecekSatir,msSutunKilit)->text()=="0")
+    if(tblMaas->item(degisecekSatir,dgs.msSutunKilit)->text()=="0")
     {
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblMaas->columnCount()-5;i++)//tür ve ay sütununa girmesin
         {
-            if(i!=msSutunCalisan)//calisan sutununa girmesin
+            if(i!=dgs.msSutunCalisan)//calisan sutununa girmesin
             {
                 QTableWidgetItem *itm = tblMaas->item(degisecekSatir, i);
                 itm->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
@@ -138,15 +125,15 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
             }
         }
         //tür sütununa combobox ekleniyor
-        QTableWidgetItem *itmTur = tblMaas->item(degisecekSatir, msSutunTur);
+        QTableWidgetItem *itmTur = tblMaas->item(degisecekSatir, dgs.msSutunTur);
         QString tur=itmTur->text();
         QComboBox *cmbTur=new QComboBox();
         cmbTur->addItems(form_maasEkle.getListeCbMaasTur());
         cmbTur->setCurrentIndex(cmbTur->findText(tur));
-        tblMaas->setCellWidget(degisecekSatir,msSutunTur,cmbTur);
+        tblMaas->setCellWidget(degisecekSatir,dgs.msSutunTur,cmbTur);
         /////////////////////////////////
         //ay sutununa combobox ekleniyor
-        QTableWidgetItem *itmAy = tblMaas->item(degisecekSatir, msSutunAy);
+        QTableWidgetItem *itmAy = tblMaas->item(degisecekSatir, dgs.msSutunAy);
         QString ay=itmAy->text();
         QComboBox *cmbAy=new QComboBox();
         cmbAy->addItem("Ocak");
@@ -162,35 +149,38 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
         cmbAy->addItem("Kasım");
         cmbAy->addItem("Aralık");
         cmbAy->setCurrentIndex(cmbAy->findText(ay));
-        tblMaas->setCellWidget(degisecekSatir,msSutunAy,cmbAy);
+        tblMaas->setCellWidget(degisecekSatir,dgs.msSutunAy,cmbAy);
         ////////////////////////////////////
         //calısan sutununa combobox ekleniyor
-        QTableWidgetItem *itmCalisan = tblMaas->item(degisecekSatir, msSutunCalisan);
+        QTableWidgetItem *itmCalisan = tblMaas->item(degisecekSatir, dgs.msSutunCalisan);
         QString calisan=itmCalisan->text();
         QComboBox *cmbCalisan=new QComboBox();
         cmbCalisan->addItems(listeClsn);
         cmbCalisan->setCurrentIndex(cmbCalisan->findText(calisan));
-        tblMaas->setCellWidget(degisecekSatir,msSutunCalisan,cmbCalisan);
-        /*
-        QComboBox *cmbCalisan=new QComboBox();
-        for(int i=0;i<tblCalisan->rowCount();i++)
-        {
-            cmbCalisan->addItem(tblCalisan->item(i,clsSutunIsim)->text());
-        }
-        tblMaas->setCellWidget(0,msSutunCalisan,cmbCalisan);
-        */
+        tblMaas->setCellWidget(degisecekSatir,dgs.msSutunCalisan,cmbCalisan);
         ////////////////////////////////
         //hesap sütununa combobox ekleniyor
-        QTableWidgetItem *itmHesap = tblMaas->item(degisecekSatir, msSutunHesap);
+        QTableWidgetItem *itmHesap = tblMaas->item(degisecekSatir, dgs.msSutunHesap);
         QString hesap=itmHesap->text();
         QComboBox *cmbHesap=new QComboBox();
         cmbHesap->addItems(listeHsp);
         cmbHesap->setCurrentIndex(cmbHesap->findText(hesap));
-        tblMaas->setCellWidget(degisecekSatir,msSutunHesap,cmbHesap);
+        tblMaas->setCellWidget(degisecekSatir,dgs.msSutunHesap,cmbHesap);
         /////////////////////////////////
-
-        tblMaas->item(degisecekSatir,msSutunDegisim)->setText("1");
-        tblMaas->item(degisecekSatir,msSutunKilit)->setText("1");//kilit açıldığı için
+        //maas tutarındaki degisiklige göre hesapın güncel mablagı degişiyor
+        double mevcutMaas=tblMaas->item(degisecekSatir,dgs.msSutunMaas)->text().toDouble();
+        for(int i=0;i<tblHesap->rowCount();i++)
+        {
+            if(tblHesap->item(i,dgs.hspSutunIsim)->text()==hesap)
+            {
+                tblHesap->item(i,dgs.hspSutunGuncelMeblag)->setText(QString::number(tblHesap->item(i,dgs.hspSutunGuncelMeblag)->text().toDouble()+mevcutMaas));
+                tblHesap->item(i,dgs.hspSutunDegisim)->setText("1");
+                break;
+            }
+        }
+        //////////////////////////////7
+        tblMaas->item(degisecekSatir,dgs.msSutunDegisim)->setText("1");
+        tblMaas->item(degisecekSatir,dgs.msSutunKilit)->setText("1");//kilit açıldığı için
         kaydetVar=true;
         degisiklikIzle=true;//satırda yapılan değişiklikleri kdvtutarı ve tutarı hesaplayabilmek için izlesin
     }
@@ -200,7 +190,7 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
 
         for(int i=2;i<tblMaas->columnCount()-5;i++)//tür ve ay sütununa girmesin
         {
-            if(i!=msSutunCalisan)//calisan sutununa girmesin
+            if(i!=dgs.msSutunCalisan)//calisan sutununa girmesin
             {
                 QTableWidgetItem *itm = tblMaas->item(degisecekSatir, i);
                 itm->setFlags(Qt::ItemIsEnabled);
@@ -208,38 +198,50 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
             }
         }
         //tür sütunundaki combobox kaldırılıyor
-        QComboBox *cmbTur=qobject_cast<QComboBox *>(tblMaas->cellWidget(degisecekSatir,msSutunTur));
+        QComboBox *cmbTur=qobject_cast<QComboBox *>(tblMaas->cellWidget(degisecekSatir,dgs.msSutunTur));
         QString tur=cmbTur->currentText();
-        tblMaas->removeCellWidget(degisecekSatir,msSutunTur);
+        tblMaas->removeCellWidget(degisecekSatir,dgs.msSutunTur);
         QTableWidgetItem *itmTur=new QTableWidgetItem();
         itmTur->setText(tur);
-        tblMaas->setItem(degisecekSatir,msSutunTur,itmTur);
+        tblMaas->setItem(degisecekSatir,dgs.msSutunTur,itmTur);
         /////////////////////////////////////////
         //ay sütunundaki combobox kaldırılıyor
-        QComboBox *cmbAy=qobject_cast<QComboBox *>(tblMaas->cellWidget(degisecekSatir,msSutunAy));
+        QComboBox *cmbAy=qobject_cast<QComboBox *>(tblMaas->cellWidget(degisecekSatir,dgs.msSutunAy));
         QString ay=cmbAy->currentText();
-        tblMaas->removeCellWidget(degisecekSatir,msSutunAy);
+        tblMaas->removeCellWidget(degisecekSatir,dgs.msSutunAy);
         QTableWidgetItem *itmAy=new QTableWidgetItem();
         itmAy->setText(ay);
-        tblMaas->setItem(degisecekSatir,msSutunAy,itmAy);
+        tblMaas->setItem(degisecekSatir,dgs.msSutunAy,itmAy);
         /////////////////////////////////////////
         //calisan sütunundaki combobox kaldırılıyor
-        QComboBox *cmbCalisan=qobject_cast<QComboBox *>(tblMaas->cellWidget(degisecekSatir,msSutunCalisan));
+        QComboBox *cmbCalisan=qobject_cast<QComboBox *>(tblMaas->cellWidget(degisecekSatir,dgs.msSutunCalisan));
         QString calisan=cmbCalisan->currentText();
-        tblMaas->removeCellWidget(degisecekSatir,msSutunCalisan);
+        tblMaas->removeCellWidget(degisecekSatir,dgs.msSutunCalisan);
         QTableWidgetItem *itmCalisan=new QTableWidgetItem();
         itmCalisan->setText(calisan);
-        tblMaas->setItem(degisecekSatir,msSutunCalisan,itmCalisan);
+        tblMaas->setItem(degisecekSatir,dgs.msSutunCalisan,itmCalisan);
         /////////////////////////////////////////
         //hesap sütunundaki combobox kaldırılıyor
-        QComboBox *cmbHesap=qobject_cast<QComboBox *>(tblMaas->cellWidget(degisecekSatir,msSutunHesap));
+        QComboBox *cmbHesap=qobject_cast<QComboBox *>(tblMaas->cellWidget(degisecekSatir,dgs.msSutunHesap));
         QString hesap=cmbHesap->currentText();
-        tblMaas->removeCellWidget(degisecekSatir,msSutunHesap);
+        tblMaas->removeCellWidget(degisecekSatir,dgs.msSutunHesap);
         QTableWidgetItem *itmHesap=new QTableWidgetItem();
         itmHesap->setText(hesap);
-        tblMaas->setItem(degisecekSatir,msSutunHesap,itmHesap);
+        tblMaas->setItem(degisecekSatir,dgs.msSutunHesap,itmHesap);
         /////////////////////////////////////////
-        tblMaas->item(degisecekSatir,msSutunKilit)->setText("0");//kilit kapatıldığı için
+        //maas tutarındaki degisiklige göre hesapın güncel mablagı degişiyor
+        double yeniMaas=tblMaas->item(degisecekSatir,dgs.msSutunMaas)->text().toDouble();
+        for(int i=0;i<tblHesap->rowCount();i++)
+        {
+            if(tblHesap->item(i,dgs.hspSutunIsim)->text()==hesap)
+            {
+                tblHesap->item(i,dgs.hspSutunGuncelMeblag)->setText(QString::number(tblHesap->item(i,dgs.hspSutunGuncelMeblag)->text().toDouble()-yeniMaas));
+                tblHesap->item(i,dgs.hspSutunDegisim)->setText("1");
+                break;
+            }
+        }
+        ////////////////////////////////////////
+        tblMaas->item(degisecekSatir,dgs.msSutunKilit)->setText("0");//kilit kapatıldığı için
     }
 }
 
@@ -250,14 +252,14 @@ void smaas::ilkYukleme2(double &ToplamTutarMaas, QTableWidget* tblMaas, QWidget*
     QStringList baslik=(QStringList()<<""<<""<<"Tarih"<<"Çalışan"<<"Maas"<<"Ay"<<"Tür"<<"Hesap"<<"Kayıt"<<"Degisim"<<"Kilit");
     tblMaas->setHorizontalHeaderLabels(baslik);
     tblMaas->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    tblMaas->horizontalHeader()->setResizeMode(msSutunSil,QHeaderView::Custom);
-    tblMaas->horizontalHeader()->resizeSection(msSutunSil, 32);
-    tblMaas->horizontalHeader()->setResizeMode(msSutunDegistir,QHeaderView::Custom);
-    tblMaas->horizontalHeader()->resizeSection(msSutunDegistir, 32);
+    tblMaas->horizontalHeader()->setResizeMode(dgs.msSutunSil,QHeaderView::Custom);
+    tblMaas->horizontalHeader()->resizeSection(dgs.msSutunSil, 32);
+    tblMaas->horizontalHeader()->setResizeMode(dgs.msSutunDegistir,QHeaderView::Custom);
+    tblMaas->horizontalHeader()->resizeSection(dgs.msSutunDegistir, 32);
 
-    tblMaas->hideColumn(msSutunKayit);
-    tblMaas->hideColumn(msSutunDegisim);
-    tblMaas->hideColumn(msSutunKilit);
+    tblMaas->hideColumn(dgs.msSutunKayit);
+    tblMaas->hideColumn(dgs.msSutunDegisim);
+    tblMaas->hideColumn(dgs.msSutunKilit);
 
     ToplamTutarMaas=0;
 

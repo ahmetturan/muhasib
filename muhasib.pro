@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     smaas.cpp \
     scalisan.cpp \
     shesap.cpp \
-    kistasfatura.cpp
+    kistasfatura.cpp \
+    degisken.cpp
 
 HEADERS  += muhasib.h \
     faturaekle.h \
@@ -36,7 +37,8 @@ HEADERS  += muhasib.h \
     smaas.h \
     scalisan.h \
     shesap.h \
-    kistasfatura.h
+    kistasfatura.h \
+    degisken.h
 
 FORMS    += muhasib.ui \
     faturaekle.ui \

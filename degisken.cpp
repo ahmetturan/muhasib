@@ -1,0 +1,45 @@
+#include "degisken.h"
+
+degisken::degisken()
+{
+    //fatura
+    ftrSutunSil=0;
+    ftrSutunDegistir=1;
+    ftrSutunTarih=2;
+    ftrSutunIsim=3;
+    ftrSutunMatrah=4;
+    ftrSutunKdvOrani=5;
+    ftrSutunKdvTutar=6;
+    ftrSutunTutar=7;
+    ftrSutunAciklama=8;
+    ftrSutunTur=9;
+    ftrSutunHesap=10;
+    ftrSutunKayit=11;
+    ftrSutunDegisim=12;
+    ftrSutunKilit=13;
+    //////////////////
+    //maas
+    msSutunSil=0;
+    msSutunDegistir=1;
+    msSutunTarih=2;
+    msSutunCalisan=3;
+    msSutunMaas=4;
+    msSutunAy=5;
+    msSutunTur=6;
+    msSutunHesap=7;
+    msSutunKayit=8;
+    msSutunDegisim=9;
+    msSutunKilit=10;
+    //////////////////
+    //hesap
+    hspSutunSil=0;
+    hspSutunDegistir=1;
+    hspSutunIsim=2;
+    hspSutunBaslangicMeblagi=3;
+    hspSutunGuncelMeblag=4;
+    hspSutunTur=5;
+    hspSutunKayit=6;
+    hspSutunDegisim=7;
+    hspSutunKilit=8;
+    //////////////////
+}

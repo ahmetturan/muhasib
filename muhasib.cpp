@@ -181,6 +181,7 @@ void muhasib::cbHesapDegisti(int a)
     {
         sekmeHesapAc();
     }
+    ui->cbHesap->setCurrentIndex(0);
 }
 
 void muhasib::cbFaturaDegisti(int a)
@@ -923,6 +924,7 @@ void muhasib::yeniMaasEkle()
             {
                 double hesapMeblag=ui->tblHesap->item(i,hspSutunGuncelMeblag)->text().toDouble()-itm3->text().toDouble();
                 ui->tblHesap->item(i,hspSutunGuncelMeblag)->setText(QString::number(hesapMeblag));
+                ui->tblHesap->item(i,hspSutunDegisim)->setText("1");
                 break;
             }
         }
@@ -984,7 +986,7 @@ void muhasib::maasDegistir()
         listeHsp.append(ui->tblHesap->item(i,hspSutunIsim)->text());
     }
     /////////////////////////////////////////7
-    sms.maasDegistir2(degisiklikIzle, kaydetVar, ui->tblMaas, listeHsp, listeClsn, obj);
+    sms.maasDegistir2(degisiklikIzle, kaydetVar, ui->tblMaas, ui->tblHesap, listeHsp, listeClsn, obj);
     //sms.maasDegistir2(degisiklikIzle,kaydetVar,ui->tblMaas,ui->tblCalisan,obj);
 }
 
@@ -1763,6 +1765,7 @@ void muhasib::yeniFaturaEkle()
                     hesapMeblag=ui->tblHesap->item(i,hspSutunGuncelMeblag)->text().toDouble()+itm6->text().toDouble();
                 }
                 ui->tblHesap->item(i,hspSutunGuncelMeblag)->setText(QString::number(hesapMeblag));
+                ui->tblHesap->item(i,hspSutunDegisim)->setText("1");
                 break;
             }
         }
@@ -1788,15 +1791,14 @@ void muhasib::faturaDegistir()
         listeHsp.append(ui->tblHesap->item(i,hspSutunIsim)->text());
     }
     /////////////////////////////////////////7
-    //sftr.faturaDegistir2(degisiklikIzle,kaydetVar,ui->tblFatura,obj);
-    sftr.faturaDegistir2(degisiklikIzle,kaydetVar,ui->tblFatura,listeHsp,obj);
+    sftr.faturaDegistir2(degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, listeHsp,obj);
 }
 
 //VAROLAN GİRİŞİ SİLİYOR
 void muhasib::faturaSil()
 {
     QObject* obj = sender();
-    sftr.faturaSil2(ToplamTutarFatura,listSilinenFatura,kaydetVar,ui->lblFatura,ui->tblFatura,obj);
+    sftr.faturaSil2(ToplamTutarFatura, listSilinenFatura, kaydetVar, ui->lblFatura, ui->tblFatura,obj);
 }
 
 //ÖNTANIMLI AYARLAR(FATURA)
