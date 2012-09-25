@@ -21,7 +21,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>10</number>
+       <number>11</number>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -567,6 +567,36 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tabHesap">
+       <attribute name="title">
+        <string>Hesaplar</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0" colspan="2">
+         <widget class="QTableWidget" name="tblHesap"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="btnHesapEkleHesap">
+          <property name="text">
+           <string>Hesap Ekle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tabCalisan">
        <attribute name="title">
         <string>Çalışanlar</string>
@@ -641,35 +671,43 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tabHesap">
+      <widget class="QWidget" name="tabHesapOzeti">
        <attribute name="title">
-        <string>Hesaplar</string>
+        <string>Hesap Özeti</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0" colspan="2">
-         <widget class="QTableWidget" name="tblHesap"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="btnHesapEkleHesap">
-          <property name="text">
-           <string>Hesap Ekle</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <spacer name="horizontalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
+       <widget class="QComboBox" name="comboBox">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>10</y>
+          <width>78</width>
+          <height>27</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>50</y>
+          <width>256</width>
+          <height>192</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>310</x>
+          <y>260</y>
+          <width>89</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -734,6 +772,7 @@
     <addaction name="actionGelirler"/>
     <addaction name="actionGiderler"/>
     <addaction name="actionGgd"/>
+    <addaction name="actionHesaplar"/>
    </widget>
    <widget class="QMenu" name="menuHesap">
     <property name="title">
@@ -834,6 +873,11 @@
   <action name="actionHesapListele">
    <property name="text">
     <string>Listele</string>
+   </property>
+  </action>
+  <action name="actionHesaplar">
+   <property name="text">
+    <string>Hesaplar</string>
    </property>
   </action>
  </widget>

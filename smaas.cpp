@@ -16,7 +16,6 @@ smaas::smaas()
     dgs.msSutunKilit=10;
     */
     clsSutunIsim=2;
-
 }
 
 void smaas::maasKaydet2(QStringList &listSilinenMaas,QTableWidget* tblMaas)
@@ -256,6 +255,8 @@ void smaas::ilkYukleme2(double &ToplamTutarMaas, QTableWidget* tblMaas, QWidget*
     tblMaas->horizontalHeader()->resizeSection(dgs.msSutunSil, 32);
     tblMaas->horizontalHeader()->setResizeMode(dgs.msSutunDegistir,QHeaderView::Custom);
     tblMaas->horizontalHeader()->resizeSection(dgs.msSutunDegistir, 32);
+    tblMaas->horizontalHeader()->setResizeMode(dgs.msSutunTarih,QHeaderView::Custom);
+    tblMaas->horizontalHeader()->resizeSection(dgs.msSutunTarih, 80);
 
     tblMaas->hideColumn(dgs.msSutunKayit);
     tblMaas->hideColumn(dgs.msSutunDegisim);

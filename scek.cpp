@@ -154,6 +154,8 @@ void scek::ilkYukleme2(double &ToplamTutarCek, QTableWidget* tblCek, QTableWidge
     tblCek->horizontalHeader()->resizeSection(ckSutunSil, 32);
     tblCek->horizontalHeader()->setResizeMode(ckSutunDegistir,QHeaderView::Custom);
     tblCek->horizontalHeader()->resizeSection(ckSutunDegistir, 32);
+    tblCek->horizontalHeader()->setResizeMode(ckSutunTarih,QHeaderView::Custom);
+    tblCek->horizontalHeader()->resizeSection(ckSutunTarih, 80);
 
     tblCek->hideColumn(ckSutunKayit);
     tblCek->hideColumn(ckSutunDegisim);

@@ -45,7 +45,7 @@ void sFatura::faturaDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidge
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblFatura->columnCount()-4;i++)//tür sütununa girmesin
         {
-            if(i!=dgs.ftrSutunKdvTutar && i!=dgs.ftrSutunTutar)//kdvtutari ve tutari uygulama hesaplayacak
+            if(i!=dgs.ftrSutunKdvTutar && i!=dgs.ftrSutunTutar && i!=dgs.ftrSutunKayitNo)//kdvtutari ve tutari uygulama hesaplayacak
             {
                 QTableWidgetItem *itm = tblFatura->item(degisecekSatir, i);
                 itm->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
@@ -132,7 +132,6 @@ void sFatura::faturaDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidge
 void sFatura::faturaSil2(double &ToplamTutarFatura, QStringList &listSilinenFatura, bool &kaydetVar, QLabel *lblFatura, QTableWidget* tblFatura, QObject* obj)
 {
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
-
     //silinecek satir bulunuyor
     int silinecekSatir=-1;
     for(int i=0;i<tblFatura->rowCount();i++)
@@ -146,7 +145,6 @@ void sFatura::faturaSil2(double &ToplamTutarFatura, QStringList &listSilinenFatu
     }
     //////////////////////////////
 
-    //if(kilitAcik==true)//kilidi açık satırı silmeden önce kilidini kapatıyor
     if(tblFatura->item(silinecekSatir,dgs.ftrSutunKilit)->text()=="1")
     {
         QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblFatura->cellWidget(silinecekSatir,dgs.ftrSutunDegistir));
@@ -170,7 +168,7 @@ void sFatura::faturaKaydet2(QStringList &listSilinenFatura,QTableWidget* tblFatu
     {
         if(tblFatura->item(i,dgs.ftrSutunKayit)->text()=="0")
         {
-            query.exec(QString("insert into fatura(f_tarih, f_isim, f_matrah, f_kdvorani, f_kdvtutari, f_tutar, f_aciklama, f_tur, f_hesap) values ('%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9')").arg(tblFatura->item(i,dgs.ftrSutunTarih)->text()).arg(tblFatura->item(i,dgs.ftrSutunIsim)->text()).arg(tblFatura->item(i,dgs.ftrSutunMatrah)->text()).arg(tblFatura->item(i,dgs.ftrSutunKdvOrani)->text()).arg(tblFatura->item(i,dgs.ftrSutunKdvTutar)->text()).arg(tblFatura->item(i,dgs.ftrSutunTutar)->text()).arg(tblFatura->item(i,dgs.ftrSutunAciklama)->text()).arg(tblFatura->item(i,dgs.ftrSutunTur)->text()).arg(tblFatura->item(i,dgs.ftrSutunHesap)->text()));
+            query.exec(QString("insert into fatura(f_kayitno, f_tarih, f_isim, f_matrah, f_kdvorani, f_kdvtutari, f_tutar, f_aciklama, f_tur, f_hesap) values ('%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10')").arg(tblFatura->item(i,dgs.ftrSutunKayitNo)->text()).arg(tblFatura->item(i,dgs.ftrSutunTarih)->text()).arg(tblFatura->item(i,dgs.ftrSutunIsim)->text()).arg(tblFatura->item(i,dgs.ftrSutunMatrah)->text()).arg(tblFatura->item(i,dgs.ftrSutunKdvOrani)->text()).arg(tblFatura->item(i,dgs.ftrSutunKdvTutar)->text()).arg(tblFatura->item(i,dgs.ftrSutunTutar)->text()).arg(tblFatura->item(i,dgs.ftrSutunAciklama)->text()).arg(tblFatura->item(i,dgs.ftrSutunTur)->text()).arg(tblFatura->item(i,dgs.ftrSutunHesap)->text()));
             tblFatura->item(i,dgs.ftrSutunKayit)->setText(query.lastInsertId().toString());
         }
     }
@@ -195,14 +193,18 @@ void sFatura::faturaKaydet2(QStringList &listSilinenFatura,QTableWidget* tblFatu
 void sFatura::ilkYukleme2(double &ToplamTutarFatura, QTableWidget* tblFatura, QTableWidget* tblGelenFaturalar, QTableWidget* tblGidenFaturalar, QWidget* tabFatura, QWidget* tabFaturaOzeti, QWidget* &tbFatura, QWidget* &tbFaturaOzeti, QTabWidget* tabWidget)
 {
     tblFatura->setRowCount(0);
-    tblFatura->setColumnCount(14);
-    QStringList baslik=(QStringList()<<""<<""<<"Tarih"<<"İsim"<<"Matrah"<<"KDV Oranı"<<"KDV Tutarı"<<"Toplam Tutar"<<"Açıklama"<<"Tür"<<"Hesap"<<"Kayıt"<<"Degisim"<<"Kilit");
+    tblFatura->setColumnCount(15);
+    QStringList baslik=(QStringList()<<""<<""<<"Kayıt No"<<"Tarih"<<"İsim"<<"Matrah"<<"KDV Oranı"<<"KDV Tutarı"<<"Toplam Tutar"<<"Açıklama"<<"Tür"<<"Hesap"<<"Kayıt"<<"Degisim"<<"Kilit");
     tblFatura->setHorizontalHeaderLabels(baslik);
     tblFatura->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     tblFatura->horizontalHeader()->setResizeMode(dgs.ftrSutunSil,QHeaderView::Custom);
     tblFatura->horizontalHeader()->resizeSection(dgs.ftrSutunSil, 32);
     tblFatura->horizontalHeader()->setResizeMode(dgs.ftrSutunDegistir,QHeaderView::Custom);
     tblFatura->horizontalHeader()->resizeSection(dgs.ftrSutunDegistir, 32);
+    tblFatura->horizontalHeader()->setResizeMode(dgs.ftrSutunKayitNo,QHeaderView::Custom);
+    tblFatura->horizontalHeader()->resizeSection(dgs.ftrSutunKayitNo, 90);
+    tblFatura->horizontalHeader()->setResizeMode(dgs.ftrSutunTarih,QHeaderView::Custom);
+    tblFatura->horizontalHeader()->resizeSection(dgs.ftrSutunTarih, 80);
 
     tblFatura->hideColumn(dgs.ftrSutunKayit);
     tblFatura->hideColumn(dgs.ftrSutunDegisim);

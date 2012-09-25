@@ -7,6 +7,9 @@
 #include <QPushButton>
 #include <QTableWidget>
 #include <QWidgetAction>
+
+#include "degisken.h"
+
 #include "faturaekle.h"
 #include "cekekle.h"
 #include "maasekle.h"
@@ -37,6 +40,7 @@ public:
     void faturaVeritabanindanYukle();
     void faturaKaydet();
     void ilkYuklemeFatura();
+    QString getFaturaKayitNo(int sonNo);
     ////////////////////////
     //cek fonksiyonları
     void cekKaydet();
@@ -58,15 +62,11 @@ public:
     void hesapVeritabanindanYukle();
     void hesapKaydet();
     ///////////////////////////7
-    //gelirler fonksiyonları
+    //rapor fonksiyonları
     void ilkYuklemeGelirler();
     void gelirleriYukle();
-    ////////////////////////
-    //giderler fonksiyonları
     void ilkYuklemeGiderler();
     void giderleriYukle();
-    ////////////////////////
-    //gelir-gider dengesi fonksiyonları
     void ilkYuklemeGgd();
     void ggdYukle();
     void ggdFaturaYukle();
@@ -74,6 +74,7 @@ public:
     void ggdMaasYukle();
     void ggdToplamiYukle();
     void ggdItem(QTableWidgetItem*);
+    void ilkYuklemeHesapOzeti();
     /////////////////////////////////
     void veritabanindanYukle();
     void ilkYukleme();
@@ -125,14 +126,11 @@ public slots:
     void hesapSil();
     void hesapDegistir();
     /////////////////////////
-    //gelirler fonksiyonları
+    //rapor fonksiyonları
     void sekmeGelirlerAc();
-    ////////////////////////
-    //giderler fonksiyonları
     void sekmeGiderlerAc();
-    ////////////////////////
-    //gelir-gider dengesi fonksiyonları
     void sekmeGgdAc();
+    void sekmeHesapOzetiAc();
     ////////////////////////
     void sekmeKapatildi(int);
     void kaydet();
@@ -147,8 +145,11 @@ public slots:
     void kistasFaturaAc();
 
 private:
+    degisken dgs;
+
     //fatura değişkenleri
     faturaEkle form_faturaEkle;
+    /*
     int ftrSutunSil;
     int ftrSutunDegistir;
     int ftrSutunTarih;
@@ -163,7 +164,9 @@ private:
     int ftrSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
     int ftrSutunDegisim;//değiştirilen kayitlari tutmak için
     int ftrSutunKilit;//kilit açık mı kapalı mı
+    */
     double ToplamTutarFatura;
+    int faturaNo;//son fatura no sunu tutacak
     QWidget *tbFatura;
     QWidget *tbFaturaOzeti;
     QStringList listSilinenFatura;
@@ -221,26 +224,23 @@ private:
     QWidget *tbCalisan;
     QStringList listSilinenCalisan;
     /////////////////////////
-    //gelirler degiskenleri
+    //rapor degiskenleri
     int glrSutunTarih;
     int glrSutunTur;
     int glrSutunGelir;
     int glrSutunTutar;
     QWidget *tbGelirler;
-    ///////////////////////////////
-    //giderler degiskenleri
     int gdrSutunTarih;
     int gdrSutunTur;
     int gdrSutunGider;
     int gdrSutunTutar;
     QWidget *tbGiderler;
-    ///////////////////////////////
-    //gelir-gider dengesi degiskenleri
     int ggdSutunTur;
     int ggdSutunGelir;
     int ggdSutunGider;
     int ggdSutunFark;
     QWidget *tbGgd;
+    QWidget *tbHesapOzeti;
     /////////////////////////////
     //hesap degiskenleri
     hesapekle form_hesapEkle;

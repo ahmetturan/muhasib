@@ -152,9 +152,9 @@ void shesap::ilkYukleme2(QTableWidget* tblHesap, QWidget* tabHesap, QWidget* &tb
     tblHesap->horizontalHeader()->setResizeMode(hspSutunDegistir,QHeaderView::Custom);
     tblHesap->horizontalHeader()->resizeSection(hspSutunDegistir, 32);
 
-    //tblHesap->hideColumn(hspSutunKayit);
-    //tblHesap->hideColumn(hspSutunDegisim);
-    //tblHesap->hideColumn(hspSutunKilit);
+    tblHesap->hideColumn(hspSutunKayit);
+    tblHesap->hideColumn(hspSutunDegisim);
+    tblHesap->hideColumn(hspSutunKilit);
 
     tbHesap=qobject_cast<QWidget *>(tabHesap);//tabHesaplar qwidget'a dönüştürülüyor
     tabWidget->removeTab(tabWidget->indexOf(tbHesap));//tabHesaplar kapatılıyor

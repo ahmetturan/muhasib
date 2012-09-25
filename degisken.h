@@ -10,6 +10,7 @@ public:
     int ftrSutunSil;
     int ftrSutunDegistir;
     int ftrSutunTarih;
+    int ftrSutunKayitNo;
     int ftrSutunIsim;
     int ftrSutunMatrah;
     int ftrSutunKdvOrani;

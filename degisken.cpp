@@ -5,18 +5,19 @@ degisken::degisken()
     //fatura
     ftrSutunSil=0;
     ftrSutunDegistir=1;
-    ftrSutunTarih=2;
-    ftrSutunIsim=3;
-    ftrSutunMatrah=4;
-    ftrSutunKdvOrani=5;
-    ftrSutunKdvTutar=6;
-    ftrSutunTutar=7;
-    ftrSutunAciklama=8;
-    ftrSutunTur=9;
-    ftrSutunHesap=10;
-    ftrSutunKayit=11;
-    ftrSutunDegisim=12;
-    ftrSutunKilit=13;
+    ftrSutunKayitNo=2;
+    ftrSutunTarih=3;
+    ftrSutunIsim=4;
+    ftrSutunMatrah=5;
+    ftrSutunKdvOrani=6;
+    ftrSutunKdvTutar=7;
+    ftrSutunTutar=8;
+    ftrSutunAciklama=9;
+    ftrSutunTur=10;
+    ftrSutunHesap=11;
+    ftrSutunKayit=12;
+    ftrSutunDegisim=13;
+    ftrSutunKilit=14;
     //////////////////
     //maas
     msSutunSil=0;
