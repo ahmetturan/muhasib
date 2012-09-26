@@ -3,25 +3,9 @@
 
 sFatura::sFatura()
 {
-    /*
-    dgs.ftrSutunSil=0;
-    dgs.ftrSutunDegistir=1;
-    dgs.ftrSutunTarih=2;
-    dgs.ftrSutunIsim=3;
-    dgs.ftrSutunMatrah=4;
-    dgs.ftrSutunKdvOrani=5;
-    dgs.ftrSutunKdvTutar=6;
-    dgs.ftrSutunTutar=7;
-    dgs.ftrSutunAciklama=8;
-    dgs.ftrSutunTur=9;
-    dgs.ftrSutunHesap=10;
-    dgs.ftrSutunKayit=11;
-    dgs.ftrSutunDegisim=12;
-    dgs.ftrSutunKilit=13;
-    */
 }
 
-void sFatura::faturaDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblFatura, QTableWidget* tblHesap, QStringList listeHsp, QObject* obj)
+void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblFatura, QTableWidget* tblHesap, QTabWidget* tabWidget, QStringList listeHsp, int &kilidiAcikSatirSayisi, QObject* obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
@@ -40,8 +24,21 @@ void sFatura::faturaDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidge
     }
     //////////////////7
 
-    if(tblFatura->item(degisecekSatir,dgs.ftrSutunKilit)->text()=="0")
+    if(tblFatura->item(degisecekSatir,dgs.ftrSutunKilit)->text()=="0")//kilit açılıyor
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi+1;
+        qDebug()<<"kilidiAcikSatirSayisi"<<kilidiAcikSatirSayisi;
+        //faturalar sekmesi hariç diğer sekmekel donduruluyor
+        for(int i=0;i<tabWidget->count();i++)
+        {
+            if(tabWidget->tabText(i)!="Faturalar")
+            {
+                tabWidget->setTabEnabled(i,false);
+                tabWidget->setTabsClosable(false);
+            }
+        }
+        //////////////////////////////////////////////////////77
+        kilitAcik=true;//kilit açıldı
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblFatura->columnCount()-4;i++)//tür sütununa girmesin
         {
@@ -86,8 +83,24 @@ void sFatura::faturaDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidge
         kaydetVar=true;
         degisiklikIzle=true;//satırda yapılan değişiklikleri kdvtutarı ve tutarı hesaplayabilmek için izlesin
     }
-    else
+    else//kilit kapanıyor
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
+        qDebug()<<"kilidiAcikSatirSayisi"<<kilidiAcikSatirSayisi;
+        //dondurulmuş sekmeler açılıyor
+        if(kilidiAcikSatirSayisi==0)
+        {
+            for(int i=0;i<tabWidget->count();i++)
+            {
+                if(tabWidget->tabText(i)!="Faturalar")
+                {
+                    tabWidget->setTabEnabled(i,true);
+                    tabWidget->setTabsClosable(true);
+                }
+            }
+        }
+        //////////////////////////////////////////////////////77
+        kilitAcik=false;//kilit kapatıldı
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitkapali.png"));
 
         for(int i=2;i<tblFatura->columnCount()-4;i++)//tür sütununa girmesin

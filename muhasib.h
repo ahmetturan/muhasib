@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QTableWidget>
 #include <QWidgetAction>
+#include <QCloseEvent>
 
 #include "degisken.h"
 
@@ -79,6 +80,8 @@ public:
     void veritabanindanYukle();
     void ilkYukleme();
     void ilkYuklemeBaslangic();
+    void closeEvent(QCloseEvent *event);
+    void pencereBoyutuKaydet();
 
 public slots:
     //fatura fonksiyonları
@@ -149,22 +152,6 @@ private:
 
     //fatura değişkenleri
     faturaEkle form_faturaEkle;
-    /*
-    int ftrSutunSil;
-    int ftrSutunDegistir;
-    int ftrSutunTarih;
-    int ftrSutunIsim;
-    int ftrSutunMatrah;
-    int ftrSutunKdvOrani;
-    int ftrSutunKdvTutar;
-    int ftrSutunTutar;
-    int ftrSutunAciklama;
-    int ftrSutunTur;
-    int ftrSutunHesap;
-    int ftrSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
-    int ftrSutunDegisim;//değiştirilen kayitlari tutmak için
-    int ftrSutunKilit;//kilit açık mı kapalı mı
-    */
     double ToplamTutarFatura;
     int faturaNo;//son fatura no sunu tutacak
     QWidget *tbFatura;
@@ -258,7 +245,8 @@ private:
     ///////////////////////////
     bool degisiklikIzle;//tblFatura değiştikçe toplamı yeniden hesaplamasın
     bool kaydetVar;
-
+    bool kilitAcik;//değiştirme kilidi açıkken kayıt yapmasın
+    int kilidiAcikSatirSayisi;
     scek sck;
     sFatura sftr;
     smaas sms;

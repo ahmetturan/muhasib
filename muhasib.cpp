@@ -68,6 +68,60 @@ muhasib::muhasib(QWidget *parent) :
     ilkYukleme();
 }
 
+//pencerenin boyutu veritabanına kaydediliyor
+void muhasib::pencereBoyutuKaydet()
+{
+    QSqlQuery query;
+    if(isMaximized())//eğer pencere tam ekran ise tam ekran açılması için
+    {
+        query.exec(QString("update boyut set b_tamekran='%1' where b_id='%2'").arg("1").arg("1"));
+    }
+    else
+    {
+        query.exec(QString("update boyut set b_x='%1', b_y='%2',b_w='%3',b_h='%4', b_tamekran='%5' where b_id='%6'").arg(geometry().x()).arg(geometry().y()).arg(geometry().width()).arg(geometry().height()).arg("0").arg("1"));
+    }
+}
+
+void muhasib::closeEvent(QCloseEvent *event)
+{
+    if(kaydetVar==true)
+    {
+        QMessageBox *msgBox=new QMessageBox(this);
+        msgBox->setText("Kapatmadan önce yaptığınız değişiklikleri kaydetmek ister misiniz?");
+        QAbstractButton* dugmeEvet=msgBox->addButton("Kaydet", QMessageBox::YesRole);
+        QAbstractButton* dugmeIptal=msgBox->addButton("İptal", QMessageBox::NoRole);
+        QAbstractButton* dugmeHayir=msgBox->addButton("Kaydetmeden Kapat", QMessageBox::NoRole);
+        msgBox->exec();
+        if(msgBox->clickedButton() == dugmeEvet)
+        {
+            if(kilidiAcikSatirSayisi>0)
+            {
+                QMessageBox::warning(this,"","Önce değişiklikleri tamamlayın ("+QString::number(kilidiAcikSatirSayisi)+" kayıt)","Tamam");
+                event->ignore();
+            }
+            else
+            {
+                pencereBoyutuKaydet();
+                kaydet();
+                event->accept();
+            }
+        }
+        else if(msgBox->clickedButton() == dugmeHayir)
+        {
+            event->accept();
+        }
+        else if(msgBox->clickedButton() == dugmeIptal)
+        {
+            pencereBoyutuKaydet();
+            event->ignore();
+        }
+    }
+    else if(kaydetVar==false)
+    {
+        pencereBoyutuKaydet();
+    }
+}
+
 void muhasib::kistasFaturaAc()
 {
     this->setEnabled(false);
@@ -157,18 +211,42 @@ void muhasib::kistasFaturaAc()
 
 void muhasib::kapat()
 {
-    //pencerenin boyutu veritabanına kaydediliyor
-    QSqlQuery query;
-    if(isMaximized())//eğer pencere tam ekran ise tam ekran açılması için
+    if(kaydetVar==true)
     {
-        query.exec(QString("update boyut set b_tamekran='%1' where b_id='%2'").arg("1").arg("1"));
+        QMessageBox *msgBox=new QMessageBox(this);
+        msgBox->setText("Kapatmadan önce yaptığınız değişiklikleri kaydetmek ister misiniz?");
+        QAbstractButton* dugmeEvet=msgBox->addButton("Kaydet", QMessageBox::YesRole);
+        QAbstractButton* dugmeIptal=msgBox->addButton("İptal", QMessageBox::NoRole);
+        QAbstractButton* dugmeHayir=msgBox->addButton("Kaydetmeden Kapat", QMessageBox::NoRole);
+        msgBox->exec();
+        if(msgBox->clickedButton() == dugmeEvet)
+        {
+            if(kilidiAcikSatirSayisi>0)
+            {
+                QMessageBox::warning(this,"","Önce değişiklikleri tamamlayın ("+QString::number(kilidiAcikSatirSayisi)+" kayıt)","Tamam");
+            }
+            else
+            {
+                pencereBoyutuKaydet();
+                kaydet();
+                close();
+            }
+        }
+        else if(msgBox->clickedButton() == dugmeHayir)
+        {
+            close();
+        }
+        else if(msgBox->clickedButton() == dugmeIptal)
+        {
+            pencereBoyutuKaydet();
+        }
     }
-    else
+    else if(kaydetVar==false)
     {
-        query.exec(QString("update boyut set b_x='%1', b_y='%2',b_w='%3',b_h='%4', b_tamekran='%5' where b_id='%6'").arg(geometry().x()).arg(geometry().y()).arg(geometry().width()).arg(geometry().height()).arg("0").arg("1"));
+        pencereBoyutuKaydet();
     }
-    ////////////////////////////////////////7
-    close();
+
+    //close();
 }
 
 void muhasib::cbHesapDegisti(int a)
@@ -1851,7 +1929,7 @@ void muhasib::faturaDegistir()
         listeHsp.append(ui->tblHesap->item(i,hspSutunIsim)->text());
     }
     /////////////////////////////////////////7
-    sftr.faturaDegistir2(degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, listeHsp,obj);
+    sftr.faturaDegistir2(kilitAcik, degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, ui->tabWidget, listeHsp, kilidiAcikSatirSayisi, obj);
 }
 
 //VAROLAN GİRİŞİ SİLİYOR
@@ -1865,23 +1943,6 @@ void muhasib::faturaSil()
 void muhasib::ilkYuklemeFatura()
 {
     faturaNo=98;
-    /*
-    ftrSutunSil=0;
-    ftrSutunDegistir=1;
-    ftrSutunTarih=2;
-    ftrSutunIsim=3;
-    ftrSutunMatrah=4;
-    ftrSutunKdvOrani=5;
-    ftrSutunKdvTutar=6;
-    ftrSutunTutar=7;
-    ftrSutunAciklama=8;
-    ftrSutunTur=9;
-    ftrSutunHesap=10;
-    ftrSutunKayit=11;
-    ftrSutunDegisim=12;
-    ftrSutunKilit=13;
-    */
-
     sftr.ilkYukleme2(ToplamTutarFatura, ui->tblFatura,ui->tblGelenFaturalar, ui->tblGidenFaturalar, ui->tabFatura, ui->tabFaturaOzeti, tbFatura, tbFaturaOzeti, ui->tabWidget);
 }
 
@@ -2042,7 +2103,9 @@ void muhasib::ilkYukleme()
     ilkYuklemeBaslangic();
 
     kaydetVar=false;
+    kilitAcik=false;
     degisiklikIzle=false;
+    kilidiAcikSatirSayisi=0;
     veritabanindanYukle();
 
     //pencere boyutu veritabanından alınıp uygulanıyor

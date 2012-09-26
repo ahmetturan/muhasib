@@ -2,19 +2,6 @@
 
 smaas::smaas()
 {
-    /*
-    dgs.msSutunSil=0;
-    dgs.msSutunDegistir=1;
-    dgs.msSutunTarih=2;
-    dgs.msSutunCalisan=3;
-    dgs.msSutunMaas=4;
-    dgs.msSutunAy=5;
-    dgs.msSutunTur=6;
-    dgs.msSutunHesap=7;
-    dgs.msSutunKayit=8;
-    dgs.msSutunDegisim=9;
-    dgs.msSutunKilit=10;
-    */
     clsSutunIsim=2;
 }
 
