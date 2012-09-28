@@ -81,7 +81,7 @@ void smaas::maasSil2(double &ToplamTutarMaas, QStringList &listSilinenMaas, bool
     kaydetVar=true;
 }
 
-void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblMaas, QTableWidget* tblHesap, QStringList listeHsp, QStringList listeClsn, QObject* obj)
+void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblMaas, QTableWidget* tblHesap, QTabWidget* tabWidget, QStringList listeHsp, QStringList listeClsn,int &kilidiAcikSatirSayisi, QObject* obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
@@ -100,6 +100,17 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
 
     if(tblMaas->item(degisecekSatir,dgs.msSutunKilit)->text()=="0")
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi+1;
+        //faturalar sekmesi hariç diğer sekmekel donduruluyor
+        for(int i=0;i<tabWidget->count();i++)
+        {
+            if(tabWidget->tabText(i)!="Maaşlar")
+            {
+                tabWidget->setTabEnabled(i,false);
+                tabWidget->setTabsClosable(false);
+            }
+        }
+        //////////////////////////////////////////////////////77
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblMaas->columnCount()-5;i++)//tür ve ay sütununa girmesin
         {
@@ -172,6 +183,20 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
     }
     else
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
+        //dondurulmuş sekmeler açılıyor
+        if(kilidiAcikSatirSayisi==0)
+        {
+            for(int i=0;i<tabWidget->count();i++)
+            {
+                if(tabWidget->tabText(i)!="Maaşlar")
+                {
+                    tabWidget->setTabEnabled(i,true);
+                    tabWidget->setTabsClosable(true);
+                }
+            }
+        }
+        //////////////////////////////////////////////////////77
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitkapali.png"));
 
         for(int i=2;i<tblMaas->columnCount()-5;i++)//tür ve ay sütununa girmesin

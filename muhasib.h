@@ -22,6 +22,7 @@
 #include "smaas.h"
 #include "scalisan.h"
 #include "shesap.h"
+#include "srapor.h"
 
 #include "kistasfatura.h"
 
@@ -82,6 +83,8 @@ public:
     void ilkYuklemeBaslangic();
     void closeEvent(QCloseEvent *event);
     void pencereBoyutuKaydet();
+    QStringList getListeHesap();
+    QStringList getListeCalisan();
 
 public slots:
     //fatura fonksiyonları
@@ -134,6 +137,7 @@ public slots:
     void sekmeGiderlerAc();
     void sekmeGgdAc();
     void sekmeHesapOzetiAc();
+    void hesapOzetiRaporla(int a);
     ////////////////////////
     void sekmeKapatildi(int);
     void kaydet();
@@ -148,8 +152,6 @@ public slots:
     void kistasFaturaAc();
 
 private:
-    degisken dgs;
-
     //fatura değişkenleri
     faturaEkle form_faturaEkle;
     double ToplamTutarFatura;
@@ -160,19 +162,6 @@ private:
     ///////////////////////
     //çek degişkenleri
     cekekle form_cekEkle;
-    int ckSutunSil;
-    int ckSutunDegistir;
-    int ckSutunTarih;
-    int ckSutunIsim;
-    int ckSutunBanka;
-    int ckSutunTutar;
-    int ckSutunMuhatap;
-    int ckSutunCekNo;
-    int ckSutunAciklama;
-    int ckSutunTur;
-    int ckSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
-    int ckSutunDegisim;//değiştirilen kayitlari tutmak için
-    int ckSutunKilit;//kilit açık mı kapalı mı
     double ToplamTutarCek;
     QWidget *tbCek;
     QWidget *tbCekOzeti;
@@ -180,66 +169,24 @@ private:
     ////////////////////
     //maaş değişkenleri
     maasekle form_maasEkle;
-    int msSutunSil;
-    int msSutunDegistir;
-    int msSutunTarih;
-    int msSutunCalisan;
-    int msSutunMaas;
-    int msSutunAy;
-    int msSutunTur;
-    int msSutunHesap;
-    int msSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
-    int msSutunDegisim;//değiştirilen kayitlari tutmak için
-    int msSutunKilit;//kilit açık mı kapalı mı
     double ToplamTutarMaas;
     QWidget *tbMaas;
     QStringList listSilinenMaas;
     //////////////////////
     //calisan degiskenleri
     calisanekle form_calisanEkle;
-    int clsSutunSil;
-    int clsSutunDegistir;
-    int clsSutunIsim;
-    int clsSutunKonum;
-    int clsSutunIseGiris;
-    int clsSutunMaas;
-    int clsSutunAciklama;
-    int clsSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
-    int clsSutunDegisim;//değiştirilen kayitlari tutmak için
-    int clsSutunKilit;//kilit açık mı kapalı mı
     double ToplamTutarCalisan;
     QWidget *tbCalisan;
     QStringList listSilinenCalisan;
     /////////////////////////
     //rapor degiskenleri
-    int glrSutunTarih;
-    int glrSutunTur;
-    int glrSutunGelir;
-    int glrSutunTutar;
     QWidget *tbGelirler;
-    int gdrSutunTarih;
-    int gdrSutunTur;
-    int gdrSutunGider;
-    int gdrSutunTutar;
     QWidget *tbGiderler;
-    int ggdSutunTur;
-    int ggdSutunGelir;
-    int ggdSutunGider;
-    int ggdSutunFark;
     QWidget *tbGgd;
     QWidget *tbHesapOzeti;
     /////////////////////////////
     //hesap degiskenleri
     hesapekle form_hesapEkle;
-    int hspSutunSil;
-    int hspSutunDegistir;
-    int hspSutunIsim;
-    int hspSutunBaslangicMeblagi;
-    int hspSutunGuncelMeblag;
-    int hspSutunTur;
-    int hspSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
-    int hspSutunDegisim;//değiştirilen kayitlari tutmak için
-    int hspSutunKilit;//kilit açık mı kapalı mı
     QWidget *tbHesap;
     QStringList listSilinenHesap;
     ///////////////////////////
@@ -252,8 +199,9 @@ private:
     smaas sms;
     scalisan sclsn;
     shesap shsp;
-
+    srapor srpr;
     kistasfatura form_kistasFatura;
+    degisken dgs;
 
 };
 

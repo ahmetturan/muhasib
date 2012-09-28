@@ -27,7 +27,6 @@ void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kayde
     if(tblFatura->item(degisecekSatir,dgs.ftrSutunKilit)->text()=="0")//kilit açılıyor
     {
         kilidiAcikSatirSayisi=kilidiAcikSatirSayisi+1;
-        qDebug()<<"kilidiAcikSatirSayisi"<<kilidiAcikSatirSayisi;
         //faturalar sekmesi hariç diğer sekmekel donduruluyor
         for(int i=0;i<tabWidget->count();i++)
         {
@@ -207,7 +206,7 @@ void sFatura::ilkYukleme2(double &ToplamTutarFatura, QTableWidget* tblFatura, QT
 {
     tblFatura->setRowCount(0);
     tblFatura->setColumnCount(15);
-    QStringList baslik=(QStringList()<<""<<""<<"Kayıt No"<<"Tarih"<<"İsim"<<"Matrah"<<"KDV Oranı"<<"KDV Tutarı"<<"Toplam Tutar"<<"Açıklama"<<"Tür"<<"Hesap"<<"Kayıt"<<"Degisim"<<"Kilit");
+    QStringList baslik=(QStringList()<<""<<""<<"Kayıt No"<<"Tarih"<<"İsim"<<"Matrah"<<"KDV Oranı"<<"KDV Tutarı"<<"Toplam"<<"Açıklama"<<"Tür"<<"Hesap"<<"Kayıt"<<"Degisim"<<"Kilit");
     tblFatura->setHorizontalHeaderLabels(baslik);
     tblFatura->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     tblFatura->horizontalHeader()->setResizeMode(dgs.ftrSutunSil,QHeaderView::Custom);

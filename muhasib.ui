@@ -21,7 +21,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>11</number>
+       <number>5</number>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -507,38 +507,17 @@
         <string>Maaşlar</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
-        <item row="0" column="0" colspan="7">
+        <item row="0" column="0" colspan="5">
          <widget class="QTableWidget" name="tblMaas"/>
         </item>
-        <item row="1" column="6">
+        <item row="1" column="4">
          <widget class="QPushButton" name="btnMaasEkleMaas">
           <property name="text">
            <string>Maaş Ekle</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="cbMaas">
-          <property name="text">
-           <string>Maaş</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="cbAvans">
-          <property name="text">
-           <string>Avans</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QCheckBox" name="cbMesai">
-          <property name="text">
-           <string>Mesai</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="5">
+        <item row="1" column="3">
          <spacer name="horizontalSpacer_5">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -551,14 +530,14 @@
           </property>
          </spacer>
         </item>
-        <item row="1" column="3">
+        <item row="1" column="1">
          <widget class="QLabel" name="lblMaas">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
+        <item row="1" column="2">
          <widget class="QLabel" name="lblMaas2">
           <property name="text">
            <string/>
@@ -675,39 +654,27 @@
        <attribute name="title">
         <string>Hesap Özeti</string>
        </attribute>
-       <widget class="QComboBox" name="comboBox">
-        <property name="geometry">
-         <rect>
-          <x>100</x>
-          <y>10</y>
-          <width>78</width>
-          <height>27</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QTableWidget" name="tableWidget">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>50</y>
-          <width>256</width>
-          <height>192</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton">
-        <property name="geometry">
-         <rect>
-          <x>310</x>
-          <y>260</y>
-          <width>89</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="1" column="0" colspan="2">
+         <widget class="QTableWidget" name="tblHesapOzeti"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QComboBox" name="cbHesapOzeti"/>
+        </item>
+        <item row="0" column="1">
+         <spacer name="horizontalSpacer_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -727,16 +694,16 @@
     <property name="title">
      <string>Fatura</string>
     </property>
-    <addaction name="actionFaturaListele"/>
     <addaction name="actionFaturaEkle"/>
+    <addaction name="actionFaturaListele"/>
     <addaction name="actionFaturaKarsilastir"/>
    </widget>
    <widget class="QMenu" name="menuCek">
     <property name="title">
      <string>Çek</string>
     </property>
-    <addaction name="actionCekListele"/>
     <addaction name="actionCekEkle"/>
+    <addaction name="actionCekListele"/>
     <addaction name="actionCekKarsilastir"/>
    </widget>
    <widget class="QMenu" name="menuDosya">
@@ -755,15 +722,15 @@
     <property name="title">
      <string>Maaş</string>
     </property>
-    <addaction name="actionMaasListele"/>
     <addaction name="actionMaasEkle"/>
+    <addaction name="actionMaasListele"/>
    </widget>
    <widget class="QMenu" name="menuCalisan">
     <property name="title">
      <string>Çalışan</string>
     </property>
-    <addaction name="actionCalisanListele"/>
     <addaction name="actionCalisanEkle"/>
+    <addaction name="actionCalisanListele"/>
    </widget>
    <widget class="QMenu" name="menuRapor">
     <property name="title">
@@ -772,7 +739,7 @@
     <addaction name="actionGelirler"/>
     <addaction name="actionGiderler"/>
     <addaction name="actionGgd"/>
-    <addaction name="actionHesaplar"/>
+    <addaction name="actionHesapOzeti"/>
    </widget>
    <widget class="QMenu" name="menuHesap">
     <property name="title">
@@ -875,9 +842,9 @@
     <string>Listele</string>
    </property>
   </action>
-  <action name="actionHesaplar">
+  <action name="actionHesapOzeti">
    <property name="text">
-    <string>Hesaplar</string>
+    <string>Hesap Özeti</string>
    </property>
   </action>
  </widget>

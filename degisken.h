@@ -23,6 +23,21 @@ public:
     int ftrSutunDegisim;//değiştirilen kayitlari tutmak için
     int ftrSutunKilit;//kilit açık mı kapalı mı
     //////////////////////////////77
+    //cek
+    int ckSutunSil;
+    int ckSutunDegistir;
+    int ckSutunTarih;
+    int ckSutunIsim;
+    int ckSutunBanka;
+    int ckSutunTutar;
+    int ckSutunMuhatap;
+    int ckSutunCekNo;
+    int ckSutunAciklama;
+    int ckSutunTur;
+    int ckSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
+    int ckSutunDegisim;//değiştirilen kayitlari tutmak için
+    int ckSutunKilit;//kilit açık mı kapalı mı
+    ///////////////////////////////
     //mass
     int msSutunSil;
     int msSutunDegistir;
@@ -36,6 +51,18 @@ public:
     int msSutunDegisim;//değiştirilen kayitlari tutmak için
     int msSutunKilit;//kilit açık mı kapalı mı
     ////////////////////////////////////////////7
+    //calisan
+    int clsSutunSil;
+    int clsSutunDegistir;
+    int clsSutunIsim;
+    int clsSutunKonum;
+    int clsSutunIseGiris;
+    int clsSutunMaas;
+    int clsSutunAciklama;
+    int clsSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
+    int clsSutunDegisim;//değiştirilen kayitlari tutmak için
+    int clsSutunKilit;//kilit açık mı kapalı mı
+    ////////////////////////////////////////////
     //hesap
     int hspSutunSil;
     int hspSutunDegistir;
@@ -47,6 +74,32 @@ public:
     int hspSutunDegisim;//değiştirilen kayitlari tutmak için
     int hspSutunKilit;//kilit açık mı kapalı mı
     ///////////////////////////////////////////////7
+
+    //hesap özeti
+    int hoztSutunTarih;
+    int hoztSutunKayitNo;
+    int hoztSutunIsim;
+    int hoztSutunGG;//gelir mi gider mi
+    int hoztSutunTutar;
+    ////////////////////
+    //giderler
+    int gdrSutunTarih;
+    int gdrSutunTur;
+    int gdrSutunGider;
+    int gdrSutunTutar;
+    //////////////////
+    //gelirler
+    int glrSutunTarih;
+    int glrSutunTur;
+    int glrSutunGelir;
+    int glrSutunTutar;
+    ///////////////////
+    //ggd
+    int ggdSutunTur;
+    int ggdSutunGelir;
+    int ggdSutunGider;
+    int ggdSutunFark;
+    /////////////////////
 };
 
 #endif // DEGISKEN_H
