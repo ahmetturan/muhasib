@@ -36,6 +36,7 @@ muhasib::muhasib(QWidget *parent) :
     connect(ui->btnMaasEkleMaas,SIGNAL(clicked()),this,SLOT(yeniMaasEkle()));
     connect(ui->actionMaasEkle,SIGNAL(triggered()),this,SLOT(yeniMaasEkle()));
     connect(ui->actionMaasListele,SIGNAL(triggered()),this,SLOT(sekmeMaasAc()));
+    connect(ui->btnKistasMaas,SIGNAL(clicked()),this,SLOT(kistasMaasAc()));
     //////////////////////
     //calisan bağlantıları
     connect(ui->btnCalisanEkleCalisan,SIGNAL(clicked()),this,SLOT(yeniCalisanEkle()));
@@ -141,6 +142,77 @@ void muhasib::closeEvent(QCloseEvent *event)
     }
 }
 
+void muhasib::kistasMaasAc()
+{
+    this->setEnabled(false);
+    form_kistasMaas.ontanimliAyarlar();
+    form_kistasMaas.exec();
+
+    if(form_kistasMaas.getSecim())
+    {
+        QStringList listeTarih;
+        QStringList listeTur;
+
+        for(int i=0; i<ui->tblMaas->rowCount();i++)
+        {
+            ui->tblMaas->hideRow(i);
+        }
+        if(form_kistasMaas.getTarihEtkinMi())//tarih kıstası etkin
+        {
+            for(int i=0; i<ui->tblMaas->rowCount();i++)
+            {
+                QDate dt=QDate::fromString(ui->tblMaas->item(i,dgs.ftrSutunTarih)->text(),"yyyy-MM-dd");
+
+                if(dt>=form_kistasFatura.getBaslangicTarih() && dt<=form_kistasFatura.getBitisTarih())
+                {
+                    listeTarih.append(QString::number(i));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<ui->tblMaas->rowCount();i++)
+            {
+                listeTarih.append(QString::number(i));
+            }
+        }
+
+        if(form_kistasMaas.getTurEtkinMi())//tür kıstası etkin
+        {
+            QStringList listeSeciliTur=form_kistasMaas.getTurSecim();
+            for(int i=0; i<ui->tblMaas->rowCount();i++)
+            {
+                if(listeSeciliTur.contains(ui->tblMaas->item(i,dgs.msSutunTur)->text()))
+                {
+                    listeTur.append(QString::number(i));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<ui->tblMaas->rowCount();i++)
+            {
+                listeTur.append(QString::number(i));
+            }
+        }
+        qDebug()<<"listeTur"<<listeTur;
+        QStringList topluListe=listeTur+listeTarih;
+        while(!topluListe.isEmpty())
+        {
+            if(topluListe.count(topluListe.at(0))==2)//2 tane kıstas olduğu için
+            {
+                ui->tblMaas->showRow(topluListe.at(0).toInt());
+                topluListe.removeAt(0);
+            }
+            else
+            {
+                topluListe.removeAt(0);
+            }
+        }
+    }
+    this->setEnabled(true);
+}
+
 void muhasib::kistasFaturaAc()
 {
     this->setEnabled(false);
@@ -177,7 +249,7 @@ void muhasib::kistasFaturaAc()
             }
         }
 
-        if(form_kistasFatura.getTurEtkinMi())
+        if(form_kistasFatura.getTurEtkinMi())//tür kıstası etkin
         {
             if(form_kistasFatura.getTurSecim()==0)//gelir ve gider (yani hepsi) etkin
             {
@@ -191,7 +263,9 @@ void muhasib::kistasFaturaAc()
                 for(int i=0; i<ui->tblFatura->rowCount();i++)
                 {
                     if(ui->tblFatura->item(i,dgs.ftrSutunTur)->text()=="Gelen")
+                    {
                         listeTur.append(QString::number(i));
+                    }
                 }
             }
             else if(form_kistasFatura.getTurSecim()==2)//sadece giden etkin
@@ -199,7 +273,9 @@ void muhasib::kistasFaturaAc()
                 for(int i=0; i<ui->tblFatura->rowCount();i++)
                 {
                     if(ui->tblFatura->item(i,dgs.ftrSutunTur)->text()=="Giden")
+                    {
                         listeTur.append(QString::number(i));
+                    }
                 }
             }
         }
@@ -451,6 +527,7 @@ void muhasib::hesapOzetiRaporla(int a)
     if(a!=0)
     {
         srpr.hesapOzetiRaporlaFatura(ui->tblFatura, ui->tblHesapOzeti, ui->cbHesapOzeti);
+        srpr.hesapOzetiRaporlaMaas(ui->tblMaas, ui->tblHesapOzeti, ui->cbHesapOzeti);
     }
 }
 
@@ -461,7 +538,8 @@ void muhasib::hesapKaydet()
 
 void muhasib::sekmeHesapAc()
 {
-    ui->tabWidget->addTab(tbHesap,"Hesaplar");
+    //ui->tabWidget->addTab(tbHesap,"Hesaplar");
+    ui->tabWidget->addTab(tbHesap,dgs.sekmeHesapListele);
     ui->tabWidget->setCurrentWidget(tbHesap);
 }
 
@@ -532,14 +610,16 @@ void muhasib::yeniHesapEkle()
 
 void muhasib::hesapSil()
 {
-    QObject* obj = sender();
-    shsp.hesapSil2(listSilinenHesap, kaydetVar, ui->tblHesap, obj);
+    //QObject* obj = sender();
+    //shsp.hesapSil2(listSilinenHesap, kaydetVar, ui->tblHesap, obj);
+    shsp.hesapSil2(listSilinenHesap, kaydetVar, ui->tblHesap, sender());
 }
 
 void muhasib::hesapDegistir()
 {
-    QObject* obj = sender();
-    shsp.hesapDegistir2(degisiklikIzle, kaydetVar, ui->tblHesap, obj);
+    //QObject* obj = sender();
+    //shsp.hesapDegistir2(degisiklikIzle, kaydetVar, ui->tblHesap, obj);
+    shsp.hesapDegistir2(degisiklikIzle, kaydetVar, ui->tblHesap, sender());
 }
 
 void muhasib::sekmeGgdAc()
@@ -601,8 +681,8 @@ void muhasib::ggdYukle()
     //ggdToplamiYukle();
 
     srpr.ggdMaasYukle(ui->tblGgd,ui->tblMaas);//GELİR GİDER EKRANINA MAAS BİLGİLERİNİ YÜKLÜYOR
-    srpr.ggdToplamiYukle(ui->tblGgd);//GELİR GİDER EKRANINA TOPLAM BİLGİLERİNİ YÜKLÜYOR
     srpr.ggdFaturaYukle(ui->tblGgd, ui->tblFatura);//GELİR GİDER EKRANINA FATURA BİLGİLERİNİ YÜKLÜYOR
+    srpr.ggdToplamiYukle(ui->tblGgd);//GELİR GİDER EKRANINA TOPLAM BİLGİLERİNİ YÜKLÜYOR
 }
 
 void muhasib::sekmeGelirlerAc()
@@ -693,7 +773,8 @@ void muhasib::calisanKaydet()
 
 void muhasib::sekmeCalisanAc()
 {
-    ui->tabWidget->addTab(tbCalisan,"Çalışanlar");
+    //ui->tabWidget->addTab(tbCalisan,"Çalışanlar");
+    ui->tabWidget->addTab(tbCalisan,dgs.sekmeCalisanListele);
     ui->tabWidget->setCurrentWidget(tbCalisan);
 }
 
@@ -765,14 +846,18 @@ void muhasib::yeniCalisanEkle()
 
 void muhasib::calisanSil()
 {
-    QObject* obj = sender();
-    sclsn.calisanSil2(ToplamTutarCalisan, listSilinenCalisan, kaydetVar, ui->lblCalisan, ui->tblCalisan, obj);
+    //QObject* obj = sender();
+    //sclsn.calisanSil2(ToplamTutarCalisan, listSilinenCalisan, kaydetVar, ui->lblCalisan, ui->tblCalisan, obj);
+    sclsn.calisanSil2(ToplamTutarCalisan, listSilinenCalisan, kaydetVar, ui->lblCalisan, ui->tblCalisan, sender());
+
 }
 
 void muhasib::calisanDegistir()
 {
-    QObject* obj = sender();
-    sclsn.calisanDegistir2(degisiklikIzle, kaydetVar, ui->tblCalisan, obj);
+    //QObject* obj = sender();
+    //sclsn.calisanDegistir2(degisiklikIzle, kaydetVar, ui->tblCalisan, obj);
+    sclsn.calisanDegistir2(degisiklikIzle, kaydetVar, ui->tblCalisan, sender());
+
 }
 
 void muhasib::maasKaydet()
@@ -782,7 +867,8 @@ void muhasib::maasKaydet()
 
 void muhasib::sekmeMaasAc()
 {
-    ui->tabWidget->addTab(tbMaas,"Maaşlar");
+    //ui->tabWidget->addTab(tbMaas,"Maaşlar");
+    ui->tabWidget->addTab(tbMaas,dgs.sekmeMaasListele);
     ui->tabWidget->setCurrentWidget(tbMaas);
 }
 
@@ -890,8 +976,9 @@ void muhasib::yeniMaasEkle()
 
 void muhasib::maasSil()
 {
-    QObject* obj = sender();
-    QPushButton *btn = qobject_cast<QPushButton *>(obj);
+    //QObject* obj = sender();
+    //QPushButton *btn = qobject_cast<QPushButton *>(obj);
+    QPushButton *btn = qobject_cast<QPushButton *>(sender());
     QList<QPushButton *> allPButtons = ui->tblMaas->findChildren<QPushButton *>();
 
     int silinecekSatir=-1;
@@ -921,8 +1008,8 @@ void muhasib::maasSil()
 
 void muhasib::maasDegistir()
 {
-    QObject* obj = sender();
-    sms.maasDegistir2(degisiklikIzle, kaydetVar, ui->tblMaas, ui->tblHesap, ui->tabWidget, getListeHesap(), getListeCalisan(), kilidiAcikSatirSayisi, obj);
+    //QObject* obj = sender();
+    sms.maasDegistir2(degisiklikIzle, kaydetVar, ui->tblMaas, ui->tblHesap, ui->tabWidget, getListeHesap(), getListeCalisan(), kilidiAcikSatirSayisi, sender());
 }
 
 void muhasib::maasVeritabanindanYukle()
@@ -1190,7 +1277,7 @@ void muhasib::yeniCekEkle()
     this->setEnabled(false);//ana pencere etkisizleştiriliyor
     form_cekEkle.exec();
     QStringList listeCek=form_cekEkle.getListeCek();
-    //qDebug()<<"listeCek:"<<listeCek;
+    qDebug()<<"listeCek:"<<listeCek;
     if(listeCek.count()!=0)//cek ekle ekranında kapat'a tıklanırsa cek sekmesi açılmasın ve kaydetvar true olmasın
     {
         sekmeCekAc();
@@ -1259,7 +1346,8 @@ void muhasib::yeniCekEkle()
 
 void muhasib::sekmeCekAc()
 {
-    ui->tabWidget->addTab(tbCek,"Çekler");
+    //ui->tabWidget->addTab(tbCek,"Çekler");
+    ui->tabWidget->addTab(tbCek,dgs.sekmeCekListele);
     ui->tabWidget->setCurrentWidget(tbCek);
 }
 
@@ -1444,7 +1532,6 @@ void muhasib::faturaTakvimAc()
     QCalendarWidget *cal=new QCalendarWidget();
     cal->setLocale(QLocale::Turkish);
     cal->setFirstDayOfWeek(Qt::Monday);
-    qDebug()<<":"<<sender()->objectName();
     if(sender()->objectName()=="btnFaturaKarsilastirBaslangicTarihi")
     {
         cal->setObjectName("karsilastirBaslangic");
@@ -1595,12 +1682,16 @@ void muhasib::faturaToplamiHesapla(int a ,int b)
 //FATURA SEKMESİNİ AÇIYOR
 void muhasib::sekmeFaturaAc()
 {
-    ui->tabWidget->addTab(tbFatura,"Faturalar");
+    //ui->tabWidget->addTab(tbFatura,"Faturalar");
+    ui->tabWidget->addTab(tbFatura,dgs.sekmeFaturaListele);
     ui->tabWidget->setCurrentWidget(tbFatura);
 }
 
 QString muhasib::getFaturaKayitNo(int sonNo)
 {
+    return "ftr"+ui->tblFatura->item(0,dgs.ftrSutunKayit)->text();
+
+    /*
     int no=sonNo+1;
     faturaNo=no;
     QString sno=QString::number(no);
@@ -1615,6 +1706,7 @@ QString muhasib::getFaturaKayitNo(int sonNo)
     QDate tarih=tarih.currentDate();
     QString kayitNo="FTR"+tarih.toString("yy")+tarih.toString("MM")+sno;
     return kayitNo;
+    */
 }
 
 //FATURA EKLEME EKRANINI AÇIYOR
@@ -1676,7 +1768,8 @@ void muhasib::yeniFaturaEkle()
             QTableWidgetItem *itm9=new QTableWidgetItem("0");
             QTableWidgetItem *itm10=new QTableWidgetItem("0");
             QTableWidgetItem *itm11=new QTableWidgetItem("0");
-            QTableWidgetItem *itm13=new QTableWidgetItem(getFaturaKayitNo(faturaNo));
+            //QTableWidgetItem *itm13=new QTableWidgetItem(getFaturaKayitNo(faturaNo));
+            QTableWidgetItem *itm13=new QTableWidgetItem("1");
 
             ui->tblFatura->setItem(ui->tblFatura->rowCount()-1,dgs.ftrSutunTarih,itm1);
             ui->tblFatura->setItem(ui->tblFatura->rowCount()-1,dgs.ftrSutunKayitNo,itm13);
@@ -1740,22 +1833,17 @@ void muhasib::yeniFaturaEkle()
 //FATURA DEĞİŞTİRMEK İÇİN ANA EKRANDAKİ GİRİŞLERİ DEĞİŞTİRİLEBİLİR YAPIYOR
 void muhasib::faturaDegistir()
 {
-    QObject* obj = sender();
-    //hesap isimlerini fonksiyona vermek icin
-    QStringList listeHsp;
-    for(int i=0;i<ui->tblHesap->rowCount();i++)
-    {
-        listeHsp.append(ui->tblHesap->item(i,dgs.hspSutunIsim)->text());
-    }
-    /////////////////////////////////////////7
-    sftr.faturaDegistir2(kilitAcik, degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, ui->tabWidget, getListeHesap(), kilidiAcikSatirSayisi, obj);
+    //QObject* obj = sender();
+    //sftr.faturaDegistir2(kilitAcik, degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, ui->tabWidget, getListeHesap(), kilidiAcikSatirSayisi, obj);
+    sftr.faturaDegistir2(kilitAcik, degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, ui->tabWidget, getListeHesap(), kilidiAcikSatirSayisi, sender());
 }
 
 //VAROLAN GİRİŞİ SİLİYOR
 void muhasib::faturaSil()
 {
-    QObject* obj = sender();
-    sftr.faturaSil2(ToplamTutarFatura, listSilinenFatura, kaydetVar, ui->lblFatura, ui->tblFatura,obj);
+    //QObject* obj = sender();
+    //sftr.faturaSil2(ToplamTutarFatura, listSilinenFatura, kaydetVar, ui->lblFatura, ui->tblFatura,obj);
+    sftr.faturaSil2(ToplamTutarFatura, listSilinenFatura, kaydetVar, ui->lblFatura, ui->tblFatura,sender());
 }
 
 void muhasib::ilkYuklemeBaslangic()
@@ -1780,18 +1868,6 @@ void muhasib::ilkYukleme()
     srpr.ilkYuklemeGiderler(ui->tblGiderler, ui->tabGiderler, tbGiderler, ui->tabWidget);
     srpr.ilkYuklemeGgd(ui->tblGgd,ui->tabGgd,tbGgd,ui->tabWidget);
     srpr.ilkYuklemeHesapOzeti(ui->tblHesapOzeti,ui->tabHesapOzeti,tbHesapOzeti,ui->tabWidget);
-
-    /*
-    ilkYuklemeFatura();
-    ilkYuklemeCek();
-    ilkYuklemeCalisan();
-    ilkYuklemeMaas();
-    ilkYuklemeHesaplar();
-    ilkYuklemeGelirler();
-    ilkYuklemeGiderler();
-    ilkYuklemeGgd();
-    ilkYuklemeHesapOzeti();
-    */
     ilkYuklemeBaslangic();
 
     kaydetVar=false;

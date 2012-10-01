@@ -11,7 +11,9 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QSqlQuery>
+#include <QDateEdit>
 #include "calisanekle.h"
+#include "degisken.h"
 
 class scalisan
 {
@@ -24,16 +26,7 @@ public:
 
 private:
     calisanekle form_calisanEkle;
-    int clsSutunSil;
-    int clsSutunDegistir;
-    int clsSutunIsim;
-    int clsSutunKonum;
-    int clsSutunIseGiris;
-    int clsSutunMaas;
-    int clsSutunAciklama;
-    int clsSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
-    int clsSutunDegisim;//değiştirilen kayitlari tutmak için
-    int clsSutunKilit;//kilit açık mı kapalı mı
+    degisken dgs;
 };
 
 #endif // SCALISAN_H

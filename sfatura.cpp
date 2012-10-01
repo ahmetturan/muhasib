@@ -2,8 +2,7 @@
 #include <QDebug>
 
 sFatura::sFatura()
-{
-}
+{}
 
 void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblFatura, QTableWidget* tblHesap, QTabWidget* tabWidget, QStringList listeHsp, int &kilidiAcikSatirSayisi, QObject* obj)
 {
@@ -30,13 +29,14 @@ void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kayde
         //faturalar sekmesi hariç diğer sekmekel donduruluyor
         for(int i=0;i<tabWidget->count();i++)
         {
-            if(tabWidget->tabText(i)!="Faturalar")
+            //if(tabWidget->tabText(i)!="Faturalar")
+            if(tabWidget->tabText(i)!=dgs.sekmeFaturaListele)
             {
                 tabWidget->setTabEnabled(i,false);
                 tabWidget->setTabsClosable(false);
             }
         }
-        //////////////////////////////////////////////////////77
+        //////////////////////////////////////////////////////
         kilitAcik=true;//kilit açıldı
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblFatura->columnCount()-4;i++)//tür sütununa girmesin
@@ -64,6 +64,12 @@ void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kayde
         cmbHesap->setCurrentIndex(cmbHesap->findText(hesap));
         tblFatura->setCellWidget(degisecekSatir,dgs.ftrSutunHesap,cmbHesap);
         /////////////////////////////////
+        //tarih sutununa dateedit ekleniyor
+        QDate dt=QDate::fromString(tblFatura->item(degisecekSatir,dgs.ftrSutunTarih)->text(),"yyyy-MM-dd");
+        QDateEdit *date=new QDateEdit(dt);
+        date->setDisplayFormat("yyyy-MM-dd");
+        tblFatura->setCellWidget(degisecekSatir,dgs.ftrSutunTarih,date);
+        ///////////////////////////////////
         //fatura hesabı veya tutarı değişirse hesap penceresinde de değişiyor
         double mevcutTutar=tblFatura->item(degisecekSatir,dgs.ftrSutunTutar)->text().toDouble();
         for(int i=0;i<tblHesap->rowCount();i++)
@@ -75,7 +81,7 @@ void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kayde
                 break;
             }
         }
-        ///////////////////////////////7
+        ///////////////////////////////
 
         tblFatura->item(degisecekSatir,dgs.ftrSutunDegisim)->setText("1");
         tblFatura->item(degisecekSatir,dgs.ftrSutunKilit)->setText("1");//kilit açıldığı için
@@ -85,13 +91,13 @@ void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kayde
     else//kilit kapanıyor
     {
         kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
-        qDebug()<<"kilidiAcikSatirSayisi"<<kilidiAcikSatirSayisi;
         //dondurulmuş sekmeler açılıyor
         if(kilidiAcikSatirSayisi==0)
         {
             for(int i=0;i<tabWidget->count();i++)
             {
-                if(tabWidget->tabText(i)!="Faturalar")
+                //if(tabWidget->tabText(i)!="Faturalar")
+                if(tabWidget->tabText(i)!=dgs.sekmeFaturaListele)
                 {
                     tabWidget->setTabEnabled(i,true);
                     tabWidget->setTabsClosable(true);
@@ -124,6 +130,15 @@ void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kayde
         itmHesap->setText(hesap);
         tblFatura->setItem(degisecekSatir,dgs.ftrSutunHesap,itmHesap);
         /////////////////////////////////////////
+        //tarih sutunundaki datedit kaldırılıyor
+        QDateEdit *dateedit=qobject_cast<QDateEdit *>(tblFatura->cellWidget(degisecekSatir,dgs.ftrSutunTarih));
+        QDate date=dateedit->date();
+        QString tarih=date.toString("yyyy-MM-dd");
+        tblFatura->removeCellWidget(degisecekSatir,dgs.ftrSutunTarih);
+        QTableWidgetItem *itmTarih=new QTableWidgetItem();
+        itmTarih->setText(tarih);
+        tblFatura->setItem(degisecekSatir,dgs.ftrSutunTarih,itmTarih);
+        ///////////////////////////////////////
         //fatura hesabı veya tutarı değişirse hesap penceresinde de değişiyor
         double yeniTutar=tblFatura->item(degisecekSatir,dgs.ftrSutunTutar)->text().toDouble();
         for(int i=0;i<tblHesap->rowCount();i++)
@@ -216,7 +231,7 @@ void sFatura::ilkYukleme2(double &ToplamTutarFatura, QTableWidget* tblFatura, QT
     tblFatura->horizontalHeader()->setResizeMode(dgs.ftrSutunKayitNo,QHeaderView::Custom);
     tblFatura->horizontalHeader()->resizeSection(dgs.ftrSutunKayitNo, 90);
     tblFatura->horizontalHeader()->setResizeMode(dgs.ftrSutunTarih,QHeaderView::Custom);
-    tblFatura->horizontalHeader()->resizeSection(dgs.ftrSutunTarih, 80);
+    tblFatura->horizontalHeader()->resizeSection(dgs.ftrSutunTarih, 100);
 
     tblFatura->hideColumn(dgs.ftrSutunKayit);
     tblFatura->hideColumn(dgs.ftrSutunDegisim);

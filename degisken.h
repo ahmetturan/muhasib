@@ -1,10 +1,19 @@
 #ifndef DEGISKEN_H
 #define DEGISKEN_H
 
+#include <QString>
+
 class degisken
 {
 public:
     degisken();
+
+    //sekme isimleri
+    QString sekmeFaturaListele;
+    QString sekmeCekListele;
+    QString sekmeMaasListele;
+    QString sekmeHesapListele;
+    QString sekmeCalisanListele;
 
     //fatura
     int ftrSutunSil;

@@ -1,9 +1,7 @@
 #include "smaas.h"
 
 smaas::smaas()
-{
-    clsSutunIsim=2;
-}
+{}
 
 void smaas::maasKaydet2(QStringList &listSilinenMaas,QTableWidget* tblMaas)
 {
@@ -52,20 +50,6 @@ void smaas::maasSil2(double &ToplamTutarMaas, QStringList &listSilinenMaas, bool
         }
     }
     /////////////////////////////
-
-    /*
-      QList<QPushButton *> allPButtons = tblMaas->findChildren<QPushButton *>();
-    int silinecekSatir=-1;
-    for(int i=0;i<allPButtons.count();i++)
-    {
-        if(allPButtons.at(i)==btn)
-        {
-            silinecekSatir=i/2;
-            break;
-        }
-    }*/
-
-    //if(kilitAcik==true)//kilidi açık satırı silmeden önce kilidini kapatıyor
     if(tblMaas->item(silinecekSatir,dgs.msSutunKilit)->text()=="1")
     {
         QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblMaas->cellWidget(silinecekSatir,dgs.msSutunDegistir));
@@ -164,6 +148,12 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
         cmbHesap->setCurrentIndex(cmbHesap->findText(hesap));
         tblMaas->setCellWidget(degisecekSatir,dgs.msSutunHesap,cmbHesap);
         /////////////////////////////////
+        //tarih sutununa dateedit ekleniyor
+        QDate dt=QDate::fromString(tblMaas->item(degisecekSatir,dgs.msSutunTarih)->text(),"yyyy-MM-dd");
+        QDateEdit *date=new QDateEdit(dt);
+        date->setDisplayFormat("yyyy-MM-dd");
+        tblMaas->setCellWidget(degisecekSatir,dgs.msSutunTarih,date);
+        ///////////////////////////////////
         //maas tutarındaki degisiklige göre hesapın güncel mablagı degişiyor
         double mevcutMaas=tblMaas->item(degisecekSatir,dgs.msSutunMaas)->text().toDouble();
         for(int i=0;i<tblHesap->rowCount();i++)
@@ -240,6 +230,15 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
         itmHesap->setText(hesap);
         tblMaas->setItem(degisecekSatir,dgs.msSutunHesap,itmHesap);
         /////////////////////////////////////////
+        //tarih sutunundaki datedit kaldırılıyor
+        QDateEdit *dateedit=qobject_cast<QDateEdit *>(tblMaas->cellWidget(degisecekSatir,dgs.msSutunTarih));
+        QDate date=dateedit->date();
+        QString tarih=date.toString("yyyy-MM-dd");
+        tblMaas->removeCellWidget(degisecekSatir,dgs.msSutunTarih);
+        QTableWidgetItem *itmTarih=new QTableWidgetItem();
+        itmTarih->setText(tarih);
+        tblMaas->setItem(degisecekSatir,dgs.msSutunTarih,itmTarih);
+        ///////////////////////////////////////
         //maas tutarındaki degisiklige göre hesapın güncel mablagı degişiyor
         double yeniMaas=tblMaas->item(degisecekSatir,dgs.msSutunMaas)->text().toDouble();
         for(int i=0;i<tblHesap->rowCount();i++)
@@ -268,7 +267,7 @@ void smaas::ilkYukleme2(double &ToplamTutarMaas, QTableWidget* tblMaas, QWidget*
     tblMaas->horizontalHeader()->setResizeMode(dgs.msSutunDegistir,QHeaderView::Custom);
     tblMaas->horizontalHeader()->resizeSection(dgs.msSutunDegistir, 32);
     tblMaas->horizontalHeader()->setResizeMode(dgs.msSutunTarih,QHeaderView::Custom);
-    tblMaas->horizontalHeader()->resizeSection(dgs.msSutunTarih, 80);
+    tblMaas->horizontalHeader()->resizeSection(dgs.msSutunTarih, 100);
 
     tblMaas->hideColumn(dgs.msSutunKayit);
     tblMaas->hideColumn(dgs.msSutunDegisim);

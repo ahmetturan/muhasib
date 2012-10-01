@@ -8,7 +8,9 @@
 #include <QLabel>
 #include <QDir>
 #include <QComboBox>
-#include <cekekle.h>
+#include <QDateEdit>
+#include "cekekle.h"
+#include "degisken.h"
 
 class scek
 {
@@ -21,19 +23,7 @@ public:
 
 private:
     cekekle form_cekEkle;
-    int ckSutunSil;
-    int ckSutunDegistir;
-    int ckSutunTarih;
-    int ckSutunIsim;
-    int ckSutunBanka;
-    int ckSutunTutar;
-    int ckSutunMuhatap;
-    int ckSutunCekNo;
-    int ckSutunAciklama;
-    int ckSutunTur;
-    int ckSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
-    int ckSutunDegisim;//değiştirilen kayitlari tutmak için
-    int ckSutunKilit;//kilit açık mı kapalı mı
+    degisken dgs;
 };
 
 #endif // SCEK_H

@@ -2,6 +2,13 @@
 
 degisken::degisken()
 {
+    //sekme
+    sekmeFaturaListele="Faturalar";
+    sekmeCekListele="Çekler";
+    sekmeMaasListele="Maaşlar";
+    sekmeHesapListele="Hesaplar";
+    sekmeCalisanListele="Çalışanlar";
+    ///////////////////////////
     //fatura
     ftrSutunSil=0;
     ftrSutunDegistir=1;
@@ -71,7 +78,6 @@ degisken::degisken()
     hspSutunKilit=8;
     //////////////////
 
-
     //hesap özeti
     hoztSutunTarih=0;
     hoztSutunKayitNo=1;
@@ -98,3 +104,4 @@ degisken::degisken()
     ggdSutunFark=3;
     //////////////////
 }
+

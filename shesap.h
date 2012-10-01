@@ -10,6 +10,7 @@
 #include <QDir>
 #include <QSqlQuery>
 #include "hesapekle.h"
+#include "degisken.h"
 
 class shesap
 {
@@ -22,15 +23,7 @@ public:
 
 private:
     hesapekle form_hesapEkle;
-    int hspSutunSil;
-    int hspSutunDegistir;
-    int hspSutunIsim;
-    int hspSutunBaslangicMeblagi;
-    int hspSutunGuncelMeblag;
-    int hspSutunTur;
-    int hspSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
-    int hspSutunDegisim;//değiştirilen kayitlari tutmak için
-    int hspSutunKilit;//kilit açık mı kapalı mı
+    degisken dgs;
 };
 
 #endif // SHESAP_H

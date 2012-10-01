@@ -9,6 +9,7 @@
 #include <QHeaderView>
 #include <QComboBox>
 #include <QDir>
+#include <QDateEdit>
 #include "faturaekle.h"
 #include "degisken.h"
 
@@ -25,9 +26,6 @@ private:
     faturaEkle form_faturaEkle;
     degisken dgs;
     double ToplamTutarFatura;
-    //QWidget *tbFatura;
-    //QWidget *tbFaturaOzeti;
-    //QStringList listSilinenFatura;
 };
 
 #endif // SFATURA_H

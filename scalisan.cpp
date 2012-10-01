@@ -1,18 +1,7 @@
 #include "scalisan.h"
 
 scalisan::scalisan()
-{
-    clsSutunSil=0;
-    clsSutunDegistir=1;
-    clsSutunIsim=2;
-    clsSutunKonum=3;
-    clsSutunIseGiris=4;
-    clsSutunMaas=5;
-    clsSutunAciklama=6;
-    clsSutunKayit=7;
-    clsSutunDegisim=8;
-    clsSutunKilit=9;
-}
+{}
 
 void scalisan::calisanKaydet2(QStringList &listSilinenCalisan, QTableWidget* tblCalisan)
 {
@@ -20,10 +9,10 @@ void scalisan::calisanKaydet2(QStringList &listSilinenCalisan, QTableWidget* tbl
     //yeni eklenen kayıtlar
     for(int i=0;i<tblCalisan->rowCount();i++)
     {
-        if(tblCalisan->item(i,clsSutunKayit)->text()=="0")
+        if(tblCalisan->item(i,dgs.clsSutunKayit)->text()=="0")
         {
-            query.exec(QString("insert into calisan(cl_isim, cl_konum, cl_isegiris, cl_maas, cl_aciklama) values ('%1', '%2', '%3', '%4', '%5')").arg(tblCalisan->item(i,clsSutunIsim)->text()).arg(tblCalisan->item(i,clsSutunKonum)->text()).arg(tblCalisan->item(i,clsSutunIseGiris)->text()).arg(tblCalisan->item(i,clsSutunMaas)->text()).arg(tblCalisan->item(i,clsSutunAciklama)->text()));
-            tblCalisan->item(i,clsSutunKayit)->setText(query.lastInsertId().toString());
+            query.exec(QString("insert into calisan(cl_isim, cl_konum, cl_isegiris, cl_maas, cl_aciklama) values ('%1', '%2', '%3', '%4', '%5')").arg(tblCalisan->item(i,dgs.clsSutunIsim)->text()).arg(tblCalisan->item(i,dgs.clsSutunKonum)->text()).arg(tblCalisan->item(i,dgs.clsSutunIseGiris)->text()).arg(tblCalisan->item(i,dgs.clsSutunMaas)->text()).arg(tblCalisan->item(i,dgs.clsSutunAciklama)->text()));
+            tblCalisan->item(i,dgs.clsSutunKayit)->setText(query.lastInsertId().toString());
         }
     }
     ////////////////////////
@@ -36,10 +25,10 @@ void scalisan::calisanKaydet2(QStringList &listSilinenCalisan, QTableWidget* tbl
     //değiştirilen kayıtlar
     for(int i=0;i<tblCalisan->rowCount();i++)
     {
-        if(tblCalisan->item(i,clsSutunDegisim)->text()=="1")
+        if(tblCalisan->item(i,dgs.clsSutunDegisim)->text()=="1")
         {
-            query.exec(QString("update calisan set cl_isim='%1', cl_konum='%2', cl_isegiris='%3', cl_maas='%4', cl_aciklama='%5' where cl_id='%6'").arg(tblCalisan->item(i,clsSutunIsim)->text()).arg(tblCalisan->item(i,clsSutunKonum)->text()).arg(tblCalisan->item(i,clsSutunIseGiris)->text()).arg(tblCalisan->item(i,clsSutunMaas)->text()).arg(tblCalisan->item(i,clsSutunAciklama)->text()).arg(tblCalisan->item(i,clsSutunKayit)->text()));
-            tblCalisan->item(i,clsSutunDegisim)->setText("0");
+            query.exec(QString("update calisan set cl_isim='%1', cl_konum='%2', cl_isegiris='%3', cl_maas='%4', cl_aciklama='%5' where cl_id='%6'").arg(tblCalisan->item(i,dgs.clsSutunIsim)->text()).arg(tblCalisan->item(i,dgs.clsSutunKonum)->text()).arg(tblCalisan->item(i,dgs.clsSutunIseGiris)->text()).arg(tblCalisan->item(i,dgs.clsSutunMaas)->text()).arg(tblCalisan->item(i,dgs.clsSutunAciklama)->text()).arg(tblCalisan->item(i,dgs.clsSutunKayit)->text()));
+            tblCalisan->item(i,dgs.clsSutunDegisim)->setText("0");
         }
     }
     /////////////////////
@@ -59,14 +48,14 @@ void scalisan::calisanSil2(double &ToplamTutarCalisan, QStringList &listSilinenC
             break;
         }
     }
-    if(tblCalisan->item(silinecekSatir,clsSutunKilit)->text()=="1")
+    if(tblCalisan->item(silinecekSatir,dgs.clsSutunKilit)->text()=="1")
     {
-        QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblCalisan->cellWidget(silinecekSatir,clsSutunDegistir));
+        QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblCalisan->cellWidget(silinecekSatir,dgs.clsSutunDegistir));
         btnDegistir->click();
     }
-    listSilinenCalisan.append(tblCalisan->item(silinecekSatir,clsSutunKayit)->text());
+    listSilinenCalisan.append(tblCalisan->item(silinecekSatir,dgs.clsSutunKayit)->text());
 
-    ToplamTutarCalisan=ToplamTutarCalisan-tblCalisan->item(silinecekSatir,clsSutunMaas)->text().toDouble();//silinen maas tutarını toplamtutar dan çıkarıyor
+    ToplamTutarCalisan=ToplamTutarCalisan-tblCalisan->item(silinecekSatir,dgs.clsSutunMaas)->text().toDouble();//silinen maas tutarını toplamtutar dan çıkarıyor
     tblCalisan->removeRow(silinecekSatir);
     lblCalisan->setText("Kayıt: "+QString::number(tblCalisan->rowCount())+" Tutar: "+QString::number(ToplamTutarCalisan));//label i güncelliyor
 
@@ -90,12 +79,12 @@ void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWid
             break;
         }
     }
-    if(tblCalisan->item(degisecekSatir,clsSutunKilit)->text()=="0")
+    if(tblCalisan->item(degisecekSatir,dgs.clsSutunKilit)->text()=="0")
     {
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblCalisan->columnCount()-3;i++)//sondaki 3 sutuna girmesi
         {
-            if(i!=clsSutunKonum)//calisan sutununa girmesin
+            if(i!=dgs.clsSutunKonum)//calisan sutununa girmesin
             {
                 QTableWidgetItem *itm = tblCalisan->item(degisecekSatir, i);
                 itm->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
@@ -103,15 +92,21 @@ void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWid
             }
         }
         //konum sütununa combobox ekleniyor
-        QTableWidgetItem *itmKonum = tblCalisan->item(degisecekSatir, clsSutunKonum);
+        QTableWidgetItem *itmKonum = tblCalisan->item(degisecekSatir, dgs.clsSutunKonum);
         QString Konum=itmKonum->text();
         QComboBox *cmbKonum=new QComboBox();
         cmbKonum->addItems(form_calisanEkle.getListeCbCalisanTur());
         cmbKonum->setCurrentIndex(cmbKonum->findText(Konum));
-        tblCalisan->setCellWidget(degisecekSatir,clsSutunKonum,cmbKonum);
+        tblCalisan->setCellWidget(degisecekSatir,dgs.clsSutunKonum,cmbKonum);
         /////////////////////////////////
-        tblCalisan->item(degisecekSatir,clsSutunDegisim)->setText("1");
-        tblCalisan->item(degisecekSatir,clsSutunKilit)->setText("1");//kilit açıldığı için
+        //tarih sutununa dateedit ekleniyor
+        QDate dt=QDate::fromString(tblCalisan->item(degisecekSatir,dgs.clsSutunIseGiris)->text(),"yyyy-MM-dd");
+        QDateEdit *date=new QDateEdit(dt);
+        date->setDisplayFormat("yyyy-MM-dd");
+        tblCalisan->setCellWidget(degisecekSatir,dgs.clsSutunIseGiris,date);
+        ///////////////////////////////////
+        tblCalisan->item(degisecekSatir,dgs.clsSutunDegisim)->setText("1");
+        tblCalisan->item(degisecekSatir,dgs.clsSutunKilit)->setText("1");//kilit açıldığı için
         kaydetVar=true;
         degisiklikIzle=true;//satırda yapılan değişiklikleri kdvtutarı ve tutarı hesaplayabilmek için izlesin
     }
@@ -121,7 +116,7 @@ void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWid
 
         for(int i=2;i<tblCalisan->columnCount()-3;i++)//sondaki 3 sutuna girmesin
         {
-            if(i!=clsSutunKonum)//konum sutununa girmesin
+            if(i!=dgs.clsSutunKonum)//konum sutununa girmesin
             {
                 QTableWidgetItem *itm = tblCalisan->item(degisecekSatir, i);
                 itm->setFlags(Qt::ItemIsEnabled);
@@ -129,15 +124,24 @@ void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWid
             }
         }
         //konum sütunundaki combobox kaldırılıyor
-        QComboBox *cmbKonum=qobject_cast<QComboBox *>(tblCalisan->cellWidget(degisecekSatir,clsSutunKonum));
+        QComboBox *cmbKonum=qobject_cast<QComboBox *>(tblCalisan->cellWidget(degisecekSatir,dgs.clsSutunKonum));
         QString Konum=cmbKonum->currentText();
-        tblCalisan->removeCellWidget(degisecekSatir,clsSutunKonum);
+        tblCalisan->removeCellWidget(degisecekSatir,dgs.clsSutunKonum);
         QTableWidgetItem *itmKonum=new QTableWidgetItem();
         itmKonum->setText(Konum);
-        tblCalisan->setItem(degisecekSatir,clsSutunKonum,itmKonum);
+        tblCalisan->setItem(degisecekSatir,dgs.clsSutunKonum,itmKonum);
         /////////////////////////////////////////
+        //tarih sutunundaki datedit kaldırılıyor
+        QDateEdit *dateedit=qobject_cast<QDateEdit *>(tblCalisan->cellWidget(degisecekSatir,dgs.clsSutunIseGiris));
+        QDate date=dateedit->date();
+        QString tarih=date.toString("yyyy-MM-dd");
+        tblCalisan->removeCellWidget(degisecekSatir,dgs.clsSutunIseGiris);
+        QTableWidgetItem *itmTarih=new QTableWidgetItem();
+        itmTarih->setText(tarih);
+        tblCalisan->setItem(degisecekSatir,dgs.clsSutunIseGiris,itmTarih);
+        ///////////////////////////////////////
 
-        tblCalisan->item(degisecekSatir,clsSutunKilit)->setText("0");//kilit kapatıldığı için
+        tblCalisan->item(degisecekSatir,dgs.clsSutunKilit)->setText("0");//kilit kapatıldığı için
     }
 }
 
@@ -148,14 +152,16 @@ void scalisan::ilkYukleme2(double &ToplamTutarCalisan, QTableWidget* tblCalisan,
     QStringList baslik=(QStringList()<<""<<""<<"İsim"<<"Konum"<<"İşe Giriş"<<"Maaş"<<"Açıklama"<<"Kayıt"<<"Degisim"<<"Kilit");
     tblCalisan->setHorizontalHeaderLabels(baslik);
     tblCalisan->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    tblCalisan->horizontalHeader()->setResizeMode(clsSutunSil,QHeaderView::Custom);
-    tblCalisan->horizontalHeader()->resizeSection(clsSutunSil, 32);
-    tblCalisan->horizontalHeader()->setResizeMode(clsSutunDegistir,QHeaderView::Custom);
-    tblCalisan->horizontalHeader()->resizeSection(clsSutunDegistir, 32);
+    tblCalisan->horizontalHeader()->setResizeMode(dgs.clsSutunSil,QHeaderView::Custom);
+    tblCalisan->horizontalHeader()->resizeSection(dgs.clsSutunSil, 32);
+    tblCalisan->horizontalHeader()->setResizeMode(dgs.clsSutunDegistir,QHeaderView::Custom);
+    tblCalisan->horizontalHeader()->resizeSection(dgs.clsSutunDegistir, 32);
+    tblCalisan->horizontalHeader()->setResizeMode(dgs.clsSutunIseGiris,QHeaderView::Custom);
+    tblCalisan->horizontalHeader()->resizeSection(dgs.clsSutunIseGiris, 100);
 
-    tblCalisan->hideColumn(clsSutunKayit);
-    tblCalisan->hideColumn(clsSutunDegisim);
-    tblCalisan->hideColumn(clsSutunKilit);
+    tblCalisan->hideColumn(dgs.clsSutunKayit);
+    tblCalisan->hideColumn(dgs.clsSutunDegisim);
+    tblCalisan->hideColumn(dgs.clsSutunKilit);
 
     ToplamTutarCalisan=0;
 

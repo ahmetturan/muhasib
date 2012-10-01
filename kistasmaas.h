@@ -1,5 +1,5 @@
-#ifndef KISTASFATURA_H
-#define KISTASFATURA_H
+#ifndef KISTASMAAS_H
+#define KISTASMAAS_H
 
 #include <QDialog>
 #include <QDate>
@@ -7,36 +7,36 @@
 #include <QMessageBox>
 
 namespace Ui {
-class kistasfatura;
+class kistasmaas;
 }
 
-class kistasfatura : public QDialog
+class kistasmaas : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit kistasfatura(QWidget *parent = 0);
-    ~kistasfatura();
+    explicit kistasmaas(QWidget *parent = 0);
+    ~kistasmaas();
     void ilkYukleme();
-    void ontanimliAyarlar();
-    bool getTurEtkinMi();
-    bool getTarihEtkinMi();
     QDate getBaslangicTarih();
     QDate getBitisTarih();
-    int getTurSecim();
+    QStringList getTurSecim();
     bool getSecim();
+    bool getTurEtkinMi();
+    bool getTarihEtkinMi();
+    void ontanimliAyarlar();
 
 public slots:
     void tamam();
     void iptal();
     void turEtkin();
     void tarihEtkin();
-    
+
 private:
-    Ui::kistasfatura *ui;
+    Ui::kistasmaas *ui;
     bool secim;//tamam mı yoksa iptale mi basıldı
     bool turEtkinMi;//tamama tıklanırken sonra tur cb'si tikli miydi
     bool tarihEtkinMi;//tamama tıklanırken sonra tarih cb'si tikli miydi
 };
 
-#endif // KISTASFATURA_H
+#endif // KISTASMAAS_H

@@ -26,6 +26,8 @@ void veritabaniOlustur()
     query.exec("create table boyut(b_id integer primary key not null, b_x varchar, b_y varchar, b_w varchar, b_h varchar, b_tamekran varchar)");
     query.exec("create table sonkayit(sk_id integer primary key not null, sk_fatura varchar, sk_cek varchar, sk_maas varchar)");
     query.exec("insert into boyut values(1,20,20,800,400,0)");
+
+
 }
 
 int main(int argc, char *argv[])

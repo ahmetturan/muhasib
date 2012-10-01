@@ -97,6 +97,7 @@ void srapor::gelirleriYukle(QTableWidget *tblGelirler, QTableWidget *tblFatura, 
     tblGelirler->sortByColumn(dgs.glrSutunTarih);
 }
 
+//GGD EKRANINA FATURAYI YUKLUYOR
 void srapor::ggdFaturaYukle(QTableWidget *tblGgd, QTableWidget *tblFatura)
 {
     double faturaGelirTutar=0;
@@ -116,20 +117,24 @@ void srapor::ggdFaturaYukle(QTableWidget *tblGgd, QTableWidget *tblFatura)
 
     tblGgd->insertRow(tblGgd->rowCount());
     tblGgd->setRowHeight(tblGgd->rowCount()-1,40);
+
     QTableWidgetItem *itm0=new QTableWidgetItem("Fatura");
-    ggdItem(itm0);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunTur,itm0);
     QTableWidgetItem *itm1=new QTableWidgetItem(QString::number(faturaGelirTutar));
-    ggdItem(itm1);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGelir,itm1);
     QTableWidgetItem *itm2=new QTableWidgetItem(QString::number(faturaGiderTutar));
-    ggdItem(itm2);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGider,itm2);
     QTableWidgetItem *itm3=new QTableWidgetItem(QString::number(faturaGelirTutar-faturaGiderTutar));
+
+    ggdItem(itm0);
+    ggdItem(itm1);
+    ggdItem(itm2);
     ggdItem(itm3);
+
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunTur,itm0);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGelir,itm1);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGider,itm2);
     tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunFark,itm3);
 }
 
+//GGD EKRANINA MAAS YUKLUYOR
 void srapor::ggdMaasYukle(QTableWidget *tblGgd, QTableWidget *tblMaas)
 {
     double maasTutar=0;
@@ -139,20 +144,24 @@ void srapor::ggdMaasYukle(QTableWidget *tblGgd, QTableWidget *tblMaas)
     }
     tblGgd->insertRow(tblGgd->rowCount());
     tblGgd->setRowHeight(tblGgd->rowCount()-1,40);
+
     QTableWidgetItem *itm0=new QTableWidgetItem("Maaş");
-    ggdItem(itm0);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunTur,itm0);
     QTableWidgetItem *itm1=new QTableWidgetItem("-");
-    ggdItem(itm1);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGelir,itm1);
     QTableWidgetItem *itm2=new QTableWidgetItem(QString::number(maasTutar));
-    ggdItem(itm2);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGider,itm2);
     QTableWidgetItem *itm3=new QTableWidgetItem(QString::number(0-maasTutar));
+
+    ggdItem(itm0);
+    ggdItem(itm1);
+    ggdItem(itm2);
     ggdItem(itm3);
+
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunTur,itm0);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGelir,itm1);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGider,itm2);
     tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunFark,itm3);
 }
 
+//GGD EKRANINA TOPLAMI YUKLUYOR
 void srapor::ggdToplamiYukle(QTableWidget *tblGgd)
 {
     double toplamGelir=0;
@@ -170,16 +179,18 @@ void srapor::ggdToplamiYukle(QTableWidget *tblGgd)
     tblGgd->setRowHeight(tblGgd->rowCount()-1,40);
 
     QTableWidgetItem *itm0=new QTableWidgetItem("Toplam");
-    ggdItem(itm0);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunTur,itm0);
     QTableWidgetItem *itm1=new QTableWidgetItem(QString::number(toplamGelir));
-    ggdItem(itm1);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGelir,itm1);
     QTableWidgetItem *itm2=new QTableWidgetItem(QString::number(toplamGider));
-    ggdItem(itm2);
-    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGider,itm2);
     QTableWidgetItem *itm3=new QTableWidgetItem(QString::number(toplamGelir-toplamGider));
+
+    ggdItem(itm0);
+    ggdItem(itm1);
+    ggdItem(itm2);
     ggdItem(itm3);
+
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunTur,itm0);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGelir,itm1);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGider,itm2);
     tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunFark,itm3);
 }
 
@@ -205,6 +216,36 @@ void srapor::hesapOzetiRaporlaFatura(QTableWidget *tblFatura, QTableWidget *tblH
             QTableWidgetItem *itmIsim=new QTableWidgetItem(tblFatura->item(i,dgs.ftrSutunIsim)->text());
             QTableWidgetItem *itmTur=new QTableWidgetItem(tblFatura->item(i,dgs.ftrSutunTur)->text());
             QTableWidgetItem *itmTutar=new QTableWidgetItem(tblFatura->item(i,dgs.ftrSutunTutar)->text());
+
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunTarih,itmTarih);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunKayitNo,itmKayitNo);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunIsim,itmIsim);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunGG,itmTur);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunTutar,itmTutar);
+
+            itmTarih->setFlags(Qt::ItemIsEnabled);//salt okunur hücreler
+            itmKayitNo->setFlags(Qt::ItemIsEnabled);
+            itmIsim->setFlags(Qt::ItemIsEnabled);
+            itmTur->setFlags(Qt::ItemIsEnabled);
+            itmTutar->setFlags(Qt::ItemIsEnabled);
+        }
+    }
+}
+
+void srapor::hesapOzetiRaporlaMaas(QTableWidget *tblMaas, QTableWidget *tblHesapOzeti, QComboBox *cbHesapOzeti)
+{
+    for(int i=0;i<tblMaas->rowCount();i++)
+    {
+        if(tblMaas->item(i,dgs.msSutunHesap)->text()==cbHesapOzeti->currentText())
+        {
+            tblHesapOzeti->insertRow(tblHesapOzeti->rowCount());
+
+            QTableWidgetItem *itmTarih=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunTarih)->text());
+            //QTableWidgetItem *itmKayitNo=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunKayitNo)->text());
+            QTableWidgetItem *itmKayitNo=new QTableWidgetItem("1");
+            QTableWidgetItem *itmIsim=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunCalisan)->text()+" ("+tblMaas->item(i,dgs.msSutunTur)->text()+")");
+            QTableWidgetItem *itmTur=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunTur)->text());
+            QTableWidgetItem *itmTutar=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunMaas)->text());
 
             tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunTarih,itmTarih);
             tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunKayitNo,itmKayitNo);

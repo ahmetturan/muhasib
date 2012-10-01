@@ -2,17 +2,7 @@
 #include <QDebug>
 
 shesap::shesap()
-{
-    hspSutunSil=0;
-    hspSutunDegistir=1;
-    hspSutunIsim=2;
-    hspSutunBaslangicMeblagi=3;
-    hspSutunGuncelMeblag=4;
-    hspSutunTur=5;
-    hspSutunKayit=6;
-    hspSutunDegisim=7;
-    hspSutunKilit=8;
-}
+{}
 
 void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblHesap, QObject *obj)
 {
@@ -31,12 +21,12 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget 
             break;
         }
     }
-    if(tblHesap->item(degisecekSatir,hspSutunKilit)->text()=="0")
+    if(tblHesap->item(degisecekSatir,dgs.hspSutunKilit)->text()=="0")
     {
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblHesap->columnCount()-4;i++)//tür sütununa girmesin
         {
-            if(i!=hspSutunGuncelMeblag)
+            if(i!=dgs.hspSutunGuncelMeblag)
             {
                 QTableWidgetItem *itm = tblHesap->item(degisecekSatir, i);
                 itm->setFlags(Qt::ItemIsEditable|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
@@ -44,17 +34,15 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget 
             }
         }
         //tür sütununa combobox ekleniyor
-        QTableWidgetItem *itm = tblHesap->item(degisecekSatir, hspSutunTur);
+        QTableWidgetItem *itm = tblHesap->item(degisecekSatir, dgs.hspSutunTur);
         QString tur=itm->text();
         QComboBox *cmb=new QComboBox();
         cmb->addItems(form_hesapEkle.getListeCbHesapTur());
         cmb->setCurrentIndex(cmb->findText(tur));
-
-        tblHesap->setCellWidget(degisecekSatir,hspSutunTur,cmb);
+        tblHesap->setCellWidget(degisecekSatir,dgs.hspSutunTur,cmb);
         /////////////////////////////////
-        //kilitAcik=true;
-        tblHesap->item(degisecekSatir,hspSutunDegisim)->setText("1");
-        tblHesap->item(degisecekSatir,hspSutunKilit)->setText("1");//kilit açıldığı için
+        tblHesap->item(degisecekSatir,dgs.hspSutunDegisim)->setText("1");
+        tblHesap->item(degisecekSatir,dgs.hspSutunKilit)->setText("1");//kilit açıldığı için
         kaydetVar=true;
         degisiklikIzle=true;//satırda yapılan değişiklikleri kdvtutarı ve tutarı hesaplayabilmek için izlesin
     }
@@ -69,15 +57,15 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget 
             itm->setBackgroundColor(QColor(Qt::white));
         }
         //tür sütunundaki combobox kaldırılıyor
-        QComboBox *cmb=qobject_cast<QComboBox *>(tblHesap->cellWidget(degisecekSatir,hspSutunTur));
+        QComboBox *cmb=qobject_cast<QComboBox *>(tblHesap->cellWidget(degisecekSatir,dgs.hspSutunTur));
         QString HesaplarTuru=cmb->currentText();
-        tblHesap->removeCellWidget(degisecekSatir,hspSutunTur);
+        tblHesap->removeCellWidget(degisecekSatir,dgs.hspSutunTur);
         QTableWidgetItem *itm=new QTableWidgetItem();
         itm->setText(HesaplarTuru);
-        tblHesap->setItem(degisecekSatir,hspSutunTur,itm);
+        tblHesap->setItem(degisecekSatir,dgs.hspSutunTur,itm);
         /////////////////////////////////////////
         //kilitAcik=false;
-        tblHesap->item(degisecekSatir,hspSutunKilit)->setText("0");//kilit kapatıldığı için
+        tblHesap->item(degisecekSatir,dgs.hspSutunKilit)->setText("0");//kilit kapatıldığı için
     }
 }
 
@@ -87,10 +75,10 @@ void shesap::hesapKaydet2(QStringList &listSilinenHesap,QTableWidget* tblHesap)
     //yeni eklenen kayıtlar
     for(int i=0;i<tblHesap->rowCount();i++)
     {
-        if(tblHesap->item(i,hspSutunKayit)->text()=="0")
+        if(tblHesap->item(i,dgs.hspSutunKayit)->text()=="0")
         {
-            query.exec(QString("insert into hesap(h_isim, h_baslangicmeblagi, h_guncelmeblag, h_tur) values ('%1', '%2', '%3', '%4')").arg(tblHesap->item(i,hspSutunIsim)->text()).arg(tblHesap->item(i,hspSutunBaslangicMeblagi)->text()).arg(tblHesap->item(i,hspSutunGuncelMeblag)->text()).arg(tblHesap->item(i,hspSutunTur)->text()));
-            tblHesap->item(i,hspSutunKayit)->setText(query.lastInsertId().toString());
+            query.exec(QString("insert into hesap(h_isim, h_baslangicmeblagi, h_guncelmeblag, h_tur) values ('%1', '%2', '%3', '%4')").arg(tblHesap->item(i,dgs.hspSutunIsim)->text()).arg(tblHesap->item(i,dgs.hspSutunBaslangicMeblagi)->text()).arg(tblHesap->item(i,dgs.hspSutunGuncelMeblag)->text()).arg(tblHesap->item(i,dgs.hspSutunTur)->text()));
+            tblHesap->item(i,dgs.hspSutunKayit)->setText(query.lastInsertId().toString());
         }
     }
     ////////////////////////
@@ -103,10 +91,10 @@ void shesap::hesapKaydet2(QStringList &listSilinenHesap,QTableWidget* tblHesap)
     //değiştirilen kayıtlar
     for(int i=0;i<tblHesap->rowCount();i++)
     {
-        if(tblHesap->item(i,hspSutunDegisim)->text()=="1")
+        if(tblHesap->item(i,dgs.hspSutunDegisim)->text()=="1")
         {
-            query.exec(QString("update hesap set h_isim='%1', h_baslangicmeblagi='%2', h_guncelmeblag='%5', h_tur='%3' where h_id='%4'").arg(tblHesap->item(i,hspSutunIsim)->text()).arg(tblHesap->item(i,hspSutunBaslangicMeblagi)->text()).arg(tblHesap->item(i,hspSutunTur)->text()).arg(tblHesap->item(i,hspSutunKayit)->text()).arg(tblHesap->item(i,hspSutunGuncelMeblag)->text()));
-            tblHesap->item(i,hspSutunDegisim)->setText("0");
+            query.exec(QString("update hesap set h_isim='%1', h_baslangicmeblagi='%2', h_guncelmeblag='%5', h_tur='%3' where h_id='%4'").arg(tblHesap->item(i,dgs.hspSutunIsim)->text()).arg(tblHesap->item(i,dgs.hspSutunBaslangicMeblagi)->text()).arg(tblHesap->item(i,dgs.hspSutunTur)->text()).arg(tblHesap->item(i,dgs.hspSutunKayit)->text()).arg(tblHesap->item(i,dgs.hspSutunGuncelMeblag)->text()));
+            tblHesap->item(i,dgs.hspSutunDegisim)->setText("0");
         }
     }
 }
@@ -125,13 +113,13 @@ void shesap::hesapSil2(QStringList &listSilinenHesap, bool &kaydetVar, QTableWid
             break;
         }
     }
-    if(tblHesap->item(silinecekSatir,hspSutunKilit)->text()=="1")
+    if(tblHesap->item(silinecekSatir,dgs.hspSutunKilit)->text()=="1")
     {
-        QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblHesap->cellWidget(silinecekSatir,hspSutunDegistir));
+        QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblHesap->cellWidget(silinecekSatir,dgs.hspSutunDegistir));
         btnDegistir->click();
     }
 
-    listSilinenHesap.append(tblHesap->item(silinecekSatir,hspSutunKayit)->text());
+    listSilinenHesap.append(tblHesap->item(silinecekSatir,dgs.hspSutunKayit)->text());
 
     //ToplamTutarHesaplar=ToplamTutarHesaplar-tblHesap->item(silinecekSatir,clsSutunMaas)->text().toDouble();//silinen maas tutarını toplamtutar dan çıkarıyor
     tblHesap->removeRow(silinecekSatir);
@@ -147,14 +135,14 @@ void shesap::ilkYukleme2(QTableWidget* tblHesap, QWidget* tabHesap, QWidget* &tb
     QStringList baslik=(QStringList()<<""<<""<<"İsim"<<"Başlangıç Meblağı"<<"Güncel Meblag"<<"Tür"<<"Kayıt"<<"Degisim"<<"Kilit");
     tblHesap->setHorizontalHeaderLabels(baslik);
     tblHesap->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    tblHesap->horizontalHeader()->setResizeMode(hspSutunSil,QHeaderView::Custom);
-    tblHesap->horizontalHeader()->resizeSection(hspSutunSil, 32);
-    tblHesap->horizontalHeader()->setResizeMode(hspSutunDegistir,QHeaderView::Custom);
-    tblHesap->horizontalHeader()->resizeSection(hspSutunDegistir, 32);
+    tblHesap->horizontalHeader()->setResizeMode(dgs.hspSutunSil,QHeaderView::Custom);
+    tblHesap->horizontalHeader()->resizeSection(dgs.hspSutunSil, 32);
+    tblHesap->horizontalHeader()->setResizeMode(dgs.hspSutunDegistir,QHeaderView::Custom);
+    tblHesap->horizontalHeader()->resizeSection(dgs.hspSutunDegistir, 32);
 
-    tblHesap->hideColumn(hspSutunKayit);
-    tblHesap->hideColumn(hspSutunDegisim);
-    tblHesap->hideColumn(hspSutunKilit);
+    tblHesap->hideColumn(dgs.hspSutunKayit);
+    tblHesap->hideColumn(dgs.hspSutunDegisim);
+    tblHesap->hideColumn(dgs.hspSutunKilit);
 
     tbHesap=qobject_cast<QWidget *>(tabHesap);//tabHesaplar qwidget'a dönüştürülüyor
     tabWidget->removeTab(tabWidget->indexOf(tbHesap));//tabHesaplar kapatılıyor

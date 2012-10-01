@@ -21,7 +21,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>1</number>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -304,7 +304,7 @@
         <string>Çekler</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
-        <item row="0" column="0" colspan="7">
+        <item row="0" column="0" colspan="8">
          <widget class="QTableWidget" name="tblCek"/>
         </item>
         <item row="1" column="0">
@@ -354,17 +354,24 @@
           </property>
          </spacer>
         </item>
-        <item row="1" column="5">
+        <item row="1" column="6">
          <widget class="QPushButton" name="btnCekOzetiCek">
           <property name="text">
            <string>Çek Özeti</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="6">
+        <item row="1" column="7">
          <widget class="QPushButton" name="btnCekEkleCek">
           <property name="text">
            <string>Çek Ekle</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QPushButton" name="btnKistasCek">
+          <property name="text">
+           <string>Kıstas</string>
           </property>
          </widget>
         </item>
@@ -507,10 +514,10 @@
         <string>Maaşlar</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
-        <item row="0" column="0" colspan="5">
+        <item row="0" column="0" colspan="6">
          <widget class="QTableWidget" name="tblMaas"/>
         </item>
-        <item row="1" column="4">
+        <item row="1" column="5">
          <widget class="QPushButton" name="btnMaasEkleMaas">
           <property name="text">
            <string>Maaş Ekle</string>
@@ -544,6 +551,13 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="4">
+         <widget class="QPushButton" name="btnKistasMaas">
+          <property name="text">
+           <string>Kıstas</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tabHesap">
@@ -551,10 +565,10 @@
         <string>Hesaplar</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0" colspan="2">
+        <item row="0" column="0" colspan="3">
          <widget class="QTableWidget" name="tblHesap"/>
         </item>
-        <item row="1" column="1">
+        <item row="1" column="2">
          <widget class="QPushButton" name="btnHesapEkleHesap">
           <property name="text">
            <string>Hesap Ekle</string>
@@ -574,6 +588,13 @@
           </property>
          </spacer>
         </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="btnKistasHesap">
+          <property name="text">
+           <string>Kıstas</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tabCalisan">
@@ -581,10 +602,10 @@
         <string>Çalışanlar</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_11">
-        <item row="0" column="0" colspan="3">
+        <item row="0" column="0" colspan="4">
          <widget class="QTableWidget" name="tblCalisan"/>
         </item>
-        <item row="1" column="2">
+        <item row="1" column="3">
          <widget class="QPushButton" name="btnCalisanEkleCalisan">
           <property name="text">
            <string>Çalışan Ekle</string>
@@ -610,6 +631,13 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="btnKistasCalisan">
+          <property name="text">
+           <string>Kıstas</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

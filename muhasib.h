@@ -25,6 +25,7 @@
 #include "srapor.h"
 
 #include "kistasfatura.h"
+#include "kistasmaas.h"
 
 namespace Ui {
 class muhasib;
@@ -150,6 +151,7 @@ public slots:
     void cbHesapDegisti(int);
 
     void kistasFaturaAc();
+    void kistasMaasAc();
 
 private:
     //fatura değişkenleri
@@ -201,6 +203,7 @@ private:
     shesap shsp;
     srapor srpr;
     kistasfatura form_kistasFatura;
+    kistasmaas form_kistasMaas;
     degisken dgs;
 
 };

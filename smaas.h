@@ -10,6 +10,7 @@
 #include <QDir>
 #include <QLabel>
 #include <QSqlQuery>
+#include <QDateEdit>
 #include "maasekle.h"
 #include "degisken.h"
 
