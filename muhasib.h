@@ -26,6 +26,8 @@
 
 #include "kistasfatura.h"
 #include "kistasmaas.h"
+#include "kistascek.h"
+#include "kistascalisan.h"
 
 namespace Ui {
 class muhasib;
@@ -106,7 +108,7 @@ public slots:
     void yeniCekEkle();
     void sekmeCekAc();
     void sekmeCekOzetiAc();
-    void cbCekDegisti();
+    //void cbCekDegisti();
     void cekSil();
     void cekDegistir();
     void cekToplamiHesapla(int,int);
@@ -152,6 +154,8 @@ public slots:
 
     void kistasFaturaAc();
     void kistasMaasAc();
+    void kistasCekAc();
+    void kistasCalisanAc();
 
 private:
     //fatura değişkenleri
@@ -194,7 +198,7 @@ private:
     ///////////////////////////
     bool degisiklikIzle;//tblFatura değiştikçe toplamı yeniden hesaplamasın
     bool kaydetVar;
-    bool kilitAcik;//değiştirme kilidi açıkken kayıt yapmasın
+    //bool kilitAcik;//değiştirme kilidi açıkken kayıt yapmasın
     int kilidiAcikSatirSayisi;
     scek sck;
     sFatura sftr;
@@ -204,6 +208,8 @@ private:
     srapor srpr;
     kistasfatura form_kistasFatura;
     kistasmaas form_kistasMaas;
+    kistasCek form_kistasCek;
+    kistascalisan form_kistasCalisan;
     degisken dgs;
 
 };

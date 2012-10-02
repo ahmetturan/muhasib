@@ -17,7 +17,7 @@ class scek
 public:
     scek();
     void cekSil2(double &ToplamTutarCek, QStringList &listSilinenCek, bool &kaydetVar, QLabel *lblCek, QTableWidget* tblCek, QObject *obj);
-    void cekDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblCek, QObject *obj);
+    void cekDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblCek, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj);
     void cekKaydet2(QStringList &listSilinenCek, QTableWidget* tblCek);
     void ilkYukleme2(double &ToplamTutarCek, QTableWidget* tblCek, QTableWidget* tblAlinanCek, QTableWidget* tblVerilenCek, QWidget* tabCek, QWidget* tabCekOzeti, QWidget* &tbCek, QWidget* &tbCekOzeti, QTabWidget* tabWidget);
 

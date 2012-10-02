@@ -14,7 +14,11 @@ public:
     QString sekmeMaasListele;
     QString sekmeHesapListele;
     QString sekmeCalisanListele;
-
+    QString sekmeGelirListele;
+    QString sekmeGiderListele;
+    QString sekmeGgd;
+    QString sekmeHesapOzetiListele;
+    ///////////////////////////////7
     //fatura
     int ftrSutunSil;
     int ftrSutunDegistir;

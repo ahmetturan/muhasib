@@ -39,6 +39,7 @@ void scalisan::calisanSil2(double &ToplamTutarCalisan, QStringList &listSilinenC
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
     QList<QPushButton *> allPButtons = tblCalisan->findChildren<QPushButton *>();
 
+    /*
     int silinecekSatir=-1;
     for(int i=0;i<allPButtons.count();i++)
     {
@@ -48,6 +49,19 @@ void scalisan::calisanSil2(double &ToplamTutarCalisan, QStringList &listSilinenC
             break;
         }
     }
+    */
+    //silinecek satir bulunuyor
+    int silinecekSatir=-1;
+    for(int i=0;i<tblCalisan->rowCount();i++)
+    {
+        QPushButton *btnSil=qobject_cast<QPushButton *>(tblCalisan->cellWidget(i,dgs.clsSutunSil));
+        if(btn==btnSil)
+        {
+            silinecekSatir=i;
+            break;
+        }
+    }
+    //////////////////////////////
     if(tblCalisan->item(silinecekSatir,dgs.clsSutunKilit)->text()=="1")
     {
         QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblCalisan->cellWidget(silinecekSatir,dgs.clsSutunDegistir));
@@ -62,13 +76,13 @@ void scalisan::calisanSil2(double &ToplamTutarCalisan, QStringList &listSilinenC
     kaydetVar=true;
 }
 
-void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblCalisan, QObject *obj)
+void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblCalisan, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
+    /*
     QList<QPushButton *> allPButtons = tblCalisan->findChildren<QPushButton *>();
-
     int degisecekSatir=-1;
     for(int i=0;i<allPButtons.count();i++)
     {
@@ -79,8 +93,33 @@ void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWid
             break;
         }
     }
+    */
+    //degisecek satiri bulunuyor
+    int degisecekSatir=-1;
+    for(int i=0;i<tblCalisan->rowCount();i++)
+    {
+        btnDegistir=qobject_cast<QPushButton *>(tblCalisan->cellWidget(i,dgs.clsSutunDegistir));
+        if(btn==btnDegistir)
+        {
+            degisecekSatir=i;
+            break;
+        }
+    }
+    //////////////////7
     if(tblCalisan->item(degisecekSatir,dgs.clsSutunKilit)->text()=="0")
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi+1;
+        //faturalar sekmesi hariç diğer sekmekel donduruluyor
+        for(int i=0;i<tabWidget->count();i++)
+        {
+            //if(tabWidget->tabText(i)!="Faturalar")
+            if(tabWidget->tabText(i)!=dgs.sekmeCalisanListele)
+            {
+                tabWidget->setTabEnabled(i,false);
+                tabWidget->setTabsClosable(false);
+            }
+        }
+        //////////////////////////////////////////////////////
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblCalisan->columnCount()-3;i++)//sondaki 3 sutuna girmesi
         {
@@ -112,6 +151,21 @@ void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWid
     }
     else
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
+        //dondurulmuş sekmeler açılıyor
+        if(kilidiAcikSatirSayisi==0)
+        {
+            for(int i=0;i<tabWidget->count();i++)
+            {
+                //if(tabWidget->tabText(i)!="Faturalar")
+                if(tabWidget->tabText(i)!=dgs.sekmeCalisanListele)
+                {
+                    tabWidget->setTabEnabled(i,true);
+                    tabWidget->setTabsClosable(true);
+                }
+            }
+        }
+        //////////////////////////////////////////////////////77
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitkapali.png"));
 
         for(int i=2;i<tblCalisan->columnCount()-3;i++)//sondaki 3 sutuna girmesin

@@ -6,8 +6,8 @@ scek::scek()
 void scek::cekSil2(double &ToplamTutarCek, QStringList &listSilinenCek, bool &kaydetVar, QLabel *lblCek, QTableWidget* tblCek, QObject *obj)
 {
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
+    /*
     QList<QPushButton *> allPButtons = tblCek->findChildren<QPushButton *>();
-
     int silinecekSatir=-1;
     for(int i=0;i<allPButtons.count();i++)
     {
@@ -17,6 +17,19 @@ void scek::cekSil2(double &ToplamTutarCek, QStringList &listSilinenCek, bool &ka
             break;
         }
     }
+    */
+    //silinecek satir bulunuyor
+    int silinecekSatir=-1;
+    for(int i=0;i<tblCek->rowCount();i++)
+    {
+        QPushButton *btnSil=qobject_cast<QPushButton *>(tblCek->cellWidget(i,dgs.ckSutunSil));
+        if(btn==btnSil)
+        {
+            silinecekSatir=i;
+            break;
+        }
+    }
+    //////////////////////////////
     if(tblCek->item(silinecekSatir,dgs.ckSutunKilit)->text()=="1")
     {
         QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblCek->cellWidget(silinecekSatir,dgs.ckSutunDegistir));
@@ -32,13 +45,13 @@ void scek::cekSil2(double &ToplamTutarCek, QStringList &listSilinenCek, bool &ka
     kaydetVar=true;
 }
 
-void scek::cekDegistir2(bool &degisiklikIzle, bool& kaydetVar,QTableWidget* tblCek, QObject *obj)
+void scek::cekDegistir2(bool &degisiklikIzle, bool& kaydetVar,QTableWidget* tblCek, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
+    /*
     QList<QPushButton *> allPButtons = tblCek->findChildren<QPushButton *>();
-
     int degisecekSatir=-1;
     for(int i=0;i<allPButtons.count();i++)
     {
@@ -49,8 +62,33 @@ void scek::cekDegistir2(bool &degisiklikIzle, bool& kaydetVar,QTableWidget* tblC
             break;
         }
     }
+    */
+    //degisecek satiri bulunuyor
+    int degisecekSatir=-1;
+    for(int i=0;i<tblCek->rowCount();i++)
+    {
+        btnDegistir=qobject_cast<QPushButton *>(tblCek->cellWidget(i,dgs.ckSutunDegistir));
+        if(btn==btnDegistir)
+        {
+            degisecekSatir=i;
+            break;
+        }
+    }
+    //////////////////7
     if(tblCek->item(degisecekSatir,dgs.ckSutunKilit)->text()=="0")
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi+1;
+        //faturalar sekmesi hariç diğer sekmekel donduruluyor
+        for(int i=0;i<tabWidget->count();i++)
+        {
+            //if(tabWidget->tabText(i)!="Faturalar")
+            if(tabWidget->tabText(i)!=dgs.sekmeCekListele)
+            {
+                tabWidget->setTabEnabled(i,false);
+                tabWidget->setTabsClosable(false);
+            }
+        }
+        //////////////////////////////////////////////////////
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblCek->columnCount()-4;i++)//tür sütununa girmesin
         {
@@ -79,6 +117,21 @@ void scek::cekDegistir2(bool &degisiklikIzle, bool& kaydetVar,QTableWidget* tblC
     }
     else
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
+        //dondurulmuş sekmeler açılıyor
+        if(kilidiAcikSatirSayisi==0)
+        {
+            for(int i=0;i<tabWidget->count();i++)
+            {
+                //if(tabWidget->tabText(i)!="Faturalar")
+                if(tabWidget->tabText(i)!=dgs.sekmeCekListele)
+                {
+                    tabWidget->setTabEnabled(i,true);
+                    tabWidget->setTabsClosable(true);
+                }
+            }
+        }
+        //////////////////////////////////////////////////////77
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitkapali.png"));
 
         for(int i=2;i<tblCek->columnCount()-4;i++)//tür sütununa girmesin

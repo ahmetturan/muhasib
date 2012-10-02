@@ -4,13 +4,13 @@
 sFatura::sFatura()
 {}
 
-void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblFatura, QTableWidget* tblHesap, QTabWidget* tabWidget, QStringList listeHsp, int &kilidiAcikSatirSayisi, QObject* obj)
+void sFatura::faturaDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* tblFatura, QTableWidget* tblHesap, QTabWidget* tabWidget, QStringList listeHsp, int &kilidiAcikSatirSayisi, QObject* obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
 
-    //degisecek satir bulunuyor
+    //degisecek satiri bulunuyor
     int degisecekSatir=-1;
     for(int i=0;i<tblFatura->rowCount();i++)
     {
@@ -37,7 +37,7 @@ void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kayde
             }
         }
         //////////////////////////////////////////////////////
-        kilitAcik=true;//kilit açıldı
+        //kilitAcik=true;//kilit açıldı
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblFatura->columnCount()-4;i++)//tür sütununa girmesin
         {
@@ -105,7 +105,7 @@ void sFatura::faturaDegistir2(bool &kilitAcik, bool &degisiklikIzle, bool &kayde
             }
         }
         //////////////////////////////////////////////////////77
-        kilitAcik=false;//kilit kapatıldı
+        //kilitAcik=false;//kilit kapatıldı
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitkapali.png"));
 
         for(int i=2;i<tblFatura->columnCount()-4;i++)//tür sütununa girmesin

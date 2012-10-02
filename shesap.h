@@ -19,7 +19,7 @@ public:
     void ilkYukleme2(QTableWidget* tblHesap, QWidget* tabHesap, QWidget* &tbHesap, QTabWidget* tabWidget);
     void hesapKaydet2(QStringList &listSilinenHesap, QTableWidget *tblHesap);
     void hesapSil2(QStringList &listSilinenHesap, bool &kaydetVar, QTableWidget* tblHesap, QObject* obj);
-    void hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblHesap, QObject *obj);
+    void hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblHesap, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj);
 
 private:
     hesapekle form_hesapEkle;

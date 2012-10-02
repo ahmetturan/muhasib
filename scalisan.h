@@ -21,7 +21,7 @@ public:
     scalisan();
     void calisanKaydet2(QStringList &listSilinenCalisan, QTableWidget* tblCalisan);
     void calisanSil2(double &ToplamTutarCalisan, QStringList &listSilinenCalisan, bool &kaydetVar, QLabel *lblCalisan, QTableWidget* tblCalisan, QObject *obj);
-    void calisanDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget *tblCalisan, QObject *obj);
+    void calisanDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget *tblCalisan, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj);
     void ilkYukleme2(double &ToplamTutarCalisan, QTableWidget* tblCalisan, QWidget* tabCalisan, QWidget* &tbCalisan, QTabWidget* tabWidget);
 
 private:

@@ -21,7 +21,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>11</number>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -304,44 +304,24 @@
         <string>Çekler</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
-        <item row="0" column="0" colspan="8">
+        <item row="0" column="0" colspan="7">
          <widget class="QTableWidget" name="tblCek"/>
         </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="cbVerilenCek">
-          <property name="text">
-           <string>Verilen</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="cbAlinanCek">
-          <property name="text">
-           <string>Alınan</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
          <widget class="QLabel" name="lblCek">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
-        <item row="1" column="3">
+        <item row="1" column="2">
          <widget class="QLabel" name="lblCek2">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
+        <item row="1" column="3">
          <spacer name="horizontalSpacer_4">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -354,21 +334,21 @@
           </property>
          </spacer>
         </item>
-        <item row="1" column="6">
+        <item row="1" column="5">
          <widget class="QPushButton" name="btnCekOzetiCek">
           <property name="text">
            <string>Çek Özeti</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="7">
+        <item row="1" column="6">
          <widget class="QPushButton" name="btnCekEkleCek">
           <property name="text">
            <string>Çek Ekle</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="5">
+        <item row="1" column="4">
          <widget class="QPushButton" name="btnKistasCek">
           <property name="text">
            <string>Kıstas</string>
@@ -776,12 +756,20 @@
     <addaction name="actionHesapEkle"/>
     <addaction name="actionHesapListele"/>
    </widget>
+   <widget class="QMenu" name="menuDiger">
+    <property name="title">
+     <string>Diğer</string>
+    </property>
+    <addaction name="actionDigerGelirEkle"/>
+    <addaction name="actionDigerGiderEkle"/>
+   </widget>
    <addaction name="menuDosya"/>
    <addaction name="menuFatura"/>
    <addaction name="menuCek"/>
    <addaction name="menuMaas"/>
    <addaction name="menuCalisan"/>
    <addaction name="menuHesap"/>
+   <addaction name="menuDiger"/>
    <addaction name="menuRapor"/>
    <addaction name="menuHakkinda"/>
   </widget>
@@ -873,6 +861,16 @@
   <action name="actionHesapOzeti">
    <property name="text">
     <string>Hesap Özeti</string>
+   </property>
+  </action>
+  <action name="actionDigerGelirEkle">
+   <property name="text">
+    <string>Gelir</string>
+   </property>
+  </action>
+  <action name="actionDigerGiderEkle">
+   <property name="text">
+    <string>Gider</string>
    </property>
   </action>
  </widget>

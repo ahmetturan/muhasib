@@ -252,6 +252,8 @@ void maasekle::ilkYukleme()
     ui->tableWidget->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     ui->tableWidget->horizontalHeader()->setResizeMode(msSutunSil,QHeaderView::Custom);
     ui->tableWidget->horizontalHeader()->resizeSection(msSutunSil, 32);
+    ui->tableWidget->horizontalHeader()->setResizeMode(msSutunTarih,QHeaderView::Custom);
+    ui->tableWidget->horizontalHeader()->resizeSection(msSutunTarih, 80);
     this->setWindowTitle("Maaş Ekle");
     cal=new QCalendarWidget();
 

@@ -26,7 +26,9 @@ SOURCES += main.cpp\
     kistasfatura.cpp \
     degisken.cpp \
     srapor.cpp \
-    kistasmaas.cpp
+    kistasmaas.cpp \
+    kistascek.cpp \
+    kistascalisan.cpp
 
 HEADERS  += muhasib.h \
     faturaekle.h \
@@ -42,7 +44,9 @@ HEADERS  += muhasib.h \
     kistasfatura.h \
     degisken.h \
     srapor.h \
-    kistasmaas.h
+    kistasmaas.h \
+    kistascek.h \
+    kistascalisan.h
 
 FORMS    += muhasib.ui \
     faturaekle.ui \
@@ -51,4 +55,6 @@ FORMS    += muhasib.ui \
     calisanekle.ui \
     hesapekle.ui \
     kistasfatura.ui \
-    kistasmaas.ui
+    kistasmaas.ui \
+    kistascek.ui \
+    kistascalisan.ui

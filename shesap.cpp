@@ -4,13 +4,13 @@
 shesap::shesap()
 {}
 
-void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblHesap, QObject *obj)
+void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblHesap, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
+    /*
     QList<QPushButton *> allPButtons = tblHesap->findChildren<QPushButton *>();
-
     int degisecekSatir=-1;
     for(int i=0;i<allPButtons.count();i++)
     {
@@ -21,8 +21,33 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget 
             break;
         }
     }
+    */
+    //degisecek satiri bulunuyor
+    int degisecekSatir=-1;
+    for(int i=0;i<tblHesap->rowCount();i++)
+    {
+        btnDegistir=qobject_cast<QPushButton *>(tblHesap->cellWidget(i,dgs.hspSutunDegistir));
+        if(btn==btnDegistir)
+        {
+            degisecekSatir=i;
+            break;
+        }
+    }
+    //////////////////7
     if(tblHesap->item(degisecekSatir,dgs.hspSutunKilit)->text()=="0")
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi+1;
+        //faturalar sekmesi hariç diğer sekmekel donduruluyor
+        for(int i=0;i<tabWidget->count();i++)
+        {
+            //if(tabWidget->tabText(i)!="Faturalar")
+            if(tabWidget->tabText(i)!=dgs.sekmeHesapListele)
+            {
+                tabWidget->setTabEnabled(i,false);
+                tabWidget->setTabsClosable(false);
+            }
+        }
+        //////////////////////////////////////////////////////
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitacik.png"));//değiştir düğmesinin ikonu değişiyor
         for(int i=2;i<tblHesap->columnCount()-4;i++)//tür sütununa girmesin
         {
@@ -48,6 +73,21 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget 
     }
     else
     {
+        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
+        //dondurulmuş sekmeler açılıyor
+        if(kilidiAcikSatirSayisi==0)
+        {
+            for(int i=0;i<tabWidget->count();i++)
+            {
+                //if(tabWidget->tabText(i)!="Faturalar")
+                if(tabWidget->tabText(i)!=dgs.sekmeHesapListele)
+                {
+                    tabWidget->setTabEnabled(i,true);
+                    tabWidget->setTabsClosable(true);
+                }
+            }
+        }
+        //////////////////////////////////////////////////////77
         btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitkapali.png"));
 
         for(int i=2;i<tblHesap->columnCount()-4;i++)//tür sütununa girmesin
@@ -102,8 +142,8 @@ void shesap::hesapKaydet2(QStringList &listSilinenHesap,QTableWidget* tblHesap)
 void shesap::hesapSil2(QStringList &listSilinenHesap, bool &kaydetVar, QTableWidget* tblHesap, QObject* obj)
 {
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
-    QList<QPushButton *> allPButtons = tblHesap->findChildren<QPushButton *>();
-
+    /*
+      QList<QPushButton *> allPButtons = tblHesap->findChildren<QPushButton *>();
     int silinecekSatir=-1;
     for(int i=0;i<allPButtons.count();i++)
     {
@@ -113,6 +153,19 @@ void shesap::hesapSil2(QStringList &listSilinenHesap, bool &kaydetVar, QTableWid
             break;
         }
     }
+    */
+    //silinecek satir bulunuyor
+    int silinecekSatir=-1;
+    for(int i=0;i<tblHesap->rowCount();i++)
+    {
+        QPushButton *btnSil=qobject_cast<QPushButton *>(tblHesap->cellWidget(i,dgs.ckSutunSil));
+        if(btn==btnSil)
+        {
+            silinecekSatir=i;
+            break;
+        }
+    }
+    //////////////////////////////
     if(tblHesap->item(silinecekSatir,dgs.hspSutunKilit)->text()=="1")
     {
         QPushButton *btnDegistir=qobject_cast<QPushButton *>(tblHesap->cellWidget(silinecekSatir,dgs.hspSutunDegistir));

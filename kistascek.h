@@ -1,22 +1,21 @@
-#ifndef KISTASMAAS_H
-#define KISTASMAAS_H
+#ifndef KISTASCEK_H
+#define KISTASCEK_H
 
 #include <QDialog>
 #include <QDate>
-//#include <QCalendarWidget>
 #include <QMessageBox>
 
 namespace Ui {
-class kistasmaas;
+class kistasCek;
 }
 
-class kistasmaas : public QDialog
+class kistasCek : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit kistasmaas(QWidget *parent = 0);
-    ~kistasmaas();
+    explicit kistasCek(QWidget *parent = 0);
+    ~kistasCek();
     void ilkYukleme();
     QDate getBaslangicTarih();
     QDate getBitisTarih();
@@ -31,12 +30,12 @@ public slots:
     void iptal();
     void turEtkin();
     void tarihEtkin();
-
+    
 private:
-    Ui::kistasmaas *ui;
+    Ui::kistasCek *ui;
     bool secim;//tamam mı yoksa iptale mi basıldı
     bool turEtkinMi;//tamama tıklanırken sonra tur cb'si tikli miydi
     bool tarihEtkinMi;//tamama tıklanırken sonra tarih cb'si tikli miydi
 };
 
-#endif // KISTASMAAS_H
+#endif // KISTASCEK_H

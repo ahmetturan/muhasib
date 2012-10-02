@@ -205,6 +205,8 @@ void calisanekle::ilkYukleme()
     ui->tableWidget->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     ui->tableWidget->horizontalHeader()->setResizeMode(clsSutunSil,QHeaderView::Custom);
     ui->tableWidget->horizontalHeader()->resizeSection(clsSutunSil, 32);
+    ui->tableWidget->horizontalHeader()->setResizeMode(clsSutunIseGiris,QHeaderView::Custom);
+    ui->tableWidget->horizontalHeader()->resizeSection(clsSutunIseGiris, 80);
     this->setWindowTitle("Çalışan Ekle");
     cal=new QCalendarWidget();
 

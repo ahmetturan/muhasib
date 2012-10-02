@@ -71,6 +71,7 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
     QPushButton *btnDegistir=new QPushButton();
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
 
+    //degisecek satırı buluyor
     int degisecekSatir=-1;
     for(int i=0;i<tblMaas->rowCount();i++)
     {
@@ -81,6 +82,7 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
             break;
         }
     }
+    ////////////////////////////////
 
     if(tblMaas->item(degisecekSatir,dgs.msSutunKilit)->text()=="0")
     {
@@ -179,7 +181,8 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
         {
             for(int i=0;i<tabWidget->count();i++)
             {
-                if(tabWidget->tabText(i)!="Maaşlar")
+                //if(tabWidget->tabText(i)!="Maaşlar")
+                if(tabWidget->tabText(i)!=dgs.sekmeMaasListele)
                 {
                     tabWidget->setTabEnabled(i,true);
                     tabWidget->setTabsClosable(true);

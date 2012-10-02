@@ -8,6 +8,10 @@ degisken::degisken()
     sekmeMaasListele="Maaşlar";
     sekmeHesapListele="Hesaplar";
     sekmeCalisanListele="Çalışanlar";
+    sekmeGelirListele="Gelirler";
+    sekmeGiderListele="Giderler";
+    sekmeGgd="Gelig/Gider";
+    sekmeHesapOzetiListele="Hesap Özeti";
     ///////////////////////////
     //fatura
     ftrSutunSil=0;
