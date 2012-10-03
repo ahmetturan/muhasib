@@ -175,7 +175,16 @@ void srapor::ggdToplamiYukle(QTableWidget *tblGgd)
     tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunFark,itm3);
 }
 
-//itm yazıtipini büyütüyor ve yazıyı ortaya alıyor
+//GGD EKRANINI DOLDURUYOR
+void srapor::ggdYukle(QTableWidget *tblGgd, QTableWidget *tblFatura, QTableWidget *tblMaas)
+{
+    tblGgd->setRowCount(0);//önceki girişler siliniyor
+    ggdFaturaYukle(tblGgd,tblFatura);
+    ggdMaasYukle(tblGgd,tblMaas);
+    ggdToplamiYukle(tblGgd);
+}
+
+//YAZITİPİNİ BÜYÜTÜYOR VE YAZIYI ORTAYA ALIYOR
 void srapor::ggdItem(QTableWidgetItem *itm)
 {
     QFont fnt;
@@ -184,6 +193,7 @@ void srapor::ggdItem(QTableWidgetItem *itm)
     itm->setTextAlignment(Qt::AlignHCenter);
 }
 
+//HESAP ÖZETİ EKRANINA FATURAYI YÜKLÜYOR
 void srapor::hesapOzetiRaporlaFatura(QTableWidget *tblFatura, QTableWidget *tblHesapOzeti, QComboBox *cbHesapOzeti)
 {
     for(int i=0;i<tblFatura->rowCount();i++)
@@ -210,6 +220,7 @@ void srapor::hesapOzetiRaporlaFatura(QTableWidget *tblFatura, QTableWidget *tblH
     }
 }
 
+//HESAP ÖZETİ EKRANINA MAAŞI YÜKLÜYOR
 void srapor::hesapOzetiRaporlaMaas(QTableWidget *tblMaas, QTableWidget *tblHesapOzeti, QComboBox *cbHesapOzeti)
 {
     for(int i=0;i<tblMaas->rowCount();i++)

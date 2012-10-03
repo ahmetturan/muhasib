@@ -11,7 +11,7 @@
 #include <QLabel>
 #include <QSqlQuery>
 #include <QDateEdit>
-#include "maasekle.h"
+#include "eklemaas.h"
 #include "degisken.h"
 
 class smaas

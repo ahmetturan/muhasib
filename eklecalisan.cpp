@@ -1,5 +1,5 @@
-#include "calisanekle.h"
-#include "ui_calisanekle.h"
+#include "eklecalisan.h"
+#include "ui_eklecalisan.h"
 #include <QDebug>
 
 calisanekle::calisanekle(QWidget *parent) :

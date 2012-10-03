@@ -11,11 +11,12 @@
 
 #include "degisken.h"
 
-#include "faturaekle.h"
-#include "cekekle.h"
-#include "maasekle.h"
-#include "calisanekle.h"
-#include "hesapekle.h"
+#include "eklefatura.h"
+#include "eklecek.h"
+#include "eklemaas.h"
+#include "eklecalisan.h"
+#include "eklehesap.h"
+#include "ekledigergelir.h"
 
 #include "sfatura.h"
 #include "scek.h"
@@ -23,6 +24,7 @@
 #include "scalisan.h"
 #include "shesap.h"
 #include "srapor.h"
+#include "sdigergelir.h"
 
 #include "kistasfatura.h"
 #include "kistasmaas.h"
@@ -68,18 +70,7 @@ public:
     void hesapKaydet();
     ///////////////////////////7
     //rapor fonksiyonları
-    void ilkYuklemeGelirler();
-    void gelirleriYukle();
-    void ilkYuklemeGiderler();
-    void giderleriYukle();
-    void ilkYuklemeGgd();
-    void ggdYukle();
-    void ggdFaturaYukle();
     void ggdCekYukle();
-    void ggdMaasYukle();
-    void ggdToplamiYukle();
-    void ggdItem(QTableWidgetItem*);
-    void ilkYuklemeHesapOzeti();
     /////////////////////////////////
     void veritabanindanYukle();
     void ilkYukleme();
@@ -135,6 +126,9 @@ public slots:
     void hesapSil();
     void hesapDegistir();
     /////////////////////////
+    //digergelir fonksiyonları
+    void yeniDigerGelirEkle();
+    /////////////////////////////
     //rapor fonksiyonları
     void sekmeGelirlerAc();
     void sekmeGiderlerAc();
@@ -185,20 +179,22 @@ private:
     QWidget *tbCalisan;
     QStringList listSilinenCalisan;
     /////////////////////////
+    //hesap degiskenleri
+    hesapekle form_hesapEkle;
+    QWidget *tbHesap;
+    QStringList listSilinenHesap;
+    ///////////////////////////
+    //diger gelir degiskenleri
+    ekledigergelir form_digerGelirEkle;
+    ///////////////////////////
     //rapor degiskenleri
     QWidget *tbGelirler;
     QWidget *tbGiderler;
     QWidget *tbGgd;
     QWidget *tbHesapOzeti;
     /////////////////////////////
-    //hesap degiskenleri
-    hesapekle form_hesapEkle;
-    QWidget *tbHesap;
-    QStringList listSilinenHesap;
-    ///////////////////////////
     bool degisiklikIzle;//tblFatura değiştikçe toplamı yeniden hesaplamasın
     bool kaydetVar;
-    //bool kilitAcik;//değiştirme kilidi açıkken kayıt yapmasın
     int kilidiAcikSatirSayisi;
     scek sck;
     sFatura sftr;
@@ -206,6 +202,8 @@ private:
     scalisan sclsn;
     shesap shsp;
     srapor srpr;
+    sdigergelir sdgl;
+
     kistasfatura form_kistasFatura;
     kistasmaas form_kistasMaas;
     kistasCek form_kistasCek;

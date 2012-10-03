@@ -9,7 +9,7 @@
 #include <QDir>
 #include <QComboBox>
 #include <QDateEdit>
-#include "cekekle.h"
+#include "eklecek.h"
 #include "degisken.h"
 
 class scek

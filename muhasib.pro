@@ -13,11 +13,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         muhasib.cpp \
-    faturaekle.cpp \
-    cekekle.cpp \
-    maasekle.cpp \
-    calisanekle.cpp \
-    hesapekle.cpp \
     sfatura.cpp \
     scek.cpp \
     smaas.cpp \
@@ -28,14 +23,16 @@ SOURCES += main.cpp\
     srapor.cpp \
     kistasmaas.cpp \
     kistascek.cpp \
-    kistascalisan.cpp
+    kistascalisan.cpp \
+    eklecalisan.cpp \
+    eklemaas.cpp \
+    eklecek.cpp \
+    eklefatura.cpp \
+    eklehesap.cpp \
+    ekledigergelir.cpp \
+    sdigergelir.cpp
 
 HEADERS  += muhasib.h \
-    faturaekle.h \
-    cekekle.h \
-    maasekle.h \
-    calisanekle.h \
-    hesapekle.h \
     sfatura.h \
     scek.h \
     smaas.h \
@@ -46,15 +43,23 @@ HEADERS  += muhasib.h \
     srapor.h \
     kistasmaas.h \
     kistascek.h \
-    kistascalisan.h
+    kistascalisan.h \
+    eklecalisan.h \
+    eklecek.h \
+    eklefatura.h \
+    eklehesap.h \
+    eklemaas.h \
+    ekledigergelir.h \
+    sdigergelir.h
 
 FORMS    += muhasib.ui \
-    faturaekle.ui \
-    cekekle.ui \
-    maasekle.ui \
-    calisanekle.ui \
-    hesapekle.ui \
     kistasfatura.ui \
     kistasmaas.ui \
     kistascek.ui \
-    kistascalisan.ui
+    kistascalisan.ui \
+    eklecalisan.ui \
+    eklecek.ui \
+    eklefatura.ui \
+    eklehesap.ui \
+    eklemaas.ui \
+    ekledigergelir.ui

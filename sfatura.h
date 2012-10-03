@@ -10,7 +10,7 @@
 #include <QComboBox>
 #include <QDir>
 #include <QDateEdit>
-#include "faturaekle.h"
+#include "eklefatura.h"
 #include "degisken.h"
 
 class sFatura

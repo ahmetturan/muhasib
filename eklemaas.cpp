@@ -1,5 +1,5 @@
-#include "maasekle.h"
-#include "ui_maasekle.h"
+#include "eklemaas.h"
+#include "ui_eklemaas.h"
 
 maasekle::maasekle(QWidget *parent) :
     QDialog(parent),

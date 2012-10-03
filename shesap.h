@@ -9,7 +9,7 @@
 #include <QComboBox>
 #include <QDir>
 #include <QSqlQuery>
-#include "hesapekle.h"
+#include "eklehesap.h"
 #include "degisken.h"
 
 class shesap

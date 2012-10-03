@@ -1,6 +1,5 @@
-#include "cekekle.h"
-#include "ui_cekekle.h"
-#include <QDebug>
+#include "eklecek.h"
+#include "ui_eklecek.h"
 
 cekekle::cekekle(QWidget *parent) :
     QDialog(parent),

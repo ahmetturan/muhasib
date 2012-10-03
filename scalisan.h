@@ -12,7 +12,7 @@
 #include <QLabel>
 #include <QSqlQuery>
 #include <QDateEdit>
-#include "calisanekle.h"
+#include "eklecalisan.h"
 #include "degisken.h"
 
 class scalisan

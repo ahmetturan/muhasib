@@ -1,5 +1,5 @@
-#include "faturaekle.h"
-#include "ui_faturaekle.h"
+#include "eklefatura.h"
+#include "ui_eklefatura.h"
 
 faturaEkle::faturaEkle(QWidget *parent) :
     QDialog(parent),

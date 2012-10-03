@@ -48,6 +48,9 @@ muhasib::muhasib(QWidget *parent) :
     connect(ui->actionHesapEkle,SIGNAL(triggered()),this,SLOT(yeniHesapEkle()));
     connect(ui->actionHesapListele,SIGNAL(triggered()),this,SLOT(sekmeHesapAc()));
     /////////////////////////
+    //diger gelir bağlantıları
+    connect(ui->actionDigerGelirEkle,SIGNAL(triggered()),this,SLOT(yeniDigerGelirEkle()));
+    ////////////////////////////
     //rapor bağlantıları
     connect(ui->actionGelirler,SIGNAL(triggered()),this,SLOT(sekmeGelirlerAc()));
     connect(ui->actionGiderler,SIGNAL(triggered()),this,SLOT(sekmeGiderlerAc()));
@@ -144,7 +147,6 @@ void muhasib::closeEvent(QCloseEvent *event)
 
 void muhasib::kistasCalisanAc()
 {
-
     this->setEnabled(false);
     form_kistasCalisan.ontanimliAyarlar();
     form_kistasCalisan.exec();
@@ -641,6 +643,22 @@ void muhasib::veritabanindanYukle()
     hesapVeritabanindanYukle();
 }
 
+void muhasib::yeniDigerGelirEkle()
+{
+    if(ui->tblHesap->rowCount()==0)//hesap yoksa gelir ekleyemesin
+    {
+        QMessageBox::warning(this,"Hata","Önce hesap ekleyin","Tamam");
+    }
+    else
+    {
+        degisiklikIzle=false;
+        form_digerGelirEkle.setWindowFlags(Qt::Window);//hesap ekleme penceresinin köşesindeki 3 düğmenin gösterilmesi için
+        form_digerGelirEkle.ontanimliAyarlar();
+        this->setEnabled(false);//ana pencere etkisizleştiriliyor
+        form_digerGelirEkle.exec();
+    }
+}
+
 void muhasib::hesapVeritabanindanYukle()
 {
     degisiklikIzle=false;//veritabanından yükleme yapılırken toplamtutarı hesaplamasın
@@ -791,8 +809,7 @@ void muhasib::hesapDegistir()
 
 void muhasib::sekmeGgdAc()
 {
-    ggdYukle();
-    //ui->tabWidget->addTab(tbGgd,"Gelir/Gider");
+    srpr.ggdYukle(ui->tblGgd, ui->tblFatura, ui->tblMaas);
     ui->tabWidget->addTab(tbGgd,dgs.sekmeGgd);
     ui->tabWidget->setCurrentWidget(tbGgd);
 }
@@ -831,41 +848,18 @@ void muhasib::ggdCekYukle()
     */
 }
 
-//GELİR GİDER EKRANINı dolduruyoe
-void muhasib::ggdYukle()
-{
-    ui->tblGgd->setRowCount(0);
-    //ggdCekYukle();
-
-    srpr.ggdMaasYukle(ui->tblGgd,ui->tblMaas);//GELİR GİDER EKRANINA MAAS BİLGİLERİNİ YÜKLÜYOR
-    srpr.ggdFaturaYukle(ui->tblGgd, ui->tblFatura);//GELİR GİDER EKRANINA FATURA BİLGİLERİNİ YÜKLÜYOR
-    srpr.ggdToplamiYukle(ui->tblGgd);//GELİR GİDER EKRANINA TOPLAM BİLGİLERİNİ YÜKLÜYOR
-}
-
 void muhasib::sekmeGelirlerAc()
 {
-    gelirleriYukle();
-    //ui->tabWidget->addTab(tbGelirler,"Gelirler");
+    srpr.gelirleriYukle(ui->tblGelirler,ui->tblFatura,ui->tblCek);
     ui->tabWidget->addTab(tbGelirler,dgs.sekmeGelirListele);
     ui->tabWidget->setCurrentWidget(tbGelirler);
 }
 
-void muhasib::gelirleriYukle()
-{
-    srpr.gelirleriYukle(ui->tblGelirler,ui->tblFatura,ui->tblCek);
-}
-
 void muhasib::sekmeGiderlerAc()
 {
-    giderleriYukle();
-    //ui->tabWidget->addTab(tbGiderler,"Giderler");
+    srpr.giderleriYukle(ui->tblGiderler, ui->tblFatura, ui->tblCek, ui->tblMaas);
     ui->tabWidget->addTab(tbGiderler,dgs.sekmeGiderListele);
     ui->tabWidget->setCurrentWidget(tbGiderler);
-}
-
-void muhasib::giderleriYukle()
-{
-    srpr.giderleriYukle(ui->tblGiderler, ui->tblFatura, ui->tblCek, ui->tblMaas);
 }
 
 void muhasib::sekmeHesapOzetiAc()
@@ -1866,7 +1860,7 @@ QString muhasib::getFaturaKayitNo(int sonNo)
 //FATURA EKLEME EKRANINI AÇIYOR
 void muhasib::yeniFaturaEkle()
 {
-    if(ui->tblHesap->rowCount()==0)
+    if(ui->tblHesap->rowCount()==0)//hesap yoksa fatura ekleyemesin
     {
         QMessageBox::warning(this,"Hata","Önce hesap ekleyin","Tamam");
     }
@@ -2018,6 +2012,7 @@ void muhasib::ilkYukleme()
     srpr.ilkYuklemeGiderler(ui->tblGiderler, ui->tabGiderler, tbGiderler, ui->tabWidget);
     srpr.ilkYuklemeGgd(ui->tblGgd,ui->tabGgd,tbGgd,ui->tabWidget);
     srpr.ilkYuklemeHesapOzeti(ui->tblHesapOzeti,ui->tabHesapOzeti,tbHesapOzeti,ui->tabWidget);
+
     ilkYuklemeBaslangic();
 
     kaydetVar=false;

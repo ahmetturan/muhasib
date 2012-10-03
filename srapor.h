@@ -16,6 +16,7 @@ public:
     void ggdMaasYukle(QTableWidget *tblGgd, QTableWidget *tblMaas);
     void ggdToplamiYukle(QTableWidget *tblGgd);
     void ggdItem(QTableWidgetItem *itm);
+    void ggdYukle(QTableWidget *tblGgd, QTableWidget *tblFatura, QTableWidget *tblMaas);
     void hesapOzetiRaporlaFatura(QTableWidget *tblFatura, QTableWidget *tblHesapOzeti, QComboBox *cbHesapOzeti);
     void hesapOzetiRaporlaMaas(QTableWidget *tblMaas, QTableWidget *tblHesapOzeti, QComboBox *cbHesapOzeti);
     void ilkYuklemeGiderler(QTableWidget* tblGiderler, QWidget* tabGiderler, QWidget* &tbGiderler, QTabWidget* tabWidget);

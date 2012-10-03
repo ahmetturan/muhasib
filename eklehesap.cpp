@@ -1,5 +1,5 @@
-#include "hesapekle.h"
-#include "ui_hesapekle.h"
+#include "eklehesap.h"
+#include "ui_eklehesap.h"
 
 hesapekle::hesapekle(QWidget *parent) :
     QDialog(parent),
