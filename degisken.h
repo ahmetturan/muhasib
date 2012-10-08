@@ -7,7 +7,6 @@ class degisken
 {
 public:
     degisken();
-
     //sekme isimleri
     QString sekmeFaturaListele;
     QString sekmeCekListele;
@@ -18,6 +17,8 @@ public:
     QString sekmeGiderListele;
     QString sekmeGgd;
     QString sekmeHesapOzetiListele;
+    QString sekmeDigerGelirListele;
+    QString sekmeDigerGiderListele;
     ///////////////////////////////7
     //fatura
     int ftrSutunSil;
@@ -87,7 +88,32 @@ public:
     int hspSutunDegisim;//değiştirilen kayitlari tutmak için
     int hspSutunKilit;//kilit açık mı kapalı mı
     ///////////////////////////////////////////////7
-
+    //diger gelir
+    int dglSutunSil;
+    int dglSutunDegistir;
+    int dglSutunTarih;
+    int dglSutunIsim;
+    int dglSutunMuhatap;
+    int dglSutunTutar;
+    int dglSutunAciklama;
+    int dglSutunHesap;
+    int dglSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
+    int dglSutunDegisim;//değiştirilen kayitlari tutmak için
+    int dglSutunKilit;//kilit açık mı kapalı mı
+    ////////////////////////
+    //diger gider
+    int dgdSutunSil;
+    int dgdSutunDegistir;
+    int dgdSutunTarih;
+    int dgdSutunIsim;
+    int dgdSutunMuhatap;
+    int dgdSutunTutar;
+    int dgdSutunAciklama;
+    int dgdSutunHesap;
+    int dgdSutunKayit;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
+    int dgdSutunDegisim;//değiştirilen kayitlari tutmak için
+    int dgdSutunKilit;//kilit açık mı kapalı mı
+    ////////////////////////
     //hesap özeti
     int hoztSutunTarih;
     int hoztSutunKayitNo;

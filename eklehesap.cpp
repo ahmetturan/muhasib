@@ -38,8 +38,7 @@ QStringList hesapekle::getListeHesap()
 
 void hesapekle::satirSil()
 {
-    QObject* obj = sender();
-    QPushButton *btn = qobject_cast<QPushButton *>(obj);
+    QPushButton *btn = qobject_cast<QPushButton *>(sender());
     QList<QPushButton *> allPButtons = ui->tableWidget->findChildren<QPushButton *>();
 
     int silinecekSatir=-1;
@@ -53,6 +52,7 @@ void hesapekle::satirSil()
     }
     ui->tableWidget->removeRow(silinecekSatir);
 
+    /*
     //eğer tablewidget'ta bir satır varsa sil butonu ve combobo'ı etkisiz olsun
     if(ui->tableWidget->rowCount()==1)
     {
@@ -63,6 +63,7 @@ void hesapekle::satirSil()
         cmb->setEnabled(false);
     }
     ////////////////////////
+    */
 }
 
 void hesapekle::satirEkle(int a, int b)

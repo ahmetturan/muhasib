@@ -10,8 +10,8 @@ class srapor
 {
 public:
     srapor();
-    void giderleriYukle(QTableWidget* tblGiderler, QTableWidget* tblFatura, QTableWidget* tblCek, QTableWidget* tblMaas);
-    void gelirleriYukle(QTableWidget* tblGelirler, QTableWidget* tblFatura, QTableWidget* tblCek);
+    void giderleriYukle(QTableWidget* tblGiderler, QTableWidget* tblFatura, QTableWidget* tblCek, QTableWidget* tblMaas, QTableWidget *tblDigerGider);
+    void gelirleriYukle(QTableWidget* tblGelirler, QTableWidget* tblFatura, QTableWidget* tblCek, QTableWidget *tblDigerGelir);
     void ggdFaturaYukle(QTableWidget *tblGgd, QTableWidget *tblFatura);
     void ggdMaasYukle(QTableWidget *tblGgd, QTableWidget *tblMaas);
     void ggdToplamiYukle(QTableWidget *tblGgd);

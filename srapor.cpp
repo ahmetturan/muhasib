@@ -3,7 +3,7 @@
 srapor::srapor()
 {}
 
-void srapor::giderleriYukle(QTableWidget* tblGiderler, QTableWidget* tblFatura, QTableWidget* tblCek, QTableWidget* tblMaas)
+void srapor::giderleriYukle(QTableWidget* tblGiderler, QTableWidget* tblFatura, QTableWidget* tblCek, QTableWidget* tblMaas, QTableWidget *tblDigerGider)
 {
     tblGiderler->setRowCount(0);
     for(int i=0;i<tblFatura->rowCount();i++)
@@ -48,10 +48,22 @@ void srapor::giderleriYukle(QTableWidget* tblGiderler, QTableWidget* tblFatura, 
         QTableWidgetItem *itm3=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunMaas)->text());
         tblGiderler->setItem(tblGiderler->rowCount()-1,dgs.gdrSutunTutar,itm3);
     }
+    for(int i=0;i<tblDigerGider->rowCount();i++)
+    {
+        tblGiderler->insertRow(tblGiderler->rowCount());
+        QTableWidgetItem *itmTarih=new QTableWidgetItem(tblDigerGider->item(i,dgs.dgdSutunTarih)->text());
+        QTableWidgetItem *itmTur=new QTableWidgetItem("Diğer");
+        QTableWidgetItem *itmIsim=new QTableWidgetItem(tblDigerGider->item(i,dgs.dgdSutunIsim)->text());
+        QTableWidgetItem *itmTutar=new QTableWidgetItem(tblDigerGider->item(i,dgs.dgdSutunTutar)->text());
+        tblGiderler->setItem(tblGiderler->rowCount()-1,dgs.gdrSutunTarih,itmTarih);
+        tblGiderler->setItem(tblGiderler->rowCount()-1,dgs.gdrSutunTur,itmTur);
+        tblGiderler->setItem(tblGiderler->rowCount()-1,dgs.gdrSutunGider,itmIsim);
+        tblGiderler->setItem(tblGiderler->rowCount()-1,dgs.gdrSutunTutar,itmTutar);
+    }
     tblGiderler->sortByColumn(dgs.gdrSutunTarih);
 }
 
-void srapor::gelirleriYukle(QTableWidget *tblGelirler, QTableWidget *tblFatura, QTableWidget *tblCek)
+void srapor::gelirleriYukle(QTableWidget *tblGelirler, QTableWidget *tblFatura, QTableWidget *tblCek, QTableWidget *tblDigerGelir)
 {
     tblGelirler->setRowCount(0);
     for(int i=0;i<tblFatura->rowCount();i++)
@@ -83,6 +95,18 @@ void srapor::gelirleriYukle(QTableWidget *tblGelirler, QTableWidget *tblFatura, 
             QTableWidgetItem *itm3=new QTableWidgetItem(tblCek->item(i,dgs.ckSutunTutar)->text());
             tblGelirler->setItem(tblGelirler->rowCount()-1,dgs.glrSutunTutar,itm3);
         }
+    }
+    for(int i=0;i<tblDigerGelir->rowCount();i++)
+    {
+        tblGelirler->insertRow(tblGelirler->rowCount());
+        QTableWidgetItem *itmTarih=new QTableWidgetItem(tblDigerGelir->item(i,dgs.dglSutunTarih)->text());
+        QTableWidgetItem *itmTur=new QTableWidgetItem("Diğer");
+        QTableWidgetItem *itmIsim=new QTableWidgetItem(tblDigerGelir->item(i,dgs.dglSutunIsim)->text());
+        QTableWidgetItem *itmTutar=new QTableWidgetItem(tblDigerGelir->item(i,dgs.dglSutunTutar)->text());
+        tblGelirler->setItem(tblGelirler->rowCount()-1,dgs.glrSutunTarih,itmTarih);
+        tblGelirler->setItem(tblGelirler->rowCount()-1,dgs.glrSutunTur,itmTur);
+        tblGelirler->setItem(tblGelirler->rowCount()-1,dgs.glrSutunGelir,itmIsim);
+        tblGelirler->setItem(tblGelirler->rowCount()-1,dgs.glrSutunTutar,itmTutar);
     }
     tblGelirler->sortByColumn(dgs.glrSutunTarih);
 }

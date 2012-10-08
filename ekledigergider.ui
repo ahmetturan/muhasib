@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ekledigergelir</class>
- <widget class="QDialog" name="ekledigergelir">
+ <class>ekledigergider</class>
+ <widget class="QDialog" name="ekledigergider">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>584</width>
-    <height>426</height>
+    <width>569</width>
+    <height>486</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,26 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="4">
     <widget class="QTableWidget" name="tableWidget"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="lblToplamTutar">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>302</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item row="1" column="2">
     <widget class="QPushButton" name="btnTamam">
@@ -28,26 +48,6 @@
     <widget class="QPushButton" name="btnKapat">
      <property name="text">
       <string>İptal</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="lblToplamTutar">
-     <property name="text">
-      <string>TextLabel</string>
      </property>
     </widget>
    </item>

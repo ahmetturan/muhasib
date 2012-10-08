@@ -25,9 +25,9 @@ void veritabaniOlustur()
     query.exec("create table hesap(h_id integer primary key not null, h_isim varchar, h_baslangicmeblagi varchar, h_guncelmeblag varchar, h_tur varchar)");
     query.exec("create table boyut(b_id integer primary key not null, b_x varchar, b_y varchar, b_w varchar, b_h varchar, b_tamekran varchar)");
     query.exec("create table sonkayit(sk_id integer primary key not null, sk_fatura varchar, sk_cek varchar, sk_maas varchar)");
+    query.exec("create table digergelir(dgl_id integer primary key not null, dgl_tarih varchar, dgl_isim varchar, dgl_muhatap varchar, dgl_tutar varchar, dgl_aciklama varchar, dgl_hesap varchar)");
+    query.exec("create table digergider(dgd_id integer primary key not null, dgd_tarih varchar, dgd_isim varchar, dgd_muhatap varchar, dgd_tutar varchar, dgd_aciklama varchar, dgd_hesap varchar)");
     query.exec("insert into boyut values(1,20,20,800,400,0)");
-
-
 }
 
 int main(int argc, char *argv[])

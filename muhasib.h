@@ -25,6 +25,7 @@
 #include "shesap.h"
 #include "srapor.h"
 #include "sdigergelir.h"
+#include "sdigergider.h"
 
 #include "kistasfatura.h"
 #include "kistasmaas.h"
@@ -43,35 +44,15 @@ public:
     explicit muhasib(QWidget *parent = 0);
     Ui::muhasib *ui;
     ~muhasib();
-    //fatura fonksiyonları
     void faturaVeritabanindanYukle();
-    void faturaKaydet();
-    void ilkYuklemeFatura();
     QString getFaturaKayitNo(int sonNo);
-    ////////////////////////
-    //cek fonksiyonları
-    void cekKaydet();
     void cekVeritabanindanYukle();
-    void ilkYuklemeCek();
-    //////////////////////
-    //maaş fonksiyonları
-    void ilkYuklemeMaas();
     void maasVeritabanindanYukle();
-    void maasKaydet();
-    ///////////////////
-    //calisan fonksiyonları
-    void ilkYuklemeCalisan();
     void calisanVeritabanindanYukle();
-    void calisanKaydet();
-    /////////////////////
-    //hesap fonksiyonları
-    void ilkYuklemeHesaplar();
     void hesapVeritabanindanYukle();
-    void hesapKaydet();
-    ///////////////////////////7
-    //rapor fonksiyonları
+    void digerGelirVeritabanindanYukle();
+    void digerGiderVeritabanindanYukle();
     void ggdCekYukle();
-    /////////////////////////////////
     void veritabanindanYukle();
     void ilkYukleme();
     void ilkYuklemeBaslangic();
@@ -86,7 +67,6 @@ public slots:
     void faturaSil();
     void sekmeFaturaAc();
     void sekmeFaturaOzetiAc();
-    //void cbFaturaDegisti();
     void faturaDegistir();
     void faturaToplamiHesapla(int, int);
     void faturaTarihAl();
@@ -99,7 +79,6 @@ public slots:
     void yeniCekEkle();
     void sekmeCekAc();
     void sekmeCekOzetiAc();
-    //void cbCekDegisti();
     void cekSil();
     void cekDegistir();
     void cekToplamiHesapla(int,int);
@@ -126,8 +105,17 @@ public slots:
     void hesapSil();
     void hesapDegistir();
     /////////////////////////
-    //digergelir fonksiyonları
+    //diger gelir fonksiyonları
     void yeniDigerGelirEkle();
+    void sekmeDigerGelirAc();
+    void digerGelirSil();
+    void digerGelirDegistir();
+    /////////////////////////////
+    //diger gider fonksiyonları
+    void yeniDigerGiderEkle();
+    void sekmeDigerGiderAc();
+    void digerGiderSil();
+    void digerGiderDegistir();
     /////////////////////////////
     //rapor fonksiyonları
     void sekmeGelirlerAc();
@@ -145,6 +133,7 @@ public slots:
     void cbCalisanDegisti(int);
     void cbRaporDegisti(int);
     void cbHesapDegisti(int);
+    void cbDigerDegisti(int);
 
     void kistasFaturaAc();
     void kistasMaasAc();
@@ -186,6 +175,13 @@ private:
     ///////////////////////////
     //diger gelir degiskenleri
     ekledigergelir form_digerGelirEkle;
+    QWidget *tbDigerGelir;
+    QStringList listSilinenDigerGelir;
+    ///////////////////////////
+    //diger gelir degiskenleri
+    ekledigergider form_digerGiderEkle;
+    QWidget *tbDigerGider;
+    QStringList listSilinenDigerGider;
     ///////////////////////////
     //rapor degiskenleri
     QWidget *tbGelirler;
@@ -203,6 +199,7 @@ private:
     shesap shsp;
     srapor srpr;
     sdigergelir sdgl;
+    sdigergider sdgd;
 
     kistasfatura form_kistasFatura;
     kistasmaas form_kistasMaas;

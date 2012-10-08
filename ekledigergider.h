@@ -1,5 +1,5 @@
-#ifndef EKLEDIGERGELIR_H
-#define EKLEDIGERGELIR_H
+#ifndef EKLEDIGERGIDER_H
+#define EKLEDIGERGIDER_H
 
 #include <QDialog>
 #include <QCalendarWidget>
@@ -8,19 +8,19 @@
 #include <QDebug>
 
 namespace Ui {
-class ekledigergelir;
+class ekledigergider;
 }
 
-class ekledigergelir : public QDialog
+class ekledigergider : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit ekledigergelir(QWidget *parent = 0);
-    ~ekledigergelir();
+    explicit ekledigergider(QWidget *parent = 0);
+    ~ekledigergider();
     void ontanimliAyarlar();
     void ilkYukleme();
-    QStringList getListeDigerGelir();
+    QStringList getListeDigerGider();
     void setListeHesap(QStringList list);
     double getToplamTutar();
     void takvimAcikIseKapat();
@@ -33,23 +33,23 @@ public slots:
     void tarihiAl();
     void hucreyeTiklandi(int, int);
     void kapat();
-    
+
 private:
-    Ui::ekledigergelir *ui;
+    Ui::ekledigergider *ui;
     QCalendarWidget *cal;
-    QStringList listeDigerGelir;//tamam a tıklanınca girişleri ana ekrana göndermek için
+    QStringList listeDigerGider;//tamam a tıklanınca girişleri ana ekrana göndermek için
     QStringList listeHesap;//hesap isimlerini cb ye eklemek için
     bool takvimAcik;
     double toplamTutar;
     int satir;
     int sutun;
-    int dglSutunSil;
-    int dglSutunTarih;
-    int dglSutunIsim;
-    int dglSutunKimden;
-    int dglSutunTutar;
-    int dglSutunAciklama;
-    int dglSutunHesap;
+    int dgdSutunSil;
+    int dgdSutunTarih;
+    int dgdSutunIsim;
+    int dgdSutunKimden;
+    int dgdSutunTutar;
+    int dgdSutunAciklama;
+    int dgdSutunHesap;
 };
 
-#endif // EKLEDIGERGELIR_H
+#endif // EKLEDIGERGIDER_H

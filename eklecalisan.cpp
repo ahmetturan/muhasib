@@ -118,8 +118,7 @@ void calisanekle::satirEkle(int a,int b)
 
 void calisanekle::satirSil()
 {
-    QObject* obj = sender();
-    QPushButton *btn = qobject_cast<QPushButton *>(obj);
+    QPushButton *btn = qobject_cast<QPushButton *>(sender());
     QList<QPushButton *> allPButtons = ui->tableWidget->findChildren<QPushButton *>();
 
     int silinecekSatir=-1;
@@ -133,16 +132,17 @@ void calisanekle::satirSil()
     }
     ui->tableWidget->removeRow(silinecekSatir);
 
+    /*
     //eğer tablewidget'ta bir satır varsa sil butonu ve combobo'ı etkisiz olsun
     if(ui->tableWidget->rowCount()==1)
     {
         QPushButton* btn=qobject_cast<QPushButton*>(ui->tableWidget->cellWidget(0,clsSutunSil));
         btn->setEnabled(false);
-
-        QComboBox* cmb=qobject_cast<QComboBox*>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-2,clsSutunKonum));
+        QComboBox* cmb=qobject_cast<QComboBox*>(ui->tableWidget->cellWidget(0,clsSutunKonum));
         cmb->setEnabled(false);
     }
     ////////////////////////
+    */
 }
 
 void calisanekle::takvimiAc(int a, int b)

@@ -153,9 +153,8 @@ void faturaEkle::satirEkle(int a,int b)
 
 //VAROLAN GİRİŞİ SİLİYOR
 void faturaEkle::satirSil()
-{  
-    QObject* obj = sender();
-    QPushButton *btn = qobject_cast<QPushButton *>(obj);
+{
+    QPushButton *btn = qobject_cast<QPushButton *>(sender());
     QList<QPushButton *> allPButtons = ui->tableWidget->findChildren<QPushButton *>();
 
     int silinecekSatir=-1;
@@ -169,16 +168,17 @@ void faturaEkle::satirSil()
     }
     ui->tableWidget->removeRow(silinecekSatir);
 
+    /*
     //eğer tablewidget'ta bir satır varsa sil butonu ve combobo'ı etkisiz olsun
     if(ui->tableWidget->rowCount()==1)
     {
         QPushButton* btn=qobject_cast<QPushButton*>(ui->tableWidget->cellWidget(0,ftrSutunSil));
         btn->setEnabled(false);
-
-        QComboBox* cmb=qobject_cast<QComboBox*>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-2,ftrSutunTur));
+        QComboBox* cmb=qobject_cast<QComboBox*>(ui->tableWidget->cellWidget(0,ftrSutunTur));
         cmb->setEnabled(false);
     }
     ////////////////////////
+    */
 }
 
 //TARİH SUTUNUNA TIKLANDIĞI ZAMAN TAKVİMİ AÇIYOR

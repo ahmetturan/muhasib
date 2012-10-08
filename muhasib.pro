@@ -30,7 +30,9 @@ SOURCES += main.cpp\
     eklefatura.cpp \
     eklehesap.cpp \
     ekledigergelir.cpp \
-    sdigergelir.cpp
+    sdigergelir.cpp \
+    ekledigergider.cpp \
+    sdigergider.cpp
 
 HEADERS  += muhasib.h \
     sfatura.h \
@@ -50,7 +52,9 @@ HEADERS  += muhasib.h \
     eklehesap.h \
     eklemaas.h \
     ekledigergelir.h \
-    sdigergelir.h
+    sdigergelir.h \
+    ekledigergider.h \
+    sdigergider.h
 
 FORMS    += muhasib.ui \
     kistasfatura.ui \
@@ -62,4 +66,5 @@ FORMS    += muhasib.ui \
     eklefatura.ui \
     eklehesap.ui \
     eklemaas.ui \
-    ekledigergelir.ui
+    ekledigergelir.ui \
+    ekledigergider.ui

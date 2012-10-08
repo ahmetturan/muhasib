@@ -12,6 +12,8 @@ degisken::degisken()
     sekmeGiderListele="Giderler";
     sekmeGgd="Gelig/Gider";
     sekmeHesapOzetiListele="Hesap Özeti";
+    sekmeDigerGelirListele="Diğer Gelirler";
+    sekmeDigerGiderListele="Diğer Giderler";
     ///////////////////////////
     //fatura
     ftrSutunSil=0;
@@ -81,7 +83,32 @@ degisken::degisken()
     hspSutunDegisim=7;
     hspSutunKilit=8;
     //////////////////
-
+    //diger gelir
+    dglSutunSil=0;
+    dglSutunDegistir=1;
+    dglSutunTarih=2;
+    dglSutunIsim=3;
+    dglSutunMuhatap=4;
+    dglSutunTutar=5;
+    dglSutunAciklama=6;
+    dglSutunHesap=7;
+    dglSutunKayit=8;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
+    dglSutunDegisim=9;//değiştirilen kayitlari tutmak için
+    dglSutunKilit=10;//kilit açık mı kapalı mı
+    ///////////////////
+    //diger gider
+    dgdSutunSil=0;
+    dgdSutunDegistir=1;
+    dgdSutunTarih=2;
+    dgdSutunIsim=3;
+    dgdSutunMuhatap=4;
+    dgdSutunTutar=5;
+    dgdSutunAciklama=6;
+    dgdSutunHesap=7;
+    dgdSutunKayit=8;//kayit id sini tutuyor veritabanina kayitlimi diye. ikinci defa kaydetmesin.
+    dgdSutunDegisim=9;//değiştirilen kayitlari tutmak için
+    dgdSutunKilit=10;//kilit açık mı kapalı mı
+    ///////////////////
     //hesap özeti
     hoztSutunTarih=0;
     hoztSutunKayitNo=1;
