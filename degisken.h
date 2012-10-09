@@ -8,6 +8,7 @@ class degisken
 public:
     degisken();
     //sekme isimleri
+    QString sekmeBaslangicListele;
     QString sekmeFaturaListele;
     QString sekmeCekListele;
     QString sekmeMaasListele;

@@ -90,7 +90,7 @@ void smaas::maasDegistir2(bool &degisiklikIzle, bool &kaydetVar, QTableWidget* t
         //faturalar sekmesi hariç diğer sekmekel donduruluyor
         for(int i=0;i<tabWidget->count();i++)
         {
-            if(tabWidget->tabText(i)!="Maaşlar")
+            if(tabWidget->tabText(i)!=dgs.sekmeMaasListele)
             {
                 tabWidget->setTabEnabled(i,false);
                 tabWidget->setTabsClosable(false);

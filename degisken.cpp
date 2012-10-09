@@ -3,6 +3,7 @@
 degisken::degisken()
 {
     //sekme
+    sekmeBaslangicListele="Başlangıç";
     sekmeFaturaListele="Faturalar";
     sekmeCekListele="Çekler";
     sekmeMaasListele="Maaşlar";

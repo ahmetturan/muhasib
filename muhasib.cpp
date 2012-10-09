@@ -70,6 +70,7 @@ muhasib::muhasib(QWidget *parent) :
     connect(ui->cbRapor,SIGNAL(currentIndexChanged(int)),this,SLOT(cbRaporDegisti(int)));
     connect(ui->cbHesap,SIGNAL(currentIndexChanged(int)),this,SLOT(cbHesapDegisti(int)));
     connect(ui->cbDiger,SIGNAL(currentIndexChanged(int)),this,SLOT(cbDigerDegisti(int)));
+    connect(ui->tabWidget,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(sekmeSagMenuAc()));
     connect(ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(sekmeKapatildi(int)));
     connect(ui->actionKaydet,SIGNAL(triggered()),this,SLOT(kaydet()));
     connect(ui->actionCikis,SIGNAL(triggered()),this,SLOT(kapat()));
@@ -623,6 +624,35 @@ void muhasib::cbDigerDegisti(int a)
         sekmeDigerGiderAc();
     }
     ui->cbDiger->setCurrentIndex(0);
+}
+
+//SEKMEDE SAĞ TIKLAYINCA MENUYU AÇIYOR
+void muhasib::sekmeSagMenuAc()
+{
+    if(ui->tabWidget->tabText(ui->tabWidget->currentIndex())!=dgs.sekmeBaslangicListele)
+    {
+        QMenu *menu=new QMenu();
+        menu->addAction("Güncelle");
+        QAction *selectedItem = menu->exec(QCursor::pos());
+        if (selectedItem)//menu de seçim yapılırsa
+        {
+            if(selectedItem->text()=="Güncelle")//güncelleye tıklanıyor
+            {
+                QWidget *guncellenecekSekme=ui->tabWidget->currentWidget();
+                int index=ui->tabWidget->currentIndex();
+                QString sekmeBasligi=ui->tabWidget->tabText(index);
+                ui->tabWidget->removeTab(index);
+                if(sekmeBasligi==dgs.sekmeGiderListele)
+                {
+                    sekmeGiderlerAc(index);
+                }
+                ui->tabWidget->insertTab(index,guncellenecekSekme,sekmeBasligi);
+                ui->tabWidget->setCurrentIndex(index);
+            }
+        }
+        else//menu de seçim yapılmaz ise
+        {}
+    }
 }
 
 //SEKMELERİ KAPATMAK İÇİN
@@ -1182,9 +1212,16 @@ void muhasib::sekmeGiderlerAc()
     ui->tabWidget->setCurrentWidget(tbGiderler);
 }
 
+//SAĞ TIK MENUSUNDEKİ GUNCELLE SEÇENEĞİ İÇİN
+void muhasib::sekmeGiderlerAc(int index)
+{
+    srpr.giderleriYukle(ui->tblGiderler, ui->tblFatura, ui->tblCek, ui->tblMaas,ui->tblDigerGider);
+    ui->tabWidget->insertTab(index,tbGiderler,dgs.sekmeGiderListele);
+    ui->tabWidget->setCurrentWidget(tbGiderler);
+}
+
 void muhasib::sekmeHesapOzetiAc()
 {
-    //ui->tabWidget->addTab(tbHesapOzeti,"Hesap Özeti");
     ui->tabWidget->addTab(tbHesapOzeti,dgs.sekmeHesapOzetiListele);
     ui->tabWidget->setCurrentWidget(tbHesapOzeti);
 }
@@ -2297,6 +2334,9 @@ void muhasib::ilkYuklemeBaslangic()
     ui->cbRapor->addItems(QStringList()<<"Rapor"<<"Gelirleri Göster"<<"Giderleri Göster"<<"Gelir/Gider"<<"Hesap Özeti");
     ui->cbHesap->addItems(QStringList()<<"Hesap"<<"Hesap Ekle"<<"Hesapları Listele");
     ui->cbDiger->addItems(QStringList()<<"Diğer"<<"Diğer Gelir Ekle"<<"Diğer Gelirleri Listele"<<"Diğer Gider Ekle"<<"Diğer Giderleri Listele");
+
+    ui->tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);//tabwidget'ta sağ tık menüsü çıkması için
+    ui->tabBaslangic->setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 //ÖNTANIMLI AYARLAR
