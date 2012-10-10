@@ -5,6 +5,7 @@
 #include <QComboBox>
 #include <QDebug>
 #include <QDir>
+#include <QMessageBox>
 
 namespace Ui {
 class hesapekle;
@@ -18,7 +19,7 @@ public:
     explicit hesapekle(QWidget *parent = 0);
     ~hesapekle();
     void ilkYukleme();
-    void ontanimliAyarlar();
+    void ontanimliAyarlar(QStringList mevcutHesaplar);
     QStringList getListeHesap();
     QStringList getListeCbHesapTur();
 
@@ -31,6 +32,7 @@ private:
     Ui::hesapekle *ui;
     QStringList listeHesaplar;
     QStringList listeCbHesapTur;
+    QStringList listeMevcutHesaplar;
     int hspSutunSil;
     int hspSutunIsim;
     int hspSutunBaslangicMeblagi;

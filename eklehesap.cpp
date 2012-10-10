@@ -70,43 +70,57 @@ void hesapekle::satirEkle(int a, int b)
 {
     if(a==ui->tableWidget->rowCount()-1 && ui->tableWidget->item(a,b)->text()!="")//eğer değiştirilen satır son satır ise ve hücre boş bırakılmamışsa
     {
-        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-        QTableWidgetItem *itm1=new QTableWidgetItem();
-        QTableWidgetItem *itm2=new QTableWidgetItem();
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,hspSutunIsim,itm1);
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,hspSutunBaslangicMeblagi,itm2);
-
-        QPushButton *btnSil=new QPushButton();
-        btnSil->setIcon(QIcon(QDir::currentPath()+"/icons/sil.png"));
-        btnSil->setToolTip("Sil");
-        btnSil->setEnabled(false);
-        connect(btnSil,SIGNAL(clicked()),this,SLOT(satirSil()));
-        ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1,hspSutunSil,btnSil);
-
-        QComboBox *cmb=new QComboBox();
-        cmb->addItems(listeCbHesapTur);
-        cmb->setEnabled(false);
-        ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1,hspSutunTur,cmb);
-        ///////////////
-        //ikinci satır eklendikten sonra etkin olmayan tamam düğmesi etkinleşiyor
-        if(ui->btnTamam->isEnabled()==false)
+        if(listeMevcutHesaplar.contains(ui->tableWidget->item(a,hspSutunIsim)->text()))
         {
-            ui->btnTamam->setEnabled(true);
+            QMessageBox::warning(this,"","Bu hesap zaten var","Tamam");
+            ui->tableWidget->item(a,hspSutunIsim)->setText("");
         }
-        ////////////////
-        //son satırdan bir üsteki satırın sil düğmesi ve combobox'u etkinleştiriliyor
-        QPushButton* btn2=qobject_cast<QPushButton*>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-2,hspSutunSil));
-        btn2->setEnabled(true);
+        else if(ui->tableWidget->item(a,hspSutunIsim)->text()=="")
+        {
+            QMessageBox::warning(this,"","Hesap ismi boş olamaz","Tamam");
+        }
+        else
+        {
+            listeMevcutHesaplar.append(ui->tableWidget->item(a,hspSutunIsim)->text());//eklenen hesap ismi bir daha eklenemesin diye
 
-        QComboBox* cmb2=qobject_cast<QComboBox*>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-2,hspSutunTur));
-        cmb2->setEnabled(true);
-        /////////////////
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+            QTableWidgetItem *itm1=new QTableWidgetItem();
+            QTableWidgetItem *itm2=new QTableWidgetItem();
+            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,hspSutunIsim,itm1);
+            ui->tableWidget->setItem(ui->tableWidget->rowCount()-1,hspSutunBaslangicMeblagi,itm2);
 
-        /*
+            QPushButton *btnSil=new QPushButton();
+            btnSil->setIcon(QIcon(QDir::currentPath()+"/icons/sil.png"));
+            btnSil->setToolTip("Sil");
+            btnSil->setEnabled(false);
+            connect(btnSil,SIGNAL(clicked()),this,SLOT(satirSil()));
+            ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1,hspSutunSil,btnSil);
+
+            QComboBox *cmb=new QComboBox();
+            cmb->addItems(listeCbHesapTur);
+            cmb->setEnabled(false);
+            ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1,hspSutunTur,cmb);
+            ///////////////
+            //ikinci satır eklendikten sonra etkin olmayan tamam düğmesi etkinleşiyor
+            if(ui->btnTamam->isEnabled()==false)
+            {
+                ui->btnTamam->setEnabled(true);
+            }
+            ////////////////
+            //son satırdan bir üsteki satırın sil düğmesi ve combobox'u etkinleştiriliyor
+            QPushButton* btn2=qobject_cast<QPushButton*>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-2,hspSutunSil));
+            btn2->setEnabled(true);
+
+            QComboBox* cmb2=qobject_cast<QComboBox*>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-2,hspSutunTur));
+            cmb2->setEnabled(true);
+            /////////////////
+
+            /*
         toplamTutar=ui->lblToplamTutar->text().toDouble();
         toplamTutar=toplamTutar+ui->tableWidget->item(ui->tableWidget->rowCount()-2,ftrSutunTutar)->text().toDouble();
         ui->lblToplamTutar->setText(QString::number(toplamTutar));
         */
+        }
     }
     /*
     if(b==sutunTutar && a<ui->tableWidget->rowCount()-1)
@@ -142,7 +156,7 @@ void hesapekle::ilkYukleme()
 }
 
 //ÖNTANIMLI AYARLARI YÜKLÜYOR(FATURA EKLEME PENCERESİ HER AÇILDIĞINDA)
-void hesapekle::ontanimliAyarlar()
+void hesapekle::ontanimliAyarlar(QStringList mevcutHesaplar)
 {
     ui->tableWidget->setRowCount(0);
     ui->btnTamam->setEnabled(false);
@@ -167,6 +181,8 @@ void hesapekle::ontanimliAyarlar()
     QTableWidgetItem *itm2=new QTableWidgetItem();
     ui->tableWidget->setItem(0,hspSutunIsim,itm1);
     ui->tableWidget->setItem(0,hspSutunBaslangicMeblagi,itm2);
+
+    listeMevcutHesaplar=mevcutHesaplar;
 }
 
 hesapekle::~hesapekle()

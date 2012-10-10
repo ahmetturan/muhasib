@@ -169,6 +169,35 @@ void srapor::ggdMaasYukle(QTableWidget *tblGgd, QTableWidget *tblMaas)
     tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunFark,itm3);
 }
 
+//GGD EKRANINA DİĞER GELİR VE GİDERİ YÜKLÜYOR
+void srapor::ggdDigerYukle(QTableWidget *tblGgd, QTableWidget *tblDigerGelir, QTableWidget *tblDigerGider)
+{
+    double gelirTutar=0;
+    double giderTutar=0;
+    for(int i=0;i<tblDigerGelir->rowCount();i++)
+    {
+        gelirTutar=gelirTutar+tblDigerGelir->item(i,dgs.dglSutunTutar)->text().toDouble();
+    }
+    for(int i=0;i<tblDigerGider->rowCount();i++)
+    {
+        giderTutar=giderTutar+tblDigerGider->item(i,dgs.dgdSutunTutar)->text().toDouble();
+    }
+    tblGgd->insertRow(tblGgd->rowCount());
+    tblGgd->setRowHeight(tblGgd->rowCount()-1,40);
+    QTableWidgetItem *itmTur=new QTableWidgetItem("Diğer");
+    QTableWidgetItem *itmGelir=new QTableWidgetItem(QString::number(gelirTutar));
+    QTableWidgetItem *itmGider=new QTableWidgetItem(QString::number(giderTutar));
+    QTableWidgetItem *itmFark=new QTableWidgetItem(QString::number(gelirTutar-giderTutar));
+    ggdItem(itmTur);
+    ggdItem(itmGelir);
+    ggdItem(itmGider);
+    ggdItem(itmFark);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunTur,itmTur);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGelir,itmGelir);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunGider,itmGider);
+    tblGgd->setItem(tblGgd->rowCount()-1,dgs.ggdSutunFark,itmFark);
+}
+
 //GGD EKRANINA TOPLAMI YUKLUYOR
 void srapor::ggdToplamiYukle(QTableWidget *tblGgd)
 {
@@ -200,11 +229,12 @@ void srapor::ggdToplamiYukle(QTableWidget *tblGgd)
 }
 
 //GGD EKRANINI DOLDURUYOR
-void srapor::ggdYukle(QTableWidget *tblGgd, QTableWidget *tblFatura, QTableWidget *tblMaas)
+void srapor::ggdYukle(QTableWidget *tblGgd, QTableWidget *tblFatura, QTableWidget *tblMaas, QTableWidget *tblGelir, QTableWidget *tblGider)
 {
     tblGgd->setRowCount(0);//önceki girişler siliniyor
-    ggdFaturaYukle(tblGgd,tblFatura);
-    ggdMaasYukle(tblGgd,tblMaas);
+    ggdFaturaYukle(tblGgd, tblFatura);
+    ggdMaasYukle(tblGgd, tblMaas);
+    ggdDigerYukle(tblGgd, tblGelir, tblGider);
     ggdToplamiYukle(tblGgd);
 }
 
@@ -259,6 +289,62 @@ void srapor::hesapOzetiRaporlaMaas(QTableWidget *tblMaas, QTableWidget *tblHesap
             QTableWidgetItem *itmIsim=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunCalisan)->text()+" ("+tblMaas->item(i,dgs.msSutunTur)->text()+")");
             QTableWidgetItem *itmTur=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunTur)->text());
             QTableWidgetItem *itmTutar=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunMaas)->text());
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunTarih,itmTarih);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunKayitNo,itmKayitNo);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunIsim,itmIsim);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunGG,itmTur);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunTutar,itmTutar);
+            itmTarih->setFlags(Qt::ItemIsEnabled);//salt okunur hücreler
+            itmKayitNo->setFlags(Qt::ItemIsEnabled);
+            itmIsim->setFlags(Qt::ItemIsEnabled);
+            itmTur->setFlags(Qt::ItemIsEnabled);
+            itmTutar->setFlags(Qt::ItemIsEnabled);
+        }
+    }
+}
+
+void srapor::hesapOzetiRaporlaDigerGelir(QTableWidget *tblDigerGelir, QTableWidget *tblHesapOzeti, QComboBox *cbHesapOzeti)
+{
+    for(int i=0;i<tblDigerGelir->rowCount();i++)
+    {
+        if(tblDigerGelir->item(i,dgs.dglSutunHesap)->text()==cbHesapOzeti->currentText())
+        {
+            tblHesapOzeti->insertRow(tblHesapOzeti->rowCount());
+
+            QTableWidgetItem *itmTarih=new QTableWidgetItem(tblDigerGelir->item(i,dgs.dglSutunTarih)->text());
+            //QTableWidgetItem *itmKayitNo=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunKayitNo)->text());
+            QTableWidgetItem *itmKayitNo=new QTableWidgetItem("1");
+            QTableWidgetItem *itmIsim=new QTableWidgetItem(tblDigerGelir->item(i,dgs.dglSutunIsim)->text());
+            QTableWidgetItem *itmTur=new QTableWidgetItem("Diğer Gider");
+            QTableWidgetItem *itmTutar=new QTableWidgetItem(tblDigerGelir->item(i,dgs.dglSutunTutar)->text());
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunTarih,itmTarih);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunKayitNo,itmKayitNo);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunIsim,itmIsim);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunGG,itmTur);
+            tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunTutar,itmTutar);
+            itmTarih->setFlags(Qt::ItemIsEnabled);//salt okunur hücreler
+            itmKayitNo->setFlags(Qt::ItemIsEnabled);
+            itmIsim->setFlags(Qt::ItemIsEnabled);
+            itmTur->setFlags(Qt::ItemIsEnabled);
+            itmTutar->setFlags(Qt::ItemIsEnabled);
+        }
+    }
+}
+
+void srapor::hesapOzetiRaporlaDigerGider(QTableWidget *tblDigerGider, QTableWidget *tblHesapOzeti, QComboBox *cbHesapOzeti)
+{
+    for(int i=0;i<tblDigerGider->rowCount();i++)
+    {
+        if(tblDigerGider->item(i,dgs.dgdSutunHesap)->text()==cbHesapOzeti->currentText())
+        {
+            tblHesapOzeti->insertRow(tblHesapOzeti->rowCount());
+
+            QTableWidgetItem *itmTarih=new QTableWidgetItem(tblDigerGider->item(i,dgs.dgdSutunTarih)->text());
+            //QTableWidgetItem *itmKayitNo=new QTableWidgetItem(tblMaas->item(i,dgs.msSutunKayitNo)->text());
+            QTableWidgetItem *itmKayitNo=new QTableWidgetItem("1");
+            QTableWidgetItem *itmIsim=new QTableWidgetItem(tblDigerGider->item(i,dgs.dgdSutunIsim)->text());
+            QTableWidgetItem *itmTur=new QTableWidgetItem("Diğer Gider");
+            QTableWidgetItem *itmTutar=new QTableWidgetItem(tblDigerGider->item(i,dgs.dgdSutunTutar)->text());
             tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunTarih,itmTarih);
             tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunKayitNo,itmKayitNo);
             tblHesapOzeti->setItem(tblHesapOzeti->rowCount()-1,dgs.hoztSutunIsim,itmIsim);

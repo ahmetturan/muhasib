@@ -61,8 +61,6 @@ public:
     QStringList getListeHesap();
     QStringList getListeCalisan();
 
-    QTabBar getCurrentTabBar();
-
 public slots:
     //fatura fonksiyonları
     void yeniFaturaEkle();
@@ -121,9 +119,11 @@ public slots:
     /////////////////////////////
     //rapor fonksiyonları
     void sekmeGelirlerAc();
+    void sekmeGelirlerAc(int);
     void sekmeGiderlerAc();
     void sekmeGiderlerAc(int);
     void sekmeGgdAc();
+    void sekmeGgdAc(int);
     void sekmeHesapOzetiAc();
     void hesapOzetiRaporla(int a);
     ////////////////////////

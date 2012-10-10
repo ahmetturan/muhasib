@@ -1,27 +1,13 @@
 #include "shesap.h"
-#include <QDebug>
 
 shesap::shesap()
 {}
 
-void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget *tblHesap, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj)
+void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar,QTableWidget *tblFatura, QTableWidget *tblHesap, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
     QPushButton *btn = qobject_cast<QPushButton *>(obj);
-    /*
-    QList<QPushButton *> allPButtons = tblHesap->findChildren<QPushButton *>();
-    int degisecekSatir=-1;
-    for(int i=0;i<allPButtons.count();i++)
-    {
-        if(allPButtons.at(i)==btn)
-        {
-            btnDegistir=btn;
-            degisecekSatir=(i-1)/2;
-            break;
-        }
-    }
-    */
     //degisecek satiri bulunuyor
     int degisecekSatir=-1;
     for(int i=0;i<tblHesap->rowCount();i++)
@@ -33,14 +19,21 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget 
             break;
         }
     }
-    //////////////////7
+    //////////////////
     if(tblHesap->item(degisecekSatir,dgs.hspSutunKilit)->text()=="0")
     {
+        //aynı hesap ismi kullanılamasın diye mevcut hesapları liste ye atıyor
+        for(int i=0;i<tblHesap->rowCount();i++)
+        {
+            listeMevcutHesaplar.append(tblHesap->item(i,dgs.hspSutunIsim)->text());
+        }
+        listeMevcutHesaplar.removeOne(tblHesap->item(degisecekSatir,dgs.hspSutunIsim)->text());//eğer isimde değişiklik yapmadan kilidi kapatırsa
+        //////////////////////////////////////
+        degisenHesap=tblHesap->item(degisecekSatir,dgs.hspSutunIsim)->text();
         kilidiAcikSatirSayisi=kilidiAcikSatirSayisi+1;
-        //faturalar sekmesi hariç diğer sekmekel donduruluyor
+        //hesaplar sekmesi hariç diğer sekmeler donduruluyor
         for(int i=0;i<tabWidget->count();i++)
         {
-            //if(tabWidget->tabText(i)!="Faturalar")
             if(tabWidget->tabText(i)!=dgs.sekmeHesapListele)
             {
                 tabWidget->setTabEnabled(i,false);
@@ -73,40 +66,68 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWidget 
     }
     else
     {
-        kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
-        //dondurulmuş sekmeler açılıyor
-        if(kilidiAcikSatirSayisi==0)
+        if(listeMevcutHesaplar.contains(tblHesap->item(degisecekSatir,dgs.hspSutunIsim)->text()))
         {
-            for(int i=0;i<tabWidget->count();i++)
+            QMessageBox::warning(0,"","Bu hesap zaten var","Tamam");
+        }
+        else if(tblHesap->item(degisecekSatir,dgs.hspSutunIsim)->text()=="")
+        {
+            QMessageBox::warning(0,"","Hesap ismi girilmedi","Tamam");
+        }
+        else
+        {
+            yeniHesap=tblHesap->item(degisecekSatir,dgs.hspSutunIsim)->text();
+            kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
+            //dondurulmuş sekmeler açılıyor
+            if(kilidiAcikSatirSayisi==0)
             {
-                //if(tabWidget->tabText(i)!="Faturalar")
-                if(tabWidget->tabText(i)!=dgs.sekmeHesapListele)
+                for(int i=0;i<tabWidget->count();i++)
                 {
-                    tabWidget->setTabEnabled(i,true);
-                    tabWidget->setTabsClosable(true);
+                    if(tabWidget->tabText(i)!=dgs.sekmeHesapListele)
+                    {
+                        tabWidget->setTabEnabled(i,true);
+                        tabWidget->setTabsClosable(true);
+                    }
+                }
+            }
+            //////////////////////////////////////////////////////77
+            btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitkapali.png"));
+
+            for(int i=2;i<tblHesap->columnCount()-4;i++)//tür sütununa girmesin
+            {
+                QTableWidgetItem *itm = tblHesap->item(degisecekSatir, i);
+                itm->setFlags(Qt::ItemIsEnabled);
+                itm->setBackgroundColor(QColor(Qt::white));
+            }
+            //tür sütunundaki combobox kaldırılıyor
+            QComboBox *cmb=qobject_cast<QComboBox *>(tblHesap->cellWidget(degisecekSatir,dgs.hspSutunTur));
+            QString HesaplarTuru=cmb->currentText();
+            tblHesap->removeCellWidget(degisecekSatir,dgs.hspSutunTur);
+            QTableWidgetItem *itm=new QTableWidgetItem();
+            itm->setText(HesaplarTuru);
+            tblHesap->setItem(degisecekSatir,dgs.hspSutunTur,itm);
+            /////////////////////////////////////////
+            tblHesap->item(degisecekSatir,dgs.hspSutunKilit)->setText("0");//kilit kapatıldığı için
+            listeMevcutHesaplar.clear();//kilit bir sonraki açılışında listeyi yeniden dolduracak
+
+            if(degisenHesap!=yeniHesap)
+            {
+                for(int i=0;i<tblFatura->rowCount();i++)
+                {
+                    if(tblFatura->item(i,dgs.ftrSutunHesap)->text()==degisenHesap)
+                    {
+                        tblFatura->item(i,dgs.ftrSutunHesap)->setText(yeniHesap);
+                        tblFatura->item(i,dgs.ftrSutunDegisim)->setText("1");
+                    }
                 }
             }
         }
-        //////////////////////////////////////////////////////77
-        btnDegistir->setIcon(QIcon(QDir::currentPath()+"/icons/kilitkapali.png"));
-
-        for(int i=2;i<tblHesap->columnCount()-4;i++)//tür sütununa girmesin
-        {
-            QTableWidgetItem *itm = tblHesap->item(degisecekSatir, i);
-            itm->setFlags(Qt::ItemIsEnabled);
-            itm->setBackgroundColor(QColor(Qt::white));
-        }
-        //tür sütunundaki combobox kaldırılıyor
-        QComboBox *cmb=qobject_cast<QComboBox *>(tblHesap->cellWidget(degisecekSatir,dgs.hspSutunTur));
-        QString HesaplarTuru=cmb->currentText();
-        tblHesap->removeCellWidget(degisecekSatir,dgs.hspSutunTur);
-        QTableWidgetItem *itm=new QTableWidgetItem();
-        itm->setText(HesaplarTuru);
-        tblHesap->setItem(degisecekSatir,dgs.hspSutunTur,itm);
-        /////////////////////////////////////////
-        //kilitAcik=false;
-        tblHesap->item(degisecekSatir,dgs.hspSutunKilit)->setText("0");//kilit kapatıldığı için
     }
+}
+
+void shesap::deneme()
+{
+    qDebug()<<"121";
 }
 
 void shesap::hesapKaydet2(QStringList &listSilinenHesap,QTableWidget* tblHesap)

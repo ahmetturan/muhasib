@@ -11,7 +11,7 @@ degisken::degisken()
     sekmeCalisanListele="Çalışanlar";
     sekmeGelirListele="Gelirler";
     sekmeGiderListele="Giderler";
-    sekmeGgd="Gelig/Gider";
+    sekmeGgd="Gelir/Gider";
     sekmeHesapOzetiListele="Hesap Özeti";
     sekmeDigerGelirListele="Diğer Gelirler";
     sekmeDigerGiderListele="Diğer Giderler";
@@ -135,5 +135,8 @@ degisken::degisken()
     ggdSutunGider=2;
     ggdSutunFark=3;
     //////////////////
+    //sağ tık menusu
+    stmGuncelle="Güncelle";
+    ///////////////////
 }
 

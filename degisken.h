@@ -140,6 +140,9 @@ public:
     int ggdSutunGider;
     int ggdSutunFark;
     /////////////////////
+    //sağ tık menüsü
+    QString stmGuncelle;
+    ////////////////////
 };
 
 #endif // DEGISKEN_H

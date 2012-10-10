@@ -51,10 +51,12 @@ muhasib::muhasib(QWidget *parent) :
     //diger gelir bağlantıları
     connect(ui->actionDigerGelirEkle,SIGNAL(triggered()),this,SLOT(yeniDigerGelirEkle()));
     connect(ui->actionDigerGelirListele,SIGNAL(triggered()),this,SLOT(sekmeDigerGelirAc()));
+    connect(ui->btnDigerGelirEkle,SIGNAL(clicked()),this,SLOT(yeniDigerGelirEkle()));
     ////////////////////////////
     //diger gider bağlantıları
     connect(ui->actionDigerGiderEkle,SIGNAL(triggered()),this,SLOT(yeniDigerGiderEkle()));
     connect(ui->actionDigerGiderListele,SIGNAL(triggered()),this,SLOT(sekmeDigerGiderAc()));
+    connect(ui->btnDigerGiderEkle,SIGNAL(clicked()),this,SLOT(yeniDigerGiderEkle()));
     ////////////////////////////
     //rapor bağlantıları
     connect(ui->actionGelirler,SIGNAL(triggered()),this,SLOT(sekmeGelirlerAc()));
@@ -632,11 +634,13 @@ void muhasib::sekmeSagMenuAc()
     if(ui->tabWidget->tabText(ui->tabWidget->currentIndex())!=dgs.sekmeBaslangicListele)
     {
         QMenu *menu=new QMenu();
-        menu->addAction("Güncelle");
+        //menu->addAction("Güncelle");
+        menu->addAction(dgs.stmGuncelle);
         QAction *selectedItem = menu->exec(QCursor::pos());
         if (selectedItem)//menu de seçim yapılırsa
         {
-            if(selectedItem->text()=="Güncelle")//güncelleye tıklanıyor
+            //if(selectedItem->text()=="Güncelle")//güncelleye tıklanıyor
+            if(selectedItem->text()==dgs.stmGuncelle)
             {
                 QWidget *guncellenecekSekme=ui->tabWidget->currentWidget();
                 int index=ui->tabWidget->currentIndex();
@@ -645,6 +649,14 @@ void muhasib::sekmeSagMenuAc()
                 if(sekmeBasligi==dgs.sekmeGiderListele)
                 {
                     sekmeGiderlerAc(index);
+                }
+                else if(sekmeBasligi==dgs.sekmeGelirListele)
+                {
+                    sekmeGelirlerAc(index);
+                }
+                else if(sekmeBasligi==dgs.sekmeGgd)
+                {
+                    sekmeGgdAc(index);
                 }
                 ui->tabWidget->insertTab(index,guncellenecekSekme,sekmeBasligi);
                 ui->tabWidget->setCurrentIndex(index);
@@ -1072,6 +1084,8 @@ void muhasib::hesapOzetiRaporla(int a)
     {
         srpr.hesapOzetiRaporlaFatura(ui->tblFatura, ui->tblHesapOzeti, ui->cbHesapOzeti);
         srpr.hesapOzetiRaporlaMaas(ui->tblMaas, ui->tblHesapOzeti, ui->cbHesapOzeti);
+        srpr.hesapOzetiRaporlaDigerGelir(ui->tblDigerGelir, ui->tblHesapOzeti, ui->cbHesapOzeti);
+        srpr.hesapOzetiRaporlaDigerGider(ui->tblDigerGider, ui->tblHesapOzeti, ui->cbHesapOzeti);
     }
 }
 
@@ -1085,8 +1099,15 @@ void muhasib::sekmeHesapAc()
 void muhasib::yeniHesapEkle()
 {
     degisiklikIzle=false;
+    //aynı hesap ismi kullanılamasın dşye mevcut hesapları liste ye atıyor
+    QStringList listeMevcutHesaplar;
+    for(int i=0;i<ui->tblHesap->rowCount();i++)
+    {
+        listeMevcutHesaplar.append(ui->tblHesap->item(i,dgs.hspSutunIsim)->text());
+    }
+    //////////////////////////////////////
     form_hesapEkle.setWindowFlags(Qt::Window);//hesap ekleme penceresinin köşesindeki 3 düğmenin gösterilmesi için
-    form_hesapEkle.ontanimliAyarlar();
+    form_hesapEkle.ontanimliAyarlar(listeMevcutHesaplar);
     this->setEnabled(false);//ana pencere etkisizleştiriliyor
     form_hesapEkle.exec();
     QStringList listeHesaplar=form_hesapEkle.getListeHesap();
@@ -1154,13 +1175,21 @@ void muhasib::hesapSil()
 
 void muhasib::hesapDegistir()
 {
-    shsp.hesapDegistir2(degisiklikIzle, kaydetVar, ui->tblHesap, ui->tabWidget, kilidiAcikSatirSayisi, sender());
+    shsp.hesapDegistir2(degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, ui->tabWidget, kilidiAcikSatirSayisi, sender());
 }
 
 void muhasib::sekmeGgdAc()
 {
-    srpr.ggdYukle(ui->tblGgd, ui->tblFatura, ui->tblMaas);
+    srpr.ggdYukle(ui->tblGgd, ui->tblFatura, ui->tblMaas, ui->tblDigerGelir, ui->tblDigerGider);
     ui->tabWidget->addTab(tbGgd,dgs.sekmeGgd);
+    ui->tabWidget->setCurrentWidget(tbGgd);
+}
+
+//SAĞ TIK MENUSUNDEKİ GUNCELLE SEÇENEĞİ İÇİN
+void muhasib::sekmeGgdAc(int index)
+{
+    srpr.ggdYukle(ui->tblGgd, ui->tblFatura, ui->tblMaas, ui->tblDigerGelir, ui->tblDigerGider);
+    ui->tabWidget->insertTab(index,tbGgd,dgs.sekmeGgd);
     ui->tabWidget->setCurrentWidget(tbGgd);
 }
 
@@ -1205,10 +1234,18 @@ void muhasib::sekmeGelirlerAc()
     ui->tabWidget->setCurrentWidget(tbGelirler);
 }
 
+//SAĞ TIK MENUSUNDEKİ GUNCELLE SEÇENEĞİ İÇİN
+void muhasib::sekmeGelirlerAc(int index)
+{
+    srpr.gelirleriYukle(ui->tblGelirler,ui->tblFatura,ui->tblCek,ui->tblDigerGelir);
+    ui->tabWidget->insertTab(index, tbGelirler, dgs.sekmeGelirListele);
+    ui->tabWidget->setCurrentWidget(tbGelirler);
+}
+
 void muhasib::sekmeGiderlerAc()
 {
     srpr.giderleriYukle(ui->tblGiderler, ui->tblFatura, ui->tblCek, ui->tblMaas,ui->tblDigerGider);
-    ui->tabWidget->addTab(tbGiderler,dgs.sekmeGiderListele);
+    ui->tabWidget->addTab(tbGiderler, dgs.sekmeGiderListele);
     ui->tabWidget->setCurrentWidget(tbGiderler);
 }
 
@@ -1216,13 +1253,13 @@ void muhasib::sekmeGiderlerAc()
 void muhasib::sekmeGiderlerAc(int index)
 {
     srpr.giderleriYukle(ui->tblGiderler, ui->tblFatura, ui->tblCek, ui->tblMaas,ui->tblDigerGider);
-    ui->tabWidget->insertTab(index,tbGiderler,dgs.sekmeGiderListele);
+    ui->tabWidget->insertTab(index, tbGiderler, dgs.sekmeGiderListele);
     ui->tabWidget->setCurrentWidget(tbGiderler);
 }
 
 void muhasib::sekmeHesapOzetiAc()
 {
-    ui->tabWidget->addTab(tbHesapOzeti,dgs.sekmeHesapOzetiListele);
+    ui->tabWidget->addTab(tbHesapOzeti, dgs.sekmeHesapOzetiListele);
     ui->tabWidget->setCurrentWidget(tbHesapOzeti);
 }
 
