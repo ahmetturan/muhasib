@@ -11,6 +11,17 @@ hesapekle::hesapekle(QWidget *parent) :
     ilkYukleme();
 }
 
+void hesapekle::closeEvent(QCloseEvent *event)
+{
+    kapat();
+    event->accept();
+}
+
+void hesapekle::kapat()
+{
+    close();
+}
+
 QStringList hesapekle::getListeCbHesapTur()
 {
     return listeCbHesapTur;

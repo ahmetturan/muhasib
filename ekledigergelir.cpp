@@ -14,6 +14,12 @@ ekledigergelir::ekledigergelir(QWidget *parent) :
     ilkYukleme();
 }
 
+void ekledigergelir::closeEvent(QCloseEvent *event)
+{
+    kapat();
+    event->accept();
+}
+
 QStringList ekledigergelir::getListeDigerGelir()
 {
     return listeDigerGelir;

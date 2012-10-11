@@ -6,6 +6,7 @@
 #include <QComboBox>
 #include <QCalendarWidget>
 #include <QDebug>
+#include <QCloseEvent>
 
 namespace Ui {
 class maasekle;
@@ -26,6 +27,7 @@ public:
     void setListeCalisanlar(QStringList list);
     QStringList getListeCbMaasTur();
     void setListeHesap(QStringList list);
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void tamam();

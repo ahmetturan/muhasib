@@ -1175,7 +1175,7 @@ void muhasib::hesapSil()
 
 void muhasib::hesapDegistir()
 {
-    shsp.hesapDegistir2(degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, ui->tabWidget, kilidiAcikSatirSayisi, sender());
+    shsp.hesapDegistir2(degisiklikIzle, kaydetVar, ui->tblFatura, ui->tblHesap, ui->tblDigerGelir, ui->tblDigerGider, ui->tblMaas, ui->tabWidget, kilidiAcikSatirSayisi, sender());
 }
 
 void muhasib::sekmeGgdAc()

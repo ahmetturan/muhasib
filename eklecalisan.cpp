@@ -16,6 +16,12 @@ calisanekle::calisanekle(QWidget *parent) :
     ilkYukleme();
 }
 
+void calisanekle::closeEvent(QCloseEvent *event)
+{
+    kapat();
+    event->accept();
+}
+
 QStringList calisanekle::getListeCbCalisanTur()
 {
     return listeCbCalisanTur;

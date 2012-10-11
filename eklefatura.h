@@ -6,6 +6,7 @@
 #include <QCalendarWidget>
 #include <QTextCodec>
 #include <QComboBox>
+#include <QCloseEvent>
 #include <QDir>
 
 namespace Ui {
@@ -26,6 +27,7 @@ public:
     double getToplamTutar();
     QStringList getListeCbFaturaTur();
     void setListeHesap(QStringList);
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void kapat();

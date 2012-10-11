@@ -5,6 +5,7 @@
 #include <QCalendarWidget>
 #include <QDir>
 #include <QComboBox>
+#include <QCloseEvent>
 #include <QDebug>
 
 namespace Ui {
@@ -24,6 +25,7 @@ public:
     void setListeHesap(QStringList list);
     double getToplamTutar();
     void takvimAcikIseKapat();
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void tamam();

@@ -14,6 +14,12 @@ kistasfatura::kistasfatura(QWidget *parent) :
     ilkYukleme();
 }
 
+void kistasfatura::closeEvent(QCloseEvent *event)
+{
+    iptal();
+    event->accept();
+}
+
 QDate kistasfatura::getBaslangicTarih()
 {
     return ui->dtBaslangic->date();

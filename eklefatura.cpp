@@ -17,6 +17,12 @@ faturaEkle::faturaEkle(QWidget *parent) :
     ilkYukleme();
 }
 
+void faturaEkle::closeEvent(QCloseEvent *event)
+{
+    kapat();
+    event->accept();
+}
+
 QStringList faturaEkle::getListeCbFaturaTur()
 {
     return listeCbFaturaTur;

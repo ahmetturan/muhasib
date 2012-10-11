@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QMessageBox>
+#include <QCloseEvent>
 
 namespace Ui {
 class hesapekle;
@@ -22,9 +23,11 @@ public:
     void ontanimliAyarlar(QStringList mevcutHesaplar);
     QStringList getListeHesap();
     QStringList getListeCbHesapTur();
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void tamam();
+    void kapat();
     void satirSil();
     void satirEkle(int, int);
     

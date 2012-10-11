@@ -14,6 +14,12 @@ maasekle::maasekle(QWidget *parent) :
     ilkYukleme();
 }
 
+void maasekle::closeEvent(QCloseEvent *event)
+{
+    kapat();
+    event->accept();
+}
+
 QStringList maasekle::getListeCbMaasTur()
 {
     return listeCbMaasTur;

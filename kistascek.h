@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QDate>
 #include <QMessageBox>
+#include <QCloseEvent>
 
 namespace Ui {
 class kistasCek;
@@ -24,6 +25,7 @@ public:
     bool getTurEtkinMi();
     bool getTarihEtkinMi();
     void ontanimliAyarlar();
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void tamam();

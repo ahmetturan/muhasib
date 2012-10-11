@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QDate>
-//#include <QCalendarWidget>
+#include <QCloseEvent>
 #include <QMessageBox>
 
 namespace Ui {
@@ -25,6 +25,7 @@ public:
     bool getTurEtkinMi();
     bool getTarihEtkinMi();
     void ontanimliAyarlar();
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void tamam();

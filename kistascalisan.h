@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QDate>
+#include <QCloseEvent>
 #include <QMessageBox>
 
 namespace Ui {
@@ -27,6 +28,7 @@ public:
     void ontanimliAyarlar();
     int getBaslangicMaas();
     int getBitisMaas();
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void tamam();

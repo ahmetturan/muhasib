@@ -14,6 +14,12 @@ kistascalisan::kistascalisan(QWidget *parent) :
     ilkYukleme();
 }
 
+void kistascalisan::closeEvent(QCloseEvent *event)
+{
+    iptal();
+    event->accept();
+}
+
 QDate kistascalisan::getBaslangicTarih()
 {
     return ui->dtBaslangic->date();

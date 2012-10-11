@@ -3,7 +3,7 @@
 shesap::shesap()
 {}
 
-void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar,QTableWidget *tblFatura, QTableWidget *tblHesap, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj)
+void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar,QTableWidget *tblFatura, QTableWidget *tblHesap, QTableWidget *tblDigerGelir, QTableWidget *tblDigerGider, QTableWidget *tblMaas, QTabWidget* tabWidget, int &kilidiAcikSatirSayisi, QObject *obj)
 {
     degisiklikIzle=false;
     QPushButton *btnDegistir=new QPushButton();
@@ -30,6 +30,7 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar,QTableWidget *
         listeMevcutHesaplar.removeOne(tblHesap->item(degisecekSatir,dgs.hspSutunIsim)->text());//eğer isimde değişiklik yapmadan kilidi kapatırsa
         //////////////////////////////////////
         degisenHesap=tblHesap->item(degisecekSatir,dgs.hspSutunIsim)->text();
+        degisenBaslangicMeblagi=tblHesap->item(degisecekSatir,dgs.hspSutunBaslangicMeblagi)->text().toDouble();
         kilidiAcikSatirSayisi=kilidiAcikSatirSayisi+1;
         //hesaplar sekmesi hariç diğer sekmeler donduruluyor
         for(int i=0;i<tabWidget->count();i++)
@@ -77,6 +78,7 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar,QTableWidget *
         else
         {
             yeniHesap=tblHesap->item(degisecekSatir,dgs.hspSutunIsim)->text();
+            yeniBaslangicMeblagi=tblHesap->item(degisecekSatir,dgs.hspSutunBaslangicMeblagi)->text().toDouble();
             kilidiAcikSatirSayisi=kilidiAcikSatirSayisi-1;
             //dondurulmuş sekmeler açılıyor
             if(kilidiAcikSatirSayisi==0)
@@ -110,6 +112,12 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar,QTableWidget *
             tblHesap->item(degisecekSatir,dgs.hspSutunKilit)->setText("0");//kilit kapatıldığı için
             listeMevcutHesaplar.clear();//kilit bir sonraki açılışında listeyi yeniden dolduracak
 
+            if(degisenBaslangicMeblagi!=yeniBaslangicMeblagi)
+            {
+                double yeniGuncelMeblag= tblHesap->item(degisecekSatir,dgs.hspSutunGuncelMeblag)->text().toDouble()+yeniBaslangicMeblagi-degisenBaslangicMeblagi;
+                tblHesap->item(degisecekSatir,dgs.hspSutunGuncelMeblag)->setText(QString::number(yeniGuncelMeblag));
+            }
+
             if(degisenHesap!=yeniHesap)
             {
                 for(int i=0;i<tblFatura->rowCount();i++)
@@ -120,14 +128,33 @@ void shesap::hesapDegistir2(bool& degisiklikIzle, bool &kaydetVar,QTableWidget *
                         tblFatura->item(i,dgs.ftrSutunDegisim)->setText("1");
                     }
                 }
+                for(int i=0;i<tblMaas->rowCount();i++)
+                {
+                    if(tblMaas->item(i,dgs.msSutunHesap)->text()==degisenHesap)
+                    {
+                        tblMaas->item(i,dgs.msSutunHesap)->setText(yeniHesap);
+                        tblMaas->item(i,dgs.msSutunDegisim)->setText("1");
+                    }
+                }
+                for(int i=0;i<tblDigerGelir->rowCount();i++)
+                {
+                    if(tblDigerGelir->item(i,dgs.dglSutunHesap)->text()==degisenHesap)
+                    {
+                        tblDigerGelir->item(i,dgs.dglSutunHesap)->setText(yeniHesap);
+                        tblDigerGelir->item(i,dgs.dglSutunDegisim)->setText("1");
+                    }
+                }
+                for(int i=0;i<tblDigerGider->rowCount();i++)
+                {
+                    if(tblDigerGider->item(i,dgs.dgdSutunHesap)->text()==degisenHesap)
+                    {
+                        tblDigerGider->item(i,dgs.dgdSutunHesap)->setText(yeniHesap);
+                        tblDigerGider->item(i,dgs.dgdSutunDegisim)->setText("1");
+                    }
+                }
             }
         }
     }
-}
-
-void shesap::deneme()
-{
-    qDebug()<<"121";
 }
 
 void shesap::hesapKaydet2(QStringList &listSilinenHesap,QTableWidget* tblHesap)

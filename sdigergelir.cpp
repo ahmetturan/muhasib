@@ -213,9 +213,9 @@ void sdigergelir::ilkYukleme(QTableWidget* tblDigerGelir, QWidget* tabDigerGelir
     tblDigerGelir->horizontalHeader()->setResizeMode(dgs.dglSutunDegistir,QHeaderView::Custom);
     tblDigerGelir->horizontalHeader()->resizeSection(dgs.dglSutunDegistir, 32);
 
-    //tblDigerGelir->hideColumn(dgs.dglSutunKayit);
-    //tblDigerGelir->hideColumn(dgs.dglSutunDegisim);
-    //tblDigerGelir->hideColumn(dgs.dglSutunKilit);
+    tblDigerGelir->hideColumn(dgs.dglSutunKayit);
+    tblDigerGelir->hideColumn(dgs.dglSutunDegisim);
+    tblDigerGelir->hideColumn(dgs.dglSutunKilit);
 
     tbDigerGelir=qobject_cast<QWidget *>(tabDigerGelir);//tabHesaplar qwidget'a dönüştürülüyor
     tabWidget->removeTab(tabWidget->indexOf(tbDigerGelir));//tabHesaplar kapatılıyor

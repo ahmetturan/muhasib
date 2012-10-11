@@ -13,6 +13,12 @@ kistasmaas::kistasmaas(QWidget *parent) :
     ilkYukleme();
 }
 
+void kistasmaas::closeEvent(QCloseEvent *event)
+{
+    iptal();
+    event->accept();
+}
+
 QDate kistasmaas::getBaslangicTarih()
 {
     return ui->dtBaslangic->date();

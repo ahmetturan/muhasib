@@ -14,6 +14,12 @@ cekekle::cekekle(QWidget *parent) :
     ilkYukleme();
 }
 
+void cekekle::closeEvent(QCloseEvent *event)
+{
+    kapat();
+    event->accept();
+}
+
 QStringList cekekle::getListeCbCekTur()
 {
     return listeCbCekTur;
