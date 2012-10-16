@@ -22,11 +22,6 @@ void calisanekle::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-QStringList calisanekle::getListeCbCalisanTur()
-{
-    return listeCbCalisanTur;
-}
-
 void calisanekle::tamam()
 {
     for(int i=0;i<ui->tableWidget->rowCount()-1;i++)//son satır sürekli boş olduğu için son satırı gözardı ediyoruz
@@ -53,6 +48,40 @@ void calisanekle::kapat()
     close();
     toplamTutar=0;
 }
+
+/*
+QStringList calisanekle::getListeCbCalisanTur()
+{
+    return listeCbCalisanTur;
+}
+*/
+
+//ÇALIŞAN KONUMLARINI DONDURUYOR
+QStringList calisanekle::getListeCalisanKonum()
+{
+    QStringList listeCalisanKonum;
+    QSqlQuery query;
+    query.exec("select clk_isim from calisankonum");
+    while(query.next())
+    {
+        listeCalisanKonum.append(query.value(0).toString());
+    }
+    return listeCalisanKonum;
+}
+
+/*
+QStringList calisanekle::getListeCalisanKonum()
+{
+    return listeCalisanKonum;
+}
+*/
+
+/*
+void calisanekle::setListeCalisanKonum(QStringList list)
+{
+    listeCalisanKonum=list;
+}
+*/
 
 QStringList calisanekle::getListeCalisan()
 {
@@ -87,7 +116,8 @@ void calisanekle::satirEkle(int a,int b)
         ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1,clsSutunSil,btnSil);
 
         QComboBox *cmbKonum=new QComboBox();
-        cmbKonum->addItems(listeCbCalisanTur);
+        //cmbKonum->addItems(listeCbCalisanTur);
+        cmbKonum->addItems(getListeCalisanKonum());
         cmbKonum->setEnabled(false);
         ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1,clsSutunKonum,cmbKonum);
 
@@ -216,7 +246,7 @@ void calisanekle::ilkYukleme()
     this->setWindowTitle("Çalışan Ekle");
     cal=new QCalendarWidget();
 
-    listeCbCalisanTur<<"İşçi"<<"Şef"<<"Müdür";
+    //listeCbCalisanTur<<"İşçi"<<"Şef"<<"Müdür";
 }
 
 //ÖNTANIMLI AYARLARI YÜKLÜYOR(FATURA EKLEME PENCERESİ HER AÇILDIĞINDA)
@@ -232,6 +262,7 @@ void calisanekle::ontanimliAyarlar()
 
     //fatura ekleme ekranı açılınca tablewidget'a ilk satırı ekliyor
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+
     QPushButton *btnSil=new QPushButton();
     btnSil->setIcon(QIcon(QDir::currentPath()+"/icons/sil.png"));
     btnSil->setToolTip("Sil");
@@ -240,7 +271,8 @@ void calisanekle::ontanimliAyarlar()
     ui->tableWidget->setCellWidget(0,clsSutunSil,btnSil);
 
     QComboBox *cmb=new QComboBox();
-    cmb->addItems(listeCbCalisanTur);
+    //cmb->addItems(listeCbCalisanTur);
+    cmb->addItems(getListeCalisanKonum());
     cmb->setEnabled(false);
     ui->tableWidget->setCellWidget(0,clsSutunKonum,cmb);
 

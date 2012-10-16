@@ -42,6 +42,7 @@ muhasib::muhasib(QWidget *parent) :
     connect(ui->actionCalisanEkle,SIGNAL(triggered()),this,SLOT(yeniCalisanEkle()));
     connect(ui->actionCalisanListele,SIGNAL(triggered()),this,SLOT(sekmeCalisanAc()));
     connect(ui->btnKistasCalisan,SIGNAL(clicked()),this,SLOT(kistasCalisanAc()));
+    connect(ui->actionCalisanKonumlar,SIGNAL(triggered()),this,SLOT(yeniCalisanKonumEkle()));
     /////////////////////////
     //hesap bağlantıları
     connect(ui->btnHesapEkleHesap,SIGNAL(clicked()),this,SLOT(yeniHesapEkle()));
@@ -90,6 +91,7 @@ QStringList muhasib::getListeHesap()
     return listeHsp;
 }
 
+//ÇALIŞAN İSİMLERİNİ DÖNDÜRÜYOR
 QStringList muhasib::getListeCalisan()
 {
     QStringList listeClsn;
@@ -100,7 +102,22 @@ QStringList muhasib::getListeCalisan()
     return listeClsn;
 }
 
-//pencerenin boyutu veritabanına kaydediliyor
+/*
+//ÇALIŞAN KONUMLARINI DONDURUYOR
+QStringList muhasib::getListeCalisanKonum()
+{
+    QStringList listeCalisanKonum;
+    QSqlQuery query;
+    query.exec("select clk_isim from calisankonum");
+    while(query.next())
+    {
+        listeCalisanKonum.append(query.value(0).toString());
+    }
+    return listeCalisanKonum;
+}
+*/
+
+//ANA PENCERE BOYUTUNU VERİTABANINA KAYDEDİYOR
 void muhasib::pencereBoyutuKaydet()
 {
     QSqlQuery query;
@@ -1263,6 +1280,12 @@ void muhasib::sekmeHesapOzetiAc()
     ui->tabWidget->setCurrentWidget(tbHesapOzeti);
 }
 
+void muhasib::yeniCalisanKonumEkle()
+{
+    form_calisanKonumEkle.ontanimliAyarlar();
+    form_calisanKonumEkle.exec();
+}
+
 void muhasib::calisanVeritabanindanYukle()
 {
     degisiklikIzle=false;//veritabanından yükleme yapılırken toplamtutarı hesaplamasın
@@ -1327,6 +1350,8 @@ void muhasib::yeniCalisanEkle()
 {
     degisiklikIzle=false;
     form_calisanEkle.setWindowFlags(Qt::Window);//Calisan ekleme penceresinin köşesindeki 3 düğmenin gösterilmesi için
+    //form_calisanEkle.setListeHesap(getListeHesap());//fatura ekleme penceresinde hesapların isminin çıkabilmesi için
+    //form_calisanEkle.setli
     form_calisanEkle.ontanimliAyarlar();
     this->setEnabled(false);//ana pencere etkisizleştiriliyor
     form_calisanEkle.exec();

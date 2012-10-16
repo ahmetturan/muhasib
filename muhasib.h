@@ -17,6 +17,7 @@
 #include "eklecalisan.h"
 #include "eklehesap.h"
 #include "ekledigergelir.h"
+#include "eklecalisankonum.h"
 
 #include "sfatura.h"
 #include "scek.h"
@@ -60,6 +61,7 @@ public:
     void pencereBoyutuKaydet();
     QStringList getListeHesap();
     QStringList getListeCalisan();
+    QStringList getListeCalisanKonum();
 
 public slots:
     //fatura fonksiyonları
@@ -98,6 +100,7 @@ public slots:
     void yeniCalisanEkle();
     void calisanSil();
     void calisanDegistir();
+    void yeniCalisanKonumEkle();
     /////////////////////////
     //hesap fonksiyonları
     void yeniHesapEkle();
@@ -167,6 +170,7 @@ private:
     //////////////////////
     //calisan degiskenleri
     calisanekle form_calisanEkle;
+    ekleCalisanKonum form_calisanKonumEkle;
     double ToplamTutarCalisan;
     QWidget *tbCalisan;
     QStringList listSilinenCalisan;

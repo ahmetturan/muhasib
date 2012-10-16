@@ -8,7 +8,7 @@ bool veritabaniDosyasiMevcut()
     db.setDatabaseName("muhasib.db");
     if (!db.open())
     {
-        QMessageBox::warning(0, QObject::tr("Veritabanı Dosyası Açılamıyor"),db.lastError().text());
+        QMessageBox::warning(0, QObject::tr("Veritabani Dosyasi Acilamiyor"),db.lastError().text());
         return false;
     }
     return true;
@@ -27,6 +27,7 @@ void veritabaniOlustur()
     query.exec("create table sonkayit(sk_id integer primary key not null, sk_fatura varchar, sk_cek varchar, sk_maas varchar)");
     query.exec("create table digergelir(dgl_id integer primary key not null, dgl_tarih varchar, dgl_isim varchar, dgl_muhatap varchar, dgl_tutar varchar, dgl_aciklama varchar, dgl_hesap varchar)");
     query.exec("create table digergider(dgd_id integer primary key not null, dgd_tarih varchar, dgd_isim varchar, dgd_muhatap varchar, dgd_tutar varchar, dgd_aciklama varchar, dgd_hesap varchar)");
+    query.exec("create table calisankonum(clk_id integer primary key not null, clk_isim varchar)");
     query.exec("insert into boyut values(1,20,20,800,400,0)");
 }
 

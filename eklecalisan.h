@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QComboBox>
 #include <QCloseEvent>
+#include <QSqlQuery>
 
 namespace Ui {
 class calisanekle;
@@ -20,26 +21,29 @@ public:
     ~calisanekle();
     void ilkYukleme();
     void ontanimliAyarlar();
+    void takvimAcikIseKapat();
+    //QStringList getListeCbCalisanTur();
+    void closeEvent(QCloseEvent *event);
+    void setListeCalisanKonum(QStringList list);
+    QStringList getListeCalisanKonum();
     QStringList getListeCalisan();
     double getToplamTutar();
-    void takvimAcikIseKapat();
-    QStringList getListeCbCalisanTur();
-    void closeEvent(QCloseEvent *event);
 
 public slots:
-    void satirEkle(int, int);
+    void satirEkle(int,int);
     void satirSil();
     void tamam();
     void kapat();
     void takvimiAc(int,int);
     void tarihiAl();
-    void hucreyeTiklandi(int, int);
+    void hucreyeTiklandi(int,int);
     
 private:
     Ui::calisanekle *ui;
     QCalendarWidget *cal;
     QStringList listeCalisan;
-    QStringList listeCbCalisanTur;
+    //QStringList listeCbCalisanTur;
+    //QStringList listeCalisanKonum;
     double toplamTutar;
     bool takvimAcik;
     int clsSutunSil;

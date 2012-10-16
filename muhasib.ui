@@ -845,6 +845,7 @@
     </property>
     <addaction name="actionCalisanEkle"/>
     <addaction name="actionCalisanListele"/>
+    <addaction name="actionCalisanKonumlar"/>
    </widget>
    <widget class="QMenu" name="menuRapor">
     <property name="title">
@@ -995,6 +996,11 @@
   <action name="actionDigerGelirListele">
    <property name="text">
     <string>Listele</string>
+   </property>
+  </action>
+  <action name="actionCalisanKonumlar">
+   <property name="text">
+    <string>Konumlar</string>
    </property>
   </action>
  </widget>

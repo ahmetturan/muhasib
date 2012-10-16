@@ -134,7 +134,8 @@ void scalisan::calisanDegistir2(bool& degisiklikIzle, bool &kaydetVar, QTableWid
         QTableWidgetItem *itmKonum = tblCalisan->item(degisecekSatir, dgs.clsSutunKonum);
         QString Konum=itmKonum->text();
         QComboBox *cmbKonum=new QComboBox();
-        cmbKonum->addItems(form_calisanEkle.getListeCbCalisanTur());
+        //cmbKonum->addItems(form_calisanEkle.getListeCbCalisanTur());
+        cmbKonum->addItems(form_calisanEkle.getListeCalisanKonum());
         cmbKonum->setCurrentIndex(cmbKonum->findText(Konum));
         tblCalisan->setCellWidget(degisecekSatir,dgs.clsSutunKonum,cmbKonum);
         /////////////////////////////////
