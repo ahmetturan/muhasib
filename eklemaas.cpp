@@ -14,6 +14,14 @@ maasekle::maasekle(QWidget *parent) :
     ilkYukleme();
 }
 
+void maasekle::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key()==Qt::Key_Escape)
+    {
+        takvimAcikIseKapat();
+    }
+}
+
 void maasekle::closeEvent(QCloseEvent *event)
 {
     kapat();

@@ -20,6 +20,7 @@ public:
     void ontanimliAyarlar();
     void veritabanindanYukle();
     void kaydet();
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void satirEkle(int a, int b);

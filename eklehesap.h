@@ -24,6 +24,7 @@ public:
     QStringList getListeHesap();
     QStringList getListeCbHesapTur();
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void tamam();

@@ -12,6 +12,10 @@ ekleCalisanKonum::ekleCalisanKonum(QWidget *parent) :
     ilkYukleme();
 }
 
+void ekleCalisanKonum::keyPressEvent(QKeyEvent *e)
+{
+}
+
 void ekleCalisanKonum::kaydet()
 {
     QSqlQuery query;

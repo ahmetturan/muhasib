@@ -29,6 +29,7 @@ public:
     int getBaslangicMaas();
     int getBitisMaas();
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void tamam();

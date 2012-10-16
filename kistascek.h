@@ -26,6 +26,7 @@ public:
     bool getTarihEtkinMi();
     void ontanimliAyarlar();
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void tamam();

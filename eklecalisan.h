@@ -22,12 +22,12 @@ public:
     void ilkYukleme();
     void ontanimliAyarlar();
     void takvimAcikIseKapat();
-    //QStringList getListeCbCalisanTur();
     void closeEvent(QCloseEvent *event);
     void setListeCalisanKonum(QStringList list);
     QStringList getListeCalisanKonum();
     QStringList getListeCalisan();
     double getToplamTutar();
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void satirEkle(int,int);
@@ -42,8 +42,6 @@ private:
     Ui::calisanekle *ui;
     QCalendarWidget *cal;
     QStringList listeCalisan;
-    //QStringList listeCbCalisanTur;
-    //QStringList listeCalisanKonum;
     double toplamTutar;
     bool takvimAcik;
     int clsSutunSil;

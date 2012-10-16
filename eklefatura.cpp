@@ -17,6 +17,14 @@ faturaEkle::faturaEkle(QWidget *parent) :
     ilkYukleme();
 }
 
+void faturaEkle::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key()==Qt::Key_Escape)
+    {
+        takvimAcikIseKapat();
+    }
+}
+
 void faturaEkle::closeEvent(QCloseEvent *event)
 {
     kapat();

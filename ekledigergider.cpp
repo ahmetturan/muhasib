@@ -14,6 +14,14 @@ ekledigergider::ekledigergider(QWidget *parent) :
     ilkYukleme();
 }
 
+void ekledigergider::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key()==Qt::Key_Escape)
+    {
+        takvimAcikIseKapat();
+    }
+}
+
 void ekledigergider::closeEvent(QCloseEvent *event)
 {
     kapat();

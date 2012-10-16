@@ -16,6 +16,14 @@ calisanekle::calisanekle(QWidget *parent) :
     ilkYukleme();
 }
 
+void calisanekle::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key()==Qt::Key_Escape)
+    {
+        takvimAcikIseKapat();
+    }
+}
+
 void calisanekle::closeEvent(QCloseEvent *event)
 {
     kapat();

@@ -14,6 +14,12 @@ kistasfatura::kistasfatura(QWidget *parent) :
     ilkYukleme();
 }
 
+void kistasfatura::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key()==Qt::Key_Escape)
+    {}
+}
+
 void kistasfatura::closeEvent(QCloseEvent *event)
 {
     iptal();

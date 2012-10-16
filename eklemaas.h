@@ -28,6 +28,7 @@ public:
     QStringList getListeCbMaasTur();
     void setListeHesap(QStringList list);
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void tamam();

@@ -11,6 +11,12 @@ hesapekle::hesapekle(QWidget *parent) :
     ilkYukleme();
 }
 
+void hesapekle::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key()==Qt::Key_Escape)
+    {}
+}
+
 void hesapekle::closeEvent(QCloseEvent *event)
 {
     kapat();

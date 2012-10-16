@@ -14,6 +14,14 @@ cekekle::cekekle(QWidget *parent) :
     ilkYukleme();
 }
 
+void cekekle::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key()==Qt::Key_Escape)
+    {
+        takvimAcikIseKapat();
+    }
+}
+
 void cekekle::closeEvent(QCloseEvent *event)
 {
     kapat();

@@ -13,6 +13,12 @@ kistasCek::kistasCek(QWidget *parent) :
     ilkYukleme();
 }
 
+void kistasCek::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key()==Qt::Key_Escape)
+    {}
+}
+
 void kistasCek::closeEvent(QCloseEvent *event)
 {
     iptal();

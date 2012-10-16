@@ -26,6 +26,7 @@ public:
     double getToplamTutar();
     void takvimAcikIseKapat();
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void tamam();

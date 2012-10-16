@@ -26,6 +26,7 @@ public:
     int getTurSecim();
     bool getSecim();
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void tamam();

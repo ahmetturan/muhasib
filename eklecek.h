@@ -25,6 +25,7 @@ public:
     double getToplamTutar();
     QStringList getListeCbCekTur();
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *e);
 
 public slots:
     void tamam();
