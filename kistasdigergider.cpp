@@ -1,85 +1,90 @@
-#include "kistascek.h"
-#include "ui_kistascek.h"
+#include "kistasdigergider.h"
+#include "ui_kistasdigergider.h"
 
-kistasCek::kistasCek(QWidget *parent) :
+kistasdigergider::kistasdigergider(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::kistasCek)
+    ui(new Ui::kistasdigergider)
 {
     ui->setupUi(this);
     connect(ui->btnTamam,SIGNAL(clicked()),this,SLOT(tamam()));
     connect(ui->btnIptal,SIGNAL(clicked()),this,SLOT(iptal()));
     connect(ui->cbTarih,SIGNAL(clicked()),this,SLOT(tarihEtkin()));
-    connect(ui->cbTur,SIGNAL(clicked()),this,SLOT(turEtkin()));
+    connect(ui->cbTutar,SIGNAL(clicked()),this,SLOT(tutarEtkin()));
     ilkYukleme();
 }
 
-void kistasCek::keyPressEvent(QKeyEvent *e)
+void kistasdigergider::keyPressEvent(QKeyEvent *e)
 {
     if(e->key()==Qt::Key_Escape)
     {}
 }
 
-void kistasCek::closeEvent(QCloseEvent *event)
+void kistasdigergider::closeEvent(QCloseEvent *event)
 {
     iptal();
     event->accept();
 }
 
-QDate kistasCek::getBaslangicTarih()
+double kistasdigergider::getBaslangicTutar()
+{
+    return ui->sbTutarBaslangic->text().toDouble();
+}
+
+double kistasdigergider::getBitisTutar()
+{
+    return ui->sbTutarBitis->text().toDouble();
+}
+
+QDate kistasdigergider::getBaslangicTarih()
 {
     return ui->dtBaslangic->date();
 }
 
-QDate kistasCek::getBitisTarih()
+QDate kistasdigergider::getBitisTarih()
 {
     return ui->dtBitis->date();
 }
 
-bool kistasCek::getTurEtkinMi()
+bool kistasdigergider::getTutarEtkinMi()
 {
-    return turEtkinMi;
+    return tutarEtkinMi;
 }
 
-bool kistasCek::getTarihEtkinMi()
+bool kistasdigergider::getTarihEtkinMi()
 {
     return tarihEtkinMi;
 }
 
-//TUR CB LERİNDE SEÇİLMİŞ OLANLARI LİSTE YAPIYOR
-QStringList kistasCek::getTurSecim()
+//TAMAM VEYA İPTAL DÜĞMELERİNDEN HANGİSİNE BASILDI
+bool kistasdigergider::getSecim()
 {
-    QStringList listeSeciliTurler;
-    if(ui->cbTurAlinan->isChecked())
-    {
-        listeSeciliTurler.append("Alınan");
-    }
-    if(ui->cbTurVerilen->isChecked() )
-    {
-        listeSeciliTurler.append("Verilen");
-    }
-    return listeSeciliTurler;
+    return secim;
 }
 
-void kistasCek::tamam()
+void kistasdigergider::tamam()
 {
     if(ui->dtBaslangic->date()>ui->dtBitis->date())
     {
         QMessageBox::warning(this,"hata","Başlangıç tarihi bitiş tarihinden sonra olamaz","Tamam");
     }
+    else if(ui->sbTutarBaslangic->text().toDouble()>ui->sbTutarBitis->text().toDouble())
+    {
+        QMessageBox::warning(this,"hata","Başlangıç tutarı bitiş tutarından yüksek olamaz","Tamam");
+    }
     else
     {
         close();
-        secim=true; 
+        secim=true;
     }
 }
 
-void kistasCek::iptal()
+void kistasdigergider::iptal()
 {
     close();
     secim=false;
 }
 
-void kistasCek::tarihEtkin()
+void kistasdigergider::tarihEtkin()
 {
     if(ui->cbTarih->isChecked())
     {
@@ -99,30 +104,24 @@ void kistasCek::tarihEtkin()
     }
 }
 
-void kistasCek::turEtkin()
+void kistasdigergider::tutarEtkin()
 {
-    if(ui->cbTur->isChecked())
+    if(ui->cbTutar->isChecked())
     {
-        ui->cbTurAlinan->setEnabled(true);
-        ui->cbTurVerilen->setEnabled(true);
-        turEtkinMi=true;
+        ui->sbTutarBaslangic->setEnabled(true);
+        ui->sbTutarBitis->setEnabled(true);
+        tutarEtkinMi=true;
     }
     else
     {
-        ui->cbTurAlinan->setEnabled(false);
-        ui->cbTurVerilen->setEnabled(false);
-        turEtkinMi=false;
+        ui->sbTutarBaslangic->setEnabled(false);
+        ui->sbTutarBitis->setEnabled(false);
+        tutarEtkinMi=false;
     }
 }
 
-//TAMAM VEYA İPTAL DÜĞMELERİNDEN HANGİSİNE BASILDI
-bool kistasCek::getSecim()
-{
-    return secim;
-}
-
 //ÖNTANIMLI AYARLARI YÜKLÜYOR(SADECE UYGULAMA ÇALIŞTIRILDIĞINDA)
-void kistasCek::ilkYukleme()
+void kistasdigergider::ilkYukleme()
 {
     setWindowFlags(Qt::Window);
     ui->dtBaslangic->setDate(QDate::currentDate());
@@ -134,21 +133,21 @@ void kistasCek::ilkYukleme()
     ui->dtBaslangic->setEnabled(false);
     ui->dtBitis->setEnabled(false);
 
-    ui->cbTur->setChecked(false);
-    ui->cbTurAlinan->setEnabled(false);
-    ui->cbTurVerilen->setEnabled(false);
+    ui->cbTutar->setChecked(false);
+    ui->sbTutarBaslangic->setEnabled(false);
+    ui->sbTutarBitis->setEnabled(false);
 
-    turEtkinMi=false;
+    tutarEtkinMi=false;
     tarihEtkinMi=false;
 }
 
 //ÖNTANIMLI AYARLARI YÜKLÜYOR(MAAŞ EKLEME PENCERESİ HER AÇILDIĞINDA)
-void kistasCek::ontanimliAyarlar()
+void kistasdigergider::ontanimliAyarlar()
 {
     secim=false;
 }
 
-kistasCek::~kistasCek()
+kistasdigergider::~kistasdigergider()
 {
     delete ui;
 }

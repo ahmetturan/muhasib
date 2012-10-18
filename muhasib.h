@@ -32,6 +32,8 @@
 #include "kistasmaas.h"
 #include "kistascek.h"
 #include "kistascalisan.h"
+#include "kistasdigergelir.h"
+#include "kistasdigergider.h"
 
 namespace Ui {
 class muhasib;
@@ -145,6 +147,8 @@ public slots:
     void kistasMaasAc();
     void kistasCekAc();
     void kistasCalisanAc();
+    void kistasDigerGelirAc();
+    void kistasDigerGiderAc();
 
 private:
     //fatura değişkenleri
@@ -212,6 +216,8 @@ private:
     kistasmaas form_kistasMaas;
     kistasCek form_kistasCek;
     kistascalisan form_kistasCalisan;
+    kistasdigergelir form_kistasDigerGelir;
+    kistasdigergider form_kistasDigerGider;
     degisken dgs;
 
 };

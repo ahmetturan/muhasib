@@ -224,8 +224,6 @@ void ekledigergelir::ilkYukleme()
     ui->tableWidget->horizontalHeader()->resizeSection(dglSutunSil, 32);
     this->setWindowTitle("Gelir Ekle");
     cal=new QCalendarWidget();
-
-    //listeCbFaturaTur<<"Gelen"<<"Giden";
 }
 
 //ÖNTANIMLI AYARLARI YÜKLÜYOR(GELİR EKLEME PENCERESİ HER AÇILDIĞINDA)

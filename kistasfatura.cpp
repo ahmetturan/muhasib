@@ -106,15 +106,15 @@ void kistasfatura::tamam()
     }
     else
     {
-        secim=true;
         close();
+        secim=true;
     }
 }
 
 void kistasfatura::iptal()
 {
-    secim=false;
     close();
+    secim=false;
 }
 
 //TAMAM VEYA İPTAL DÜĞMELERİNDEN HANGİSİNE BASILDI

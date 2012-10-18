@@ -80,15 +80,15 @@ void kistasmaas::tamam()
     }
     else
     {
-        secim=true;
         close();
+        secim=true;
     }
 }
 
 void kistasmaas::iptal()
 {
-    secim=false;
     close();
+    secim=false;
 }
 
 void kistasmaas::tarihEtkin()

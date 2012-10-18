@@ -92,15 +92,15 @@ void kistascalisan::tamam()
     }
     else
     {
-        secim=true;
         close();
+        secim=true;
     }
 }
 
 void kistascalisan::iptal()
 {
-    secim=false;
     close();
+    secim=false;
 }
 
 void kistascalisan::tarihEtkin()

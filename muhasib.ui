@@ -21,7 +21,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>12</number>
+       <number>13</number>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -784,7 +784,7 @@
         <item row="1" column="2">
          <widget class="QPushButton" name="btnDigerGiderEkle">
           <property name="text">
-           <string>Gelir Ekle</string>
+           <string>Gider Ekle</string>
           </property>
          </widget>
         </item>

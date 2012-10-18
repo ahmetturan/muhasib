@@ -33,7 +33,9 @@ SOURCES += main.cpp\
     sdigergelir.cpp \
     ekledigergider.cpp \
     sdigergider.cpp \
-    eklecalisankonum.cpp
+    eklecalisankonum.cpp \
+    kistasdigergelir.cpp \
+    kistasdigergider.cpp
 
 HEADERS  += muhasib.h \
     sfatura.h \
@@ -56,7 +58,9 @@ HEADERS  += muhasib.h \
     sdigergelir.h \
     ekledigergider.h \
     sdigergider.h \
-    eklecalisankonum.h
+    eklecalisankonum.h \
+    kistasdigergelir.h \
+    kistasdigergider.h
 
 FORMS    += muhasib.ui \
     kistasfatura.ui \
@@ -70,4 +74,6 @@ FORMS    += muhasib.ui \
     eklemaas.ui \
     ekledigergelir.ui \
     ekledigergider.ui \
-    eklecalisankonum.ui
+    eklecalisankonum.ui \
+    kistasdigergelir.ui \
+    kistasdigergider.ui
