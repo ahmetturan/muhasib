@@ -39,7 +39,7 @@ public slots:
 private:
     Ui::kistasdigergelir *ui;
     bool secim;//tamam mı yoksa iptale mi basıldı
-    bool tutarEtkinMi;//tamama tıklanırken sonra tur cb'si tikli miydi
+    bool tutarEtkinMi;//tamama tıklanırken sonra tutar cb'si tikli miydi
     bool tarihEtkinMi;//tamama tıklanırken sonra tarih cb'si tikli miydi
 };
 

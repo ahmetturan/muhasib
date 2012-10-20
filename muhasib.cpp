@@ -67,6 +67,8 @@ muhasib::muhasib(QWidget *parent) :
     connect(ui->actionGgd,SIGNAL(triggered()),this,SLOT(sekmeGgdAc()));
     connect(ui->actionHesapOzeti,SIGNAL(triggered()),this,SLOT(sekmeHesapOzetiAc()));
     connect(ui->cbHesapOzeti,SIGNAL(currentIndexChanged(int)),this,SLOT(hesapOzetiRaporla(int)));
+    connect(ui->btnGelirlerKistas,SIGNAL(clicked()),this,SLOT(kistasGelirlerAc()));
+    connect(ui->btnGiderlerKistas,SIGNAL(clicked()),this,SLOT(kistasGiderlerAc()));
     ////////////////////////////
     connect(ui->cbFatura,SIGNAL(currentIndexChanged(int)),this,SLOT(cbFaturaDegisti(int)));
     connect(ui->cbCek,SIGNAL(currentIndexChanged(int)),this,SLOT(cbCekDegisti(int)));
@@ -173,6 +175,186 @@ void muhasib::closeEvent(QCloseEvent *event)
     }
 }
 
+//GELİRLER EKRANINDAKİ KISTAS
+void muhasib::kistasGelirlerAc()
+{
+    this->setEnabled(false);
+    form_kistasGelirler.ontanimliAyarlar();
+    form_kistasGelirler.exec();
+    if(form_kistasGelirler.getSecim())
+    {
+        QStringList listeTarih;
+        QStringList listeTutar;
+        QStringList listeTur;
+        for(int i=0; i<ui->tblGelirler->rowCount();i++)
+        {
+            ui->tblGelirler->hideRow(i);
+        }
+        if(form_kistasGelirler.getTarihEtkinMi())//tarih kıstası etkin
+        {
+            for(int i=0; i<ui->tblGelirler->rowCount();i++)
+            {
+                QDate dt=QDate::fromString(ui->tblGelirler->item(i,dgs.glrSutunTarih)->text(),"yyyy-MM-dd");
+                if(dt>=form_kistasGelirler.getBaslangicTarih() && dt<=form_kistasGelirler.getBitisTarih())
+                {
+                    listeTarih.append(QString::number(i));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<ui->tblGelirler->rowCount();i++)
+            {
+                listeTarih.append(QString::number(i));
+            }
+        }
+
+        if(form_kistasGelirler.getTutarEtkinMi())//tutar kıstası etkin
+        {
+            for(int i=0; i<ui->tblGelirler->rowCount();i++)
+            {
+                double ttr=ui->tblGelirler->item(i,dgs.glrSutunTutar)->text().toDouble();
+                if(ttr>=form_kistasGelirler.getBaslangicTutar() && ttr<=form_kistasGelirler.getBitisTutar())
+                {
+                    listeTutar.append(QString::number(i));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<ui->tblGelirler->rowCount();i++)
+            {
+                listeTutar.append(QString::number(i));
+            }
+        }
+
+        if(form_kistasGelirler.getTurEtkinMi())//tur kıstası etkin
+        {
+            QStringList listeSeciliTurler=form_kistasGelirler.getSeciliTurler();
+            for(int i=0; i<ui->tblGelirler->rowCount();i++)
+            {
+                QString tur=ui->tblGelirler->item(i,dgs.glrSutunTur)->text();
+                if(listeSeciliTurler.contains(tur))
+                {
+                    listeTur.append(QString::number(i));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<ui->tblGelirler->rowCount();i++)
+            {
+                listeTur.append(QString::number(i));
+            }
+        }
+
+        QStringList topluListe=listeTarih+listeTutar+listeTur;
+        while(!topluListe.isEmpty())
+        {
+            if(topluListe.count(topluListe.at(0))==3)//3 tane kıstas olduğu için
+            {
+                ui->tblGelirler->showRow(topluListe.at(0).toInt());
+                topluListe.removeAt(0);
+            }
+            else
+            {
+                topluListe.removeAt(0);
+            }
+        }
+    }
+    this->setEnabled(true);
+}
+
+//GİDERLER EKRANINDAKİ KISTAS
+void muhasib::kistasGiderlerAc()
+{
+    this->setEnabled(false);
+    form_kistasGiderler.ontanimliAyarlar();
+    form_kistasGiderler.exec();
+    if(form_kistasGiderler.getSecim())
+    {
+        QStringList listeTarih;
+        QStringList listeTutar;
+        QStringList listeTur;
+        for(int i=0; i<ui->tblGiderler->rowCount();i++)
+        {
+            ui->tblGiderler->hideRow(i);
+        }
+        if(form_kistasGiderler.getTarihEtkinMi())//tarih kıstası etkin
+        {
+            for(int i=0; i<ui->tblGiderler->rowCount();i++)
+            {
+                QDate dt=QDate::fromString(ui->tblGiderler->item(i,dgs.gdrSutunTarih)->text(),"yyyy-MM-dd");
+                if(dt>=form_kistasGiderler.getBaslangicTarih() && dt<=form_kistasGiderler.getBitisTarih())
+                {
+                    listeTarih.append(QString::number(i));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<ui->tblGiderler->rowCount();i++)
+            {
+                listeTarih.append(QString::number(i));
+            }
+        }
+
+        if(form_kistasGiderler.getTutarEtkinMi())//tutar kıstası etkin
+        {
+            for(int i=0; i<ui->tblGiderler->rowCount();i++)
+            {
+                double ttr=ui->tblGiderler->item(i,dgs.gdrSutunTutar)->text().toDouble();
+                if(ttr>=form_kistasGiderler.getBaslangicTutar() && ttr<=form_kistasGiderler.getBitisTutar())
+                {
+                    listeTutar.append(QString::number(i));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<ui->tblGiderler->rowCount();i++)
+            {
+                listeTutar.append(QString::number(i));
+            }
+        }
+
+        if(form_kistasGiderler.getTurEtkinMi())//tur kıstası etkin
+        {
+            QStringList listeSeciliTurler=form_kistasGiderler.getSeciliTurler();
+            for(int i=0; i<ui->tblGiderler->rowCount();i++)
+            {
+                QString tur=ui->tblGiderler->item(i,dgs.gdrSutunTur)->text();
+                if(listeSeciliTurler.contains(tur))
+                {
+                    listeTur.append(QString::number(i));
+                }
+            }
+        }
+        else
+        {
+            for(int i=0; i<ui->tblGiderler->rowCount();i++)
+            {
+                listeTur.append(QString::number(i));
+            }
+        }
+
+        QStringList topluListe=listeTarih+listeTutar+listeTur;
+        while(!topluListe.isEmpty())
+        {
+            if(topluListe.count(topluListe.at(0))==3)//3 tane kıstas olduğu için
+            {
+                ui->tblGiderler->showRow(topluListe.at(0).toInt());
+                topluListe.removeAt(0);
+            }
+            else
+            {
+                topluListe.removeAt(0);
+            }
+        }
+    }
+    this->setEnabled(true);
+}
+
 void muhasib::kistasDigerGelirAc()
 {
     this->setEnabled(false);
@@ -182,7 +364,6 @@ void muhasib::kistasDigerGelirAc()
     {
         QStringList listeTarih;
         QStringList listeTutar;
-
         for(int i=0; i<ui->tblDigerGelir->rowCount();i++)
         {
             ui->tblDigerGelir->hideRow(i);

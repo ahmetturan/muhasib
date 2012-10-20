@@ -34,6 +34,8 @@
 #include "kistascalisan.h"
 #include "kistasdigergelir.h"
 #include "kistasdigergider.h"
+#include "kistasgelirler.h"
+#include "kistasgiderler.h"
 
 namespace Ui {
 class muhasib;
@@ -131,6 +133,8 @@ public slots:
     void sekmeGgdAc(int);
     void sekmeHesapOzetiAc();
     void hesapOzetiRaporla(int a);
+    void kistasGelirlerAc();
+    void kistasGiderlerAc();
     ////////////////////////
     void sekmeKapatildi(int);
     void sekmeSagMenuAc();
@@ -211,15 +215,15 @@ private:
     srapor srpr;
     sdigergelir sdgl;
     sdigergider sdgd;
-
     kistasfatura form_kistasFatura;
     kistasmaas form_kistasMaas;
     kistasCek form_kistasCek;
     kistascalisan form_kistasCalisan;
     kistasdigergelir form_kistasDigerGelir;
     kistasdigergider form_kistasDigerGider;
+    kistasgelirler form_kistasGelirler;
+    kistasgiderler form_kistasGiderler;
     degisken dgs;
-
 };
 
 #endif // MUHASIB_H
